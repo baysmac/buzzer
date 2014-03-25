@@ -1,0 +1,36 @@
+<% if(typeof withoutWrapper == 'undefined') { var withoutWrapper = false; } %>
+<% if(typeof quiz.rounds !== 'undefined') { %>
+	<% if(quiz.rounds.length > 0) { %>
+		<% if(!withoutWrapper) { %>
+			<ul class="list rounds">
+		<% } %>
+		<% for(var i=0; i < quiz.rounds.length; i++) {
+			var round = quiz.rounds[i]; %>
+				<li>
+					<article class="round">
+						<h1><%= round.title %></h1>
+						<form action="/admin/round/edit">
+							<dl>
+								<dt>
+									<label>Title:</label>
+								</dt>
+								<dd>
+									<input type="text" name="title" value="<%= round.title %>" />
+								</dd>
+							</dl>
+							<input type="hidden" name="id" value="<%= round._id %>" />
+							<input type="submit" value="Save changes" />
+						</form>
+						<button class="delete">Delete</button>	
+						<button class="add-question">Add question</button>					
+						<%- include questions.ejs %>
+					</article>
+				</li>
+		<% } %>
+		<% if(!withoutWrapper) { %>
+			</ul>
+		<% } %>
+	<% } else { %>
+		<p class="no-results">Sorry, no rounds were found.</p>
+	<% } %>
+<% } %>

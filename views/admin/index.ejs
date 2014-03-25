@@ -1,0 +1,14 @@
+<% layout('../layout') -%>
+<h1>Quizzes</h1>
+<a href="/admin/quiz/add">Add quiz</a>
+<% if(quizzes.length > 0) { %>
+	<ul class="list">
+		<% for(var i=0; i< quizzes.length; i++) {
+			var quiz = quizzes[i];
+		%>
+			<li><%= quiz.title %> <a href="/admin/quiz/edit/<%= quiz.id %>">Edit</a></li>
+		<% } %>
+	</ul>
+<% } else { %>
+	<p>No quizzes found.</p>
+<% } %>

@@ -1,0 +1,20 @@
+/* Colour Palette */
+
+/* Fonts */
+
+$baseFontSize:						12px;
+
+/* Grid */
+
+$gridUnit:							10px;
+
+%clearfix {
+	&:after {
+		clear: 						both;
+		content:					'';
+		display: 					block;
+	}
+	html.ie7 & {
+		zoom: 						1;
+	}
+}

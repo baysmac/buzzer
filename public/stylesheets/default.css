@@ -1,0 +1,19 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* Colour Palette */
+/* Fonts */
+/* Grid */
+body {
+  font: 12px/150% Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, p, ul, ol {
+  margin: 10px 0;
+}
+
+ul, ol {
+  margin-left: 20px;
+}

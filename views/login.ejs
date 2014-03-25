@@ -1,0 +1,40 @@
+<% layout('layout') -%>
+<% if (message != '') { %>
+	<p class="msg-error"><%= message %></p>
+<% } %>
+<form action="/register" method="post">
+	<h2>Register</h2>
+	<dl>
+		<dt>
+			<label for="register_username">Team Name:</label>
+		</dt>
+		<dd>
+			<input type="text" name="register_username" />
+		</dd>
+		<dt>
+			<label for="register_password">Password:</label>
+		</dt>
+		<dd>
+			<input type="password" name="register_password" />
+		</dd>
+	</dl>
+	<input type="submit" value="Sign up" />
+</form>
+<form action="/login" method="post">
+	<h2>Log in</h2>
+	<dl>
+		<dt>
+			<label for="login_name">Team Name:</label>
+		</dt>
+		<dd>
+			<input type="text" name="username" />
+		</dd>
+		<dt>
+			<label for="login_password">Password:</label>
+		</dt>
+		<dd>
+			<input type="password" name="password" />
+		</dd>
+	</dl>
+	<input type="submit" value="Log in" />
+</form>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!--[if IE 7 ]><html class="ie7" lang="en-gb"><![endif]-->
+<!--[if IE 8 ]><html class="ie8" lang="en-gb"><![endif]-->
+<!--[if IE 9 ]><html class="ie9" lang="en-gb"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html lang="en-gb"><!--<![endif]-->
+	<head>
+		<meta charset="utf-8" />
+		<% if (!title) { %>
+			<title>buzzer</title>
+		<% } else { %>
+			<title>buzzer &bull; <%= title %></title>
+		<% } %>
+		<link rel="stylesheet" href="/stylesheets/default.css" />
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	</head>
+	<body>
+		<header role="banner">
+			<h1>buzzer</h1>
+		</header>
+		<main role="main">
+			<%- body %>
+		</main>
+		<footer role="contentinfo">
+			<% if (user) { %>
+				<% if (user.admin) { %>
+					<p>Logged in as: <%= user.username %></p>
+				<% } else { %>
+					<p>Playing as: <%= user.username %></p>
+				<% } %>
+				<a href="/logout">Log out</a>
+			<% } %>
+		</footer>
+		<script src="/javascripts/ejs_production.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="/javascripts/global.js"></script>		
+		<% if (user && user.admin) { %><script src="/javascripts/quiz-edit.js"></script><% } %>
+	</body>
+</html>
