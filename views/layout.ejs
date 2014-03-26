@@ -23,16 +23,17 @@
 		<footer role="contentinfo">
 			<% if (user) { %>
 				<% if (user.admin) { %>
-					<p>Logged in as: <%= user.username %></p>
+					<p>Logged in as: <em><%= user.username %></em></p>
 				<% } else { %>
-					<p>Playing as: <%= user.username %></p>
+					<p>Playing as: <em><%= user.username %></em></p>
 				<% } %>
 				<a href="/logout">Log out</a>
 			<% } %>
 		</footer>
 		<script src="/javascripts/ejs_production.js"></script>
-		<script src="/socket.io/socket.io.js"></script>
+		<script src="http://cdn.pubnub.com/pubnub.min.js"></script>
 		<script src="/javascripts/global.js"></script>		
 		<% if (user && user.admin) { %><script src="/javascripts/quiz-edit.js"></script><% } %>
+		<% if (user && user.admin) { %><script src="/javascripts/quiz-host.js"></script><% } %>
 	</body>
 </html>

@@ -46,24 +46,22 @@ app.get('/logout', routes.logout);
 app.get('/admin', pass.ensureAuthenticated, pass.ensureAdmin(), admin.index);
 app.get('/admin/quiz/add', pass.ensureAuthenticated, pass.ensureAdmin(), admin.addQuiz);
 app.get('/admin/quiz/edit/:id', pass.ensureAuthenticated, pass.ensureAdmin(), admin.editQuiz);
+app.get('/admin/quiz/host/:id', pass.ensureAuthenticated, pass.ensureAdmin(), admin.hostQuiz);
 
 app.post('/admin/quiz/:quizId/rounds', admin.addRound);
+app.get('/admin/quiz/:quizId/rounds', admin.getInitialRound);
+//app.get('/admin/quiz/:quizId/rounds/next/:id', admin.getNextRound);
 app.put('/admin/quiz/:quizId/rounds/:id', admin.editRound);
 app.delete('/admin/quiz/:quizId/rounds/:id', admin.deleteRound);
 
 app.post('/admin/quiz/:quizId/rounds/:roundId/questions', admin.addQuestion);
+app.get('/admin/quiz/:quizId/rounds/:roundId/questions', admin.getInitialQuestion);
+app.get('/admin/quiz/:quizId/rounds/:roundId/questions/next/:id', admin.getNextQuestion);
 app.put('/admin/quiz/:quizId/rounds/:roundId/questions/:id', admin.editQuestion);
 app.delete('/admin/quiz/:quizId/rounds/:roundId/questions/:id', admin.deleteQuestion);
 
-var server = require('http').createServer(app)
-  , io = require('socket.io').listen(server);
+var server = require('http').createServer(app);
 
 server.listen(3000, function() {
   console.log('Express server listening on port ' + app.get('port'));
-});
-
-io.sockets.on('connection', function (socket) {
-    socket.on('message', function (msg) {
-        socket.broadcast.emit('message', msg);
-    });
 });

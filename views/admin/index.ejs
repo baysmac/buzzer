@@ -6,7 +6,7 @@
 		<% for(var i=0; i< quizzes.length; i++) {
 			var quiz = quizzes[i];
 		%>
-			<li><%= quiz.title %> <a href="/admin/quiz/edit/<%= quiz.id %>">Edit</a></li>
+			<li><%= quiz.title %> <a href="/admin/quiz/edit/<%= quiz.id %>">Edit</a> <a href="/admin/quiz/host/<%= quiz.id %>">Host</a></li>
 		<% } %>
 	</ul>
 <% } else { %>
