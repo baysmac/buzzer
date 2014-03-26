@@ -1,0 +1,8 @@
+<% layout('layout') -%>
+<h1><%= quiz.title %></h1>
+<section id="quiz">
+	<p>Waiting...</p>
+</section>
+<input type="hidden" name="id" id="quiz-id" value="<%= quiz.id %>" />
+<script src="http://cdn.pubnub.com/pubnub.min.js"></script>
+<script src="/javascripts/play.js"></script>

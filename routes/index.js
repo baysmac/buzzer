@@ -3,9 +3,23 @@ var flash = require('connect-flash')
   , LocalStrategy = require('passport-local').Strategy
   , db = require('../config/db');
 
-exports.index = function(req, res) {
-	res.render('index', { title: '', user: req.user });	
+exports.index = function(req, res) {	
+	db.Quiz.find({ active: true }).exec(function(err, foundQuizzes) {
+		if (err) return handleError(err);
+		res.render('index', { title: '', user: req.user, quizzes: foundQuizzes });
+	});		
 }; 
+
+exports.play = function(req, res) {
+	db.Quiz.findOne({ _id: req.route.params.id }, function(err, foundQuiz) {
+		if (err) { return next(err) };
+		if(foundQuiz) {
+			res.render('play', { title: foundQuiz.title, user: req.user, quiz: foundQuiz });			
+		} else {
+			return res.redirect('/');					
+		}
+	});	
+};
 
 exports.login = function(req, res) {
 	res.render('login', { title: 'Login', user: req.user, message: req.flash('error') });	

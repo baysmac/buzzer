@@ -42,21 +42,22 @@ app.post('/login', routes.loginSubmit);
 app.post('/register', routes.register);
 app.get('/logout', routes.logout);
 
+app.get('/play/:id', pass.ensureAuthenticated, routes.play);
+
 // Admin routes
 app.get('/admin', pass.ensureAuthenticated, pass.ensureAdmin(), admin.index);
 app.get('/admin/quiz/add', pass.ensureAuthenticated, pass.ensureAdmin(), admin.addQuiz);
 app.get('/admin/quiz/edit/:id', pass.ensureAuthenticated, pass.ensureAdmin(), admin.editQuiz);
 app.get('/admin/quiz/host/:id', pass.ensureAuthenticated, pass.ensureAdmin(), admin.hostQuiz);
+app.post('/admin/quiz/:quizId/:activeFlag', admin.toggleQuizActive);
 
 app.post('/admin/quiz/:quizId/rounds', admin.addRound);
-app.get('/admin/quiz/:quizId/rounds', admin.getInitialRound);
-//app.get('/admin/quiz/:quizId/rounds/next/:id', admin.getNextRound);
+app.get('/admin/quiz/:quizId/rounds/next/:displayOrder', admin.getNextRound);
 app.put('/admin/quiz/:quizId/rounds/:id', admin.editRound);
 app.delete('/admin/quiz/:quizId/rounds/:id', admin.deleteRound);
 
 app.post('/admin/quiz/:quizId/rounds/:roundId/questions', admin.addQuestion);
-app.get('/admin/quiz/:quizId/rounds/:roundId/questions', admin.getInitialQuestion);
-app.get('/admin/quiz/:quizId/rounds/:roundId/questions/next/:id', admin.getNextQuestion);
+app.get('/admin/quiz/:quizId/rounds/:roundId/questions/next/:displayOrder', admin.getNextQuestion);
 app.put('/admin/quiz/:quizId/rounds/:roundId/questions/:id', admin.editQuestion);
 app.delete('/admin/quiz/:quizId/rounds/:roundId/questions/:id', admin.deleteQuestion);
 

@@ -32,6 +32,18 @@ exports.editQuiz = function(req, res) {
 	});	
 };
 
+exports.toggleQuizActive = function(req, res) {
+	db.Quiz.findOne({ _id: req.route.params.quizId }, function(err, foundQuiz) {
+		foundQuiz.active = req.route.params.activeFlag;
+		foundQuiz.save(function(err) {
+			return res.json({
+				message: '1'
+			});			
+		});
+	});
+	
+};
+
 exports.hostQuiz = function(req, res) {
 	db.Quiz.findOne({ _id: req.route.params.id }, function(err, foundQuiz) {
 		if (err) { return next(err) };
@@ -53,10 +65,18 @@ exports.addRound = function(req, res, next) {
 	});
 };
 
-exports.getInitialRound = function(req, res, next) {
+exports.getNextRound = function(req, res, next) {
 	db.Quiz.findOne({ _id: req.params.quizId }, function(err, foundQuiz) {
-		var foundRound = foundQuiz.rounds[0];
-		return res.json(foundRound);
+		var result = { message: '-1' };
+		
+		for(var i=0; i < foundQuiz.rounds.length;i++){
+			if(foundQuiz.rounds[i].displayOrder == req.params.displayOrder){
+				result = foundQuiz.rounds[i];
+			}		
+		}	
+		
+		return res.json(result);	
+		
 	});
 };
 
@@ -92,20 +112,20 @@ exports.addQuestion = function(req, res, next) {
 	});
 };
 
-exports.getInitialQuestion = function(req, res, next) {
-	db.Quiz.findOne({ _id: req.params.quizId }, function(err, foundQuiz) {
-		var round = foundQuiz.rounds.id(req.params.roundId);
-		var foundQuestion = round.questions[0];
-		return res.json(foundQuestion);
-	});
-};
-
 exports.getNextQuestion = function(req, res, next) {
 	db.Quiz.findOne({ _id: req.params.quizId }, function(err, foundQuiz) {
-		var round = foundQuiz.rounds.id(req.params.roundId);
-		var question = round.id(req.params.id);
-		var nextQuestion = question.next();
-		return res.json(nextQuestion);
+		var round = foundQuiz.rounds.id(req.params.roundId),  
+		result = { message: '-1' };
+		
+		for(var i=0; i < round.questions.length;i++){
+			console.log(round.questions[i].displayOrder);
+			if(round.questions[i].displayOrder == req.params.displayOrder){
+				result = round.questions[i];
+			}		
+		}	
+		
+		return res.json(result);	
+		
 	});
 };
 

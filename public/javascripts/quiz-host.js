@@ -1,156 +1,145 @@
-$(function() {
-	function PubNub() {
-	    this.publishKey = 'pub-c-05acf469-af6d-47ad-8387-0d34d02d0d6e';
-	    this.subscribeKey = 'sub-c-80adaa22-b46b-11e3-890f-02ee2ddab7fe';
-	    this.subscriptions = localStorage["pn-subscriptions"] || [];
-	
-	    if(typeof this.subscriptions == 'string') {
-	      this.subscriptions = this.subscriptions.split(',');
-	    }
-	    this.subscriptions = $.unique(this.subscriptions);
-	}	
-	
-	PubNub.prototype.connect = function(username) {
-		this.username = username;
-		this.connection = PUBNUB.init({
-			publish_key: this.publishKey,
-			subscribe_key: this.subscribeKey,
-			uuid: this.username
-		});
-	};
-	
-	PubNub.prototype.addSubscription = function(quiz) {
-		this.subscriptions.push(quiz);
-		this.subscriptions = $.unique(this.subscriptions);
-	};
-	
-	PubNub.prototype.removeSubscription = function(quiz) {
-		if (this.subscriptions.indexOf(quiz) !== -1) {
-			this.subscriptions.splice(this.subscriptions.indexOf(quiz), 1);
-		}
-		this.saveSubscriptions();
-	};
-	
-	PubNub.prototype.saveSubscriptions = function() {
-		localStorage["pn-subscriptions"] = this.subscriptions;
-	};
-	
-	PubNub.prototype.subscribe = function(options) {
-		this.connection.subscribe.apply(this.connection, arguments);
-		this.addSubscription(options.channel);
-		this.saveSubscriptions();
-	};
-	
-	PubNub.prototype.unsubscribe = function(options) {
-		this.connection.unsubscribe.apply(this.connection, arguments);
-	};
-	
-	PubNub.prototype.publish = function() {
-		this.connection.publish.apply(this.connection, arguments);
-	};
-	
-	PubNub.prototype.history = function() {
-		this.connection.history.apply(this.connection, arguments);
-	};
-	
-	var pubnub = new PubNub(), 
-	username = $('footer[role=contentinfo] p em').html(), 
-	quizId = $('input#quiz-id').val(), 
-	teams = [], 
-	$teamList = $('ul#teams');
-	
-	localStorage['username'] = username;
-	
-	pubnub.connect(username);
-	
-	pubnub.unsubscribe({
-      channel: quizId
-    });
-    
-    pubnub.subscribe({
-      channel: quizId,
-      message: function() {
-      	alert('message');
-      },
-      presence   : function( message, env, channel ) {
-      	console.log('hi');
-        if (message.action == "join") {
-          teams.push(message.uuid);
-          $teamList.append("<li data-username='" + message.uuid + "'>" + message.uuid + "</li>");
-        } else {
-          teams.splice(teams.indexOf(message.uuid), 1);
-          $teamList.find('[data-username="' + message.uuid + '"]').remove();
-        }
-      }
-    });
-    
-    
-    
-    $container = $('section#quiz');
-	rounds.init();
-    
-    $('body').keyup(function(e){
-		if(e.keyCode == 32){
-			if(!currentQuestion) {
-				questions.getInitial();
-			}
-			else {
-				if(!revealAnswer) {
-					questions.revealAnswer();
-				}
-				else {
-					questions.getNext();
-				}
-			}
-			e.preventDefault();
-		}
-	});
-	
-	
+var quizId, 
+pubnub;
+
+$(function() {	
+	quizId = $('#quiz-id').val();
+	hostQuiz.init();   	 
 });
 
-var $container, currentRound, currentQuestion, 
-revealAnswer = false;
-    
-var rounds = {
-    init: function() {
-		$.ajax({
-			type: 'GET',
-	        url: '/admin/quiz/' + quizId + '/rounds',						
-	        success: function(data) {
-				var html = new EJS({url: '/partials/round.ejs'}).render({ round: data });
-	        	$container.html(html);
-	        	currentRound = data._id;
-	        }
-	    }); 
-    }
-}
-
-var questions = {
-	getInitial: function() {
-		$.ajax({
-			type: 'GET',
-	        url: '/admin/quiz/' + quizId + '/rounds/' + currentRound + '/questions',						
-	        success: function(data) {
-				var html = new EJS({url: '/partials/question.ejs'}).render({ question: data });
-	        	$container.html(html);
-	        	currentQuestion = data._id;
-	        }
-	    }); 
+var hostQuiz = {
+	$container: $('section#quiz'), 
+	currentRound: null, 
+	currentQuestion: null, 
+	showingAnswer: false, 
+	playingMembers: [],
+	$teamList: $('ul#teams'), 
+	init: function() {
+		var self = this;
+		self.setUpNavigation();	
+		self.setUpChannel();	
 	}, 
-	getNext: function() {
+	setUpChannel: function() {
+		var self = this;
+		pubnub = PUBNUB.init({
+			publish_key: 'pub-c-05acf469-af6d-47ad-8387-0d34d02d0d6e',
+			subscribe_key: 'sub-c-80adaa22-b46b-11e3-890f-02ee2ddab7fe'
+		});
+		
+		pubnub.subscribe({
+			channel: quizId,
+			callback: function (message) {
+				if(message.type == 1 && message.teamName) {
+					self.addTeam(message.teamName);
+				}
+			},
+			connect: function () {	
+				$.ajax({
+					type: 'POST',
+			        url: '/admin/quiz/' + quizId + '/true',						
+			        success: function(data) {
+			        	console.log(data);
+			        }
+			    });
+			}
+		});
+	}, 
+	setUpNavigation: function() {
+		var self = this;
+		$('body').keyup(function(e){
+			if(e.keyCode == 32){
+				if(!self.currentRound) {					
+					self.getNextRound(0);
+				}
+				else {
+					if(!self.currentQuestion) {
+						self.getNextQuestion(0);
+					}
+					else {
+						if(!self.showingAnswer) {
+							self.revealAnswer();
+						}
+						else {
+							self.getNextQuestion(self.currentQuestion.displayOrder+1);
+						}
+					}
+				}
+				e.preventDefault();
+			}
+		});
+	}, 
+	finish: function() {
+		var self = this;
+		alert('finished');
+	}, 
+	getNextRound: function(displayOrder) {
+		var self = this;
 		$.ajax({
 			type: 'GET',
-	        url: '/admin/quiz/' + quizId + '/rounds/' + currentRound + '/questions/next/' + currentQuestion,						
+	        url: '/admin/quiz/' + quizId + '/rounds/next/' + displayOrder,						
 	        success: function(data) {
-				var html = new EJS({url: '/partials/question.ejs'}).render({ question: data });
-	        	$container.html(html);
-	        	currentQuestion = data._id;
+	        	if(data.message && data.message == '-1') {
+	        		self.finish();
+				}
+	        	else {
+					var html = new EJS({url: '/partials/round.ejs'}).render({ round: data });
+		        	self.$container.html(html);
+		        	self.currentRound = data;
+	        	}
+	        }
+	    }); 		
+	}, 
+	getNextQuestion: function(displayOrder) {
+		var self = this;
+		$.ajax({
+			type: 'GET',
+	        url: '/admin/quiz/' + quizId + '/rounds/' + self.currentRound._id + '/questions/next/' + displayOrder,						
+	        success: function(data) {
+	        	if(data.message && data.message == '-1') {
+	        		self.getNextRound(self.currentRound.displayOrder+1);
+	        		self.currentQuestion = null;
+				}
+				else {
+					var html = new EJS({url: '/partials/question.ejs'}).render({ question: data });
+					self.$container.html(html);
+					self.currentQuestion = data;	
+		        	pubnub.publish({
+			        	channel: quizId, 
+			        	message: {
+			        		type: 2, 
+			        		question: data
+			        	}
+		        	});				
+				}
+				self.showingAnswer = false;	
 	        }
 	    }); 		
 	}, 
 	revealAnswer: function() {
-		$container.find('p.answer').show();
-		revealAnswer = false;
+		var self = this;
+		self.$container.find('p.answer').show();
+		self.showingAnswer = true;		
+	}, 
+	addTeam: function(teamName) {
+		var self = this, 
+		existingTeam = false;	
+		console.log(self.playingMembers);
+		for(var i = 0; i < self.playingMembers.length; i++) {
+			console.log(self.playingMembers[i]);
+			if(self.playingMembers[i] && self.playingMembers[i].name == teamName) {
+				existingTeam = true;
+				break;
+			}
+		}
+		if(existingTeam == false) {
+			var team = new Team(teamName);
+			self.playingMembers.push(team);
+			self.$teamList.append('<li>' + team.name + '</li>');
+		}
 	}
+}
+
+
+function Team(name) {
+	this.name = name || "";
+	this.currentScore = 0;
 }

@@ -1,2 +1,13 @@
 <% layout('layout') -%>
 <h1>Quizzes</h1>
+<% if(quizzes.length > 0) { %>
+	<ul class="list">
+		<% for(var i=0; i< quizzes.length; i++) {
+			var quiz = quizzes[i];
+		%>
+			<li><%= quiz.title %> <a href="/play/<%= quiz.id %>">Play</a></li>
+		<% } %>
+	</ul>
+<% } else { %>
+	<p>No active quizzes found.</p>
+<% } %>

@@ -72,7 +72,8 @@ exports.Round = Round;
 
 var quizSchema = mongoose.Schema({
 	title: { type: String, required: true, default: 'New quiz' }, 
-	rounds: [roundSchema]
+	rounds: [roundSchema], 
+	active: { type: Boolean, default: false }
 });
 
 var Quiz = mongoose.model('Quiz', quizSchema);
