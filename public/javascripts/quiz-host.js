@@ -7,7 +7,7 @@ $(function() {
 });
 
 var hostQuiz = {
-	$container: $('section#quiz'), 
+	$container: $('div#content'), 
 	currentRound: null, 
 	currentQuestion: null, 
 	showingAnswer: false, 
@@ -31,14 +31,14 @@ var hostQuiz = {
 				if(message.type == 1 && message.teamName) {
 					self.addTeam(message.teamName);
 				}
+				else if(message.type == 2 && message.answer) {
+					self.logAnswer(message.teamName, message.answer);
+				}
 			},
 			connect: function () {	
 				$.ajax({
 					type: 'POST',
-			        url: '/admin/quiz/' + quizId + '/true',						
-			        success: function(data) {
-			        	console.log(data);
-			        }
+			        url: '/admin/quiz/' + quizId + '/true'
 			    });
 			}
 		});
@@ -99,9 +99,12 @@ var hostQuiz = {
 	        		self.currentQuestion = null;
 				}
 				else {
-					var html = new EJS({url: '/partials/question.ejs'}).render({ question: data });
+					var html = new EJS({url: '/partials/question.ejs'}).render({ question: data, withAnswer: true });
 					self.$container.html(html);
-					self.currentQuestion = data;	
+					self.currentQuestion = data;						
+					for(var i = 0; i < self.playingMembers.length; i++) {
+						self.playingMembers[i].scoreSheet.push(data);
+					}
 		        	pubnub.publish({
 			        	channel: quizId, 
 			        	message: {
@@ -115,17 +118,24 @@ var hostQuiz = {
 	    }); 		
 	}, 
 	revealAnswer: function() {
-		var self = this;
-		self.$container.find('p.answer').show();
-		self.showingAnswer = true;		
+		var self = this, 
+		$answer = self.$container.find('p.answer'), 
+		answerValue = $answer.html();
+		$answer.show();
+		self.showingAnswer = true;				
+    	pubnub.publish({
+        	channel: quizId, 
+        	message: {
+        		type: 3, 
+        		answer: answerValue
+        	}
+    	});	
 	}, 
 	addTeam: function(teamName) {
 		var self = this, 
 		existingTeam = false;	
-		console.log(self.playingMembers);
 		for(var i = 0; i < self.playingMembers.length; i++) {
-			console.log(self.playingMembers[i]);
-			if(self.playingMembers[i] && self.playingMembers[i].name == teamName) {
+			if(self.playingMembers[i].name == teamName) {
 				existingTeam = true;
 				break;
 			}
@@ -133,13 +143,40 @@ var hostQuiz = {
 		if(existingTeam == false) {
 			var team = new Team(teamName);
 			self.playingMembers.push(team);
-			self.$teamList.append('<li>' + team.name + '</li>');
+			self.$teamList.append('<li><img src="http://lorempixel.com/81/61/people/" alt="' + team.name + '" /> <span class="team-name">' + team.name + '</span> <span class="score">0</span></li>');
 		}
+	}, 
+	logAnswer: function(teamName, answer) {
+		var self = this;
+		for(var i = 0; i < self.playingMembers.length; i++) {
+			if(self.playingMembers[i].name == teamName && !self.playingMembers[i].submittedAnswer) {
+				self.playingMembers[i].scoreSheet[self.playingMembers[i].scoreSheet.length-1].submittedAnswer = answer;
+				console.log('logging answer');
+				self.checkAnswer(teamName);
+			}
+		}
+	}, 
+	checkAnswer: function(teamName) {
+		var self = this;
+		for(var i = 0; i < self.playingMembers.length; i++) {
+			if(self.playingMembers[i].name == teamName) {
+				var team = self.playingMembers[i], 
+				currentQuestion = team.scoreSheet[self.playingMembers[i].scoreSheet.length-1];
+				if(currentQuestion.answer.toLowerCase() == currentQuestion.submittedAnswer.toLowerCase()) {
+					currentQuestion.correct = true;
+					team.currentScore = team.currentScore + currentQuestion.points;
+					console.log(team);
+				}
+				else {
+					currentQuestion.correct = false;
+				}
+			}
+		}		
 	}
 }
-
 
 function Team(name) {
 	this.name = name || "";
 	this.currentScore = 0;
+	this.scoreSheet = [];
 }

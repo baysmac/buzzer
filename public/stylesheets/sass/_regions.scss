@@ -1,0 +1,135 @@
+main[role=main] {
+	padding:						0 $gridUnit*2 82px;
+	@extend							%clearfix;
+	@include respond-to(400px) {
+		padding-bottom: 			$gridUnit;
+	}
+	> p {
+		text-align: 				center;
+	}
+}
+
+form#register, 
+form#log-in {	
+	float: 							left;
+	width: 							calc-percent(420px, 860px);
+	@include respond-to(600px) {
+		float: 						none;
+		width: 						auto;
+	}
+}
+
+form#log-in {
+	float: 							right;
+	@include respond-to(600px) {
+		float: 						none;
+	}
+}
+
+a#add-quiz {
+	float: 							right;
+}
+
+div#quiz-presentation {
+	@include						flexbox;
+	height: 						100%;
+}
+
+aside[role=complementary] {
+	@include						background(linear-gradient(transparentize(darken($greyBase, 5%), .3), transparentize($greyBase, 0)));
+	border-left:					1px solid darken($greyBase, 10%);
+	@include						box-shadow(0 0 2px transparentize($whiteBase, .7) inset);
+	width: 							400px;
+	h1 {
+		font-size: 					$baseFontSize*2;
+		padding: 					0 $gridUnit;
+	}
+}
+
+ul#teams {
+	margin: 						0;
+	list-style: 					none;
+	li {
+		border-bottom:				1px solid darken($greyBase, 10%);
+		border-top:					1px solid transparentize($whiteBase, .7);
+		padding: 					$gridUnit 0;
+		img {
+			float: 					left;
+			margin:					$gridUnit*-1 $gridUnit $gridUnit*-1 0;
+			max-height: 			61px;
+		}
+	}
+}
+
+div#content {
+	@include						flex(1);
+	> p {
+		text-align: 				center;
+	}
+}
+
+footer[role=contentinfo] {
+	@include						background(linear-gradient(transparentize(darken($greyBase, 5%), .3), transparentize($greyBase, 0)));
+	border-top:						1px solid darken($greyBase, 10%);
+	bottom: 						0;
+	@include						box-shadow(0 0 2px transparentize($whiteBase, .7) inset);
+	left: 							0;
+	padding: 						$gridUnit;
+	position: 						fixed;
+	right: 							0;
+	text-transform: 				lowercase;
+	@extend							%clearfix;
+	@include respond-to(400px) {
+		position: 					static;
+		text-align: 				center;
+	}
+	p.user {
+		float: 						left;
+		margin: 					0;
+		em {
+			font-style: 			normal;
+		}
+		@include respond-to(400px) {
+			float: 					none;
+			display: 				inline-block;
+			&:after {
+				content:			' - ';
+			}
+		}
+	}
+	a.action {
+		border:						1px solid darken($greyBase, 10%);
+		border-width: 				0 1px;
+		display: 					block;
+		float: 						left;
+		margin:						$gridUnit*-1 $gridUnit;
+		padding: 					$gridUnit;
+		text-decoration: 			none;
+		@include					transition(all .2s ease-in);
+		&:hover {
+			background:				transparentize(darken($greyBase, 5%), .3);
+		}
+		@include respond-to(400px) {
+			border: 				0;
+			display: 				inline-block;
+			float: 					none;
+			margin: 				0;
+			padding:				0;
+			text-decoration: 		underline;
+			&:hover {
+				background: 		none;
+			}
+		}
+	}
+	p.credit {
+		background: 				url('../images/logo.png') no-repeat right center;
+		background-size: 			auto 100%;
+		float: 						right;
+		margin: 					0;
+		padding-right: 				30px;
+		@include respond-to(400px) {
+			float: 					none;
+			margin-top:				$gridUnit/2;
+		}
+	}
+}

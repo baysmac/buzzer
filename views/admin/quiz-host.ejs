@@ -1,13 +1,16 @@
 <% layout('../layout') -%>
-<h1><%= quiz.title %></h1>
-<aside role="complementary">
-	<h1>Leaderboard</h1>
-	<ul id="teams"></ul>
-</aside>
-<section id="quiz">
-	<p>Go to <strong>URL here</strong>, sign up with your team name!</p>
-	<p>Once we are all ready, we will begin!</p>
-</section>
+<div id="quiz-presentation">
+	<div id="content">
+		<h1>Welcome</h1>
+		<p>Got a drink? Great. Once in your teams, please go to <strong>url here</strong>, sign up and get ready!</p>
+		<p>Once everyone has signed up, we will begin!</p>
+	</div>
+	<aside role="complementary">
+		<h1>Leaderboard</h1>
+		<ul id="teams">
+		</ul>
+	</aside>
+</div>
 <input type="hidden" name="id" id="quiz-id" value="<%= quiz.id %>" />
 <script src="http://cdn.pubnub.com/pubnub.min.js"></script>
 <script src="/javascripts/quiz-host.js"></script>

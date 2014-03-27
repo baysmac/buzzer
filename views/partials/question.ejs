@@ -1,4 +1,13 @@
+<% if(typeof withAnswer == 'undefined') { var withAnswer = false; } %>
+<% if(typeof withInput == 'undefined') { var withInput = false; } %>
 <h1>Question <%= question.displayOrder+1 %></h1>
 <h2><%= question.questionText %></h2>
-<p><%= question.timeInSeconds %></p>
-<p class="answer" style="display: none;"><%= question.answer %></p>
+<% if(withAnswer) { %>
+	<p class="answer" style="display: none;"><%= question.answer %></p>
+<% } %>
+<% if(withInput) { %>
+	<form>
+		<input type="text" placeholder"Your answer" required />
+		<input type="submit" value="Submit" />
+	</form>
+<% } %>

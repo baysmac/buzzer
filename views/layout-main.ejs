@@ -1,0 +1,15 @@
+<% layout('layout') -%>
+<main role="main" class="container">
+	<%- body %>
+</main>
+<footer role="contentinfo">
+	<% if (user) { %>
+		<% if (user.admin) { %>
+			<p class="user">Logged in as: <em><%= user.username %></em></p>
+		<% } else { %>
+			<p class="user">Playing as: <em><%= user.username %></em></p>
+		<% } %>
+		<a href="/logout" class="action">Log out</a>
+	<% } %>
+	<p class="credit">Powered by <a href="https://github.com/benmacgowan/buzzer">Buzzer</a>, a creation by <a href="http://www.benmacgowan.co.uk">Ben MacGowan</a></p>
+</footer>

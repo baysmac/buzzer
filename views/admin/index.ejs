@@ -1,12 +1,18 @@
-<% layout('../layout') -%>
+<% layout('../layout-main') -%>
 <h1>Quizzes</h1>
-<a href="/admin/quiz/add">Add quiz</a>
+<a href="/admin/quiz/add" class="cta" id="add-quiz">Add quiz</a>
 <% if(quizzes.length > 0) { %>
 	<ul class="list">
 		<% for(var i=0; i< quizzes.length; i++) {
 			var quiz = quizzes[i];
 		%>
-			<li><%= quiz.title %> <a href="/admin/quiz/edit/<%= quiz.id %>">Edit</a> <a href="/admin/quiz/host/<%= quiz.id %>">Host</a></li>
+			<li>
+				<span class="heading"><%= quiz.title %></span>
+				<div class="actions">
+					<a href="/admin/quiz/edit/<%= quiz.id %>" class="cta">Edit</a>
+					<a href="/admin/quiz/host/<%= quiz.id %>" class="cta">Host</a>
+				</div>
+			</li>
 		<% } %>
 	</ul>
 <% } else { %>

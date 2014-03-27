@@ -5,6 +5,7 @@
 <!--[if (gt IE 9)|!(IE)]><!--><html lang="en-gb"><!--<![endif]-->
 	<head>
 		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width; initial-scale=1.0" />
 		<% if (!title) { %>
 			<title>buzzer</title>
 		<% } else { %>
@@ -14,23 +15,7 @@
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	</head>
 	<body>
-		<header role="banner">
-			<h1>buzzer</h1>
-		</header>
-		<main role="main">
-			<%- body %>
-		</main>
-		<footer role="contentinfo">
-			<% if (user) { %>
-				<% if (user.admin) { %>
-					<p>Logged in as: <em><%= user.username %></em></p>
-				<% } else { %>
-					<p>Playing as: <em><%= user.username %></em></p>
-				<% } %>
-				<a href="/logout">Log out</a>
-			<% } %>
-		</footer>
+		<%- body %>
 		<script src="/javascripts/ejs_production.js"></script>
-		<script src="/javascripts/global.js"></script>		
 	</body>
 </html>

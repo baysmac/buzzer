@@ -1,12 +1,29 @@
 /* Colour Palette */
 
+$greyBase:							rgba(54, 54, 54, 1);
+$greyLight:							rgba(238, 238, 238, 1);
+$greyDark:							darken($greyBase, 10%);
+
+$yellowBase:						rgba(248, 203, 40, 1);
+
+$whiteBase:							rgba(255, 255, 255, 1);
+
 /* Fonts */
 
-$baseFontSize:						12px;
+@import url(http://fonts.googleapis.com/css?family=Lemon);
+
+$baseFontSize:						14px;
+
+$arial:								Arial, sans-serif;
+$lemon:								'Lemon', cursive;
 
 /* Grid */
 
-$gridUnit:							10px;
+$gridUnit:							20px;
+
+/* Mix-ins & Functions */
+
+@import								'lib/flexbox';
 
 %clearfix {
 	&:after {
@@ -17,4 +34,22 @@ $gridUnit:							10px;
 	html.ie7 & {
 		zoom: 						1;
 	}
+}
+
+@function calc-percent($target, $container) {
+  @return ($target / $container) * 100%;
+}
+
+@mixin respond-to($upperBreakPoint, $lowerBreakPoint : 0){
+	@if $lowerBreakPoint > 0 {
+		@media only screen and (max-width: $upperBreakPoint) and (min-width: 
+$lowerBreakPoint + 1) { 
+			@content;
+        }
+    }
+    @else {
+        @media only screen and (max-width: $upperBreakPoint) {
+            @content;
+        }
+    }
 }

@@ -1,11 +1,40 @@
+html, body {
+	height: 						100%;
+}
+
 body {
-	font:							#{$baseFontSize}/150% Arial, sans-serif;
+	background:						$greyBase url('../images/bg.gif');
+	color:							$greyLight;
+	font:							#{$baseFontSize}/150% $arial;
 }
 
 h1, h2, h3, h4, h5, h6, p, ul, ol {
 	margin:							$gridUnit 0;
 }
 
+h1 {
+	color: 							$yellowBase;
+	font:							#{$baseFontSize*3}/150% $lemon;
+	text-align: 					center;
+	text-shadow: 					4px 5px 0 transparentize($greyDark, .6);
+	text-transform: 				lowercase;
+}
+
+h2 {
+	@extend							h1;
+	font-size: 						$baseFontSize*2;
+}
+
 ul, ol {
 	margin-left: 					$gridUnit*2;
+}
+
+a {
+	color: 							$greyLight;
+}
+
+.container {
+	margin: 						0 auto;
+	max-width: 						940px;
+	width: 							98%;
 }
