@@ -49,9 +49,11 @@ app.get('/admin', pass.ensureAuthenticated, pass.ensureAdmin(), admin.index);
 app.get('/admin/quiz/add', pass.ensureAuthenticated, pass.ensureAdmin(), admin.addQuiz);
 app.get('/admin/quiz/edit/:id', pass.ensureAuthenticated, pass.ensureAdmin(), admin.editQuiz);
 app.get('/admin/quiz/host/:id', pass.ensureAuthenticated, pass.ensureAdmin(), admin.hostQuiz);
-app.post('/admin/quiz/:quizId/:activeFlag', admin.toggleQuizActive);
+app.get('/admin/quiz/console/:id', pass.ensureAuthenticated, pass.ensureAdmin(), admin.console);
+app.post('/admin/quiz/:quizId/activate/:activeFlag', admin.toggleQuizActive);
 
 app.post('/admin/quiz/:quizId/rounds', admin.addRound);
+app.get('/admin/quiz/:quizId/rounds', admin.getRounds);
 app.get('/admin/quiz/:quizId/rounds/next/:displayOrder', admin.getNextRound);
 app.put('/admin/quiz/:quizId/rounds/:id', admin.editRound);
 app.delete('/admin/quiz/:quizId/rounds/:id', admin.deleteRound);

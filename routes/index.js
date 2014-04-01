@@ -13,7 +13,7 @@ exports.index = function(req, res) {
 exports.play = function(req, res) {
 	db.Quiz.findOne({ _id: req.route.params.id }, function(err, foundQuiz) {
 		if (err) { return next(err) };
-		if(foundQuiz) {
+		if(foundQuiz && foundQuiz.active) {
 			res.render('play', { title: foundQuiz.title, user: req.user, quiz: foundQuiz });			
 		} else {
 			return res.redirect('/');					

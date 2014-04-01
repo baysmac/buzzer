@@ -12,11 +12,12 @@ var hostQuiz = {
 	currentQuestion: null, 
 	showingAnswer: false, 
 	playingMembers: [],
-	$teamList: $('ul#teams'), 
+	$teamList: $('ol#teams'), 
 	init: function() {
 		var self = this;
 		self.setUpNavigation();	
 		self.setUpChannel();	
+		self.$teamList.mixItUp();
 	}, 
 	setUpChannel: function() {
 		var self = this;
@@ -28,17 +29,21 @@ var hostQuiz = {
 		pubnub.subscribe({
 			channel: quizId,
 			callback: function (message) {
+				console.log(message);
 				if(message.type == 1 && message.teamName) {
 					self.addTeam(message.teamName);
 				}
 				else if(message.type == 2 && message.answer) {
 					self.logAnswer(message.teamName, message.answer);
 				}
+				else if(message.type == 6 && message.doublePointsRoundId) {
+					self.logDoublePointsRound(message.teamName, message.doublePointsRoundId);
+				}
 			},
 			connect: function () {	
 				$.ajax({
 					type: 'POST',
-			        url: '/admin/quiz/' + quizId + '/true'
+			        url: '/admin/quiz/' + quizId + '/activate/true'
 			    });
 			}
 		});
@@ -69,7 +74,19 @@ var hostQuiz = {
 	}, 
 	finish: function() {
 		var self = this;
-		alert('finished');
+		self.$container.children().fadeOut(250);
+		self.$container.parent().addClass('complete');
+		$.ajax({
+			type: 'POST',
+	        url: '/admin/quiz/' + quizId + '/activate/false'
+	    });	        	
+    	pubnub.publish({
+        	channel: quizId, 
+        	message: {
+        		type: 5, 
+        		teams: self.playingMembers
+        	}
+    	});	
 	}, 
 	getNextRound: function(displayOrder) {
 		var self = this;
@@ -83,13 +100,21 @@ var hostQuiz = {
 	        	else {
 					var html = new EJS({url: '/partials/round.ejs'}).render({ round: data });
 		        	self.$container.html(html);
-		        	self.currentRound = data;
+		        	self.currentRound = data;		        	
+		        	pubnub.publish({
+			        	channel: quizId, 
+			        	message: {
+			        		type: 2, 
+			        		round: data
+			        	}
+		        	});	
 	        	}
 	        }
 	    }); 		
 	}, 
 	getNextQuestion: function(displayOrder) {
 		var self = this;
+		self.showingAnswer = false;
 		$.ajax({
 			type: 'GET',
 	        url: '/admin/quiz/' + quizId + '/rounds/' + self.currentRound._id + '/questions/next/' + displayOrder,						
@@ -108,28 +133,28 @@ var hostQuiz = {
 		        	pubnub.publish({
 			        	channel: quizId, 
 			        	message: {
-			        		type: 2, 
+			        		type: 3, 
 			        		question: data
 			        	}
 		        	});				
-				}
-				self.showingAnswer = false;	
+				}	
 	        }
 	    }); 		
 	}, 
 	revealAnswer: function() {
 		var self = this, 
-		$answer = self.$container.find('p.answer'), 
-		answerValue = $answer.html();
+		$answer = self.$container.find('dl.question dd.answer span'), 
+		answerValue = $answer.html().trim();
 		$answer.show();
 		self.showingAnswer = true;				
     	pubnub.publish({
         	channel: quizId, 
         	message: {
-        		type: 3, 
+        		type: 4, 
         		answer: answerValue
         	}
     	});	
+    	self.updateTeamList();
 	}, 
 	addTeam: function(teamName) {
 		var self = this, 
@@ -141,17 +166,34 @@ var hostQuiz = {
 			}
 		}
 		if(existingTeam == false) {
-			var team = new Team(teamName);
+			var team = new Team(teamName, self.playingMembers.length+1);
 			self.playingMembers.push(team);
-			self.$teamList.append('<li><img src="http://lorempixel.com/81/61/people/" alt="' + team.name + '" /> <span class="team-name">' + team.name + '</span> <span class="score">0</span></li>');
+			self.$teamList.append('<li class="mix" data-position="' + team.position + '"><span class="team-name">' + team.name + '</span> <span class="score">' + team.score + '</span></li>');
 		}
+	}, 
+	updateTeamList: function() {
+		var self = this;
+		
+		self.playingMembers.sort(compare);
+		for(var i = 0; i < self.playingMembers.length; i++) {
+			var team = self.playingMembers[i];
+			team.position = i+1;
+			self.$teamList.children('li').each(function(index, value) {
+				var $team = $(this);
+				if($team.find('span.team-name').html() == team.name) {
+					$team.find('span.score').html(team.score);
+					$team.attr('data-position', team.position);
+				}
+			});
+		}	
+		self.$teamList.mixItUp('sort', 'position:asc');	
 	}, 
 	logAnswer: function(teamName, answer) {
 		var self = this;
+		console.log(teamName);
 		for(var i = 0; i < self.playingMembers.length; i++) {
-			if(self.playingMembers[i].name == teamName && !self.playingMembers[i].submittedAnswer) {
+			if(self.playingMembers[i].name == teamName) {
 				self.playingMembers[i].scoreSheet[self.playingMembers[i].scoreSheet.length-1].submittedAnswer = answer;
-				console.log('logging answer');
 				self.checkAnswer(teamName);
 			}
 		}
@@ -161,22 +203,44 @@ var hostQuiz = {
 		for(var i = 0; i < self.playingMembers.length; i++) {
 			if(self.playingMembers[i].name == teamName) {
 				var team = self.playingMembers[i], 
-				currentQuestion = team.scoreSheet[self.playingMembers[i].scoreSheet.length-1];
+				currentQuestion = team.scoreSheet[team.scoreSheet.length-1];
 				if(currentQuestion.answer.toLowerCase() == currentQuestion.submittedAnswer.toLowerCase()) {
-					currentQuestion.correct = true;
-					team.currentScore = team.currentScore + currentQuestion.points;
-					console.log(team);
+					console.log(team.name + ':' + currentQuestion.correct);
+					if(self.currentRound._id == team.doublePointsRoundId) {
+						team.score = team.score + (currentQuestion.points*2);
+					}
+					else {
+						team.score = team.score + currentQuestion.points;
+					}
 				}
 				else {
 					currentQuestion.correct = false;
 				}
 			}
 		}		
+	}, 
+	logDoublePointsRound: function(teamName, roundId) {
+		var self = this;
+		for(var i = 0; i < self.playingMembers.length; i++) {
+			if(self.playingMembers[i].name == teamName && self.playingMembers[i].doublePointsRoundId == 0) {
+				self.playingMembers[i].doublePointsRoundId = roundId;
+			}
+		}		
 	}
 }
 
-function Team(name) {
+function Team(name, position) {
 	this.name = name || "";
-	this.currentScore = 0;
+	this.score = 0;
 	this.scoreSheet = [];
+	this.position = position || 0;
+	this.doublePointsRoundId = 0;
+}
+
+function compare(a,b) {
+	if (a.score > b.score)
+	 return -1;
+	if (a.score < b.score)
+	return 1;
+	return 0;
 }

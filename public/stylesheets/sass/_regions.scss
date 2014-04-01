@@ -1,9 +1,7 @@
 main[role=main] {
-	padding:						0 $gridUnit*2 82px;
+	overflow: 						hidden;
+	padding:						0 $gridUnit*2 $gridUnit;
 	@extend							%clearfix;
-	@include respond-to(400px) {
-		padding-bottom: 			$gridUnit;
-	}
 	> p {
 		text-align: 				center;
 	}
@@ -38,49 +36,102 @@ div#quiz-presentation {
 aside[role=complementary] {
 	@include						background(linear-gradient(transparentize(darken($greyBase, 5%), .3), transparentize($greyBase, 0)));
 	border-left:					1px solid darken($greyBase, 10%);
-	@include						box-shadow(0 0 2px transparentize($whiteBase, .7) inset);
+	@include						box-shadow(0 1px 1px transparentize($whiteBase, .6) inset);
 	width: 							400px;
+	@include						transition(width 1s ease-in);
 	h1 {
 		font-size: 					$baseFontSize*2;
 		padding: 					0 $gridUnit;
 	}
+	.complete & {
+		width: 						100%;
+	}
 }
 
-ul#teams {
-	margin: 						0;
+ol#teams {
+	line-height: 					0;
 	list-style: 					none;
+	margin: 						0;
 	li {
 		border-bottom:				1px solid darken($greyBase, 10%);
 		border-top:					1px solid transparentize($whiteBase, .7);
-		padding: 					$gridUnit 0;
-		img {
+		line-height: 				42px;
+		padding: 					$gridUnit;
+		width: 						100%;
+		@extend						%clearfix;
+		span.team-name {
+			color: 					transparent;
 			float: 					left;
-			margin:					$gridUnit*-1 $gridUnit $gridUnit*-1 0;
-			max-height: 			61px;
+			text-shadow: 			0 0 10px $whiteBase;
+			@include				transition(all 1s ease-in 1s);
+			.complete & {
+				color:				$greyLight;
+				text-shadow:		0 0 0 transparent;
+			}
+		}
+		span.score {
+			color: 					transparent;
+			float: 					right;
+			text-shadow: 			0 0 10px $whiteBase;
+			@include				transition(all 1s ease-in 1s);
+			.complete & {
+				color:				$greyLight;
+				text-shadow:		0 0 0 transparent;
+			}
+		}
+		&:before {			
+			@extend					h2;
+			background: 			$yellowBase;
+			@include				border-radius(50%);
+			color:					$greyBase;
+			content: 				attr(data-position);
+			display: 				inline-block;
+			float: 					left;
+			font-size: 				16px;
+			font-style: 			normal;
+			height: 				42px;
+			margin: 				0 $gridUnit 0 0;
+			line-height: 			42px;
+			padding: 				0 !important;
+			text-align: 			center;
+			width: 					42px;
 		}
 	}
 }
 
 div#content {
 	@include						flex(1);
+	@include						transition(all 1s ease-in);
+	text-align: 					center;
 	> p {
 		text-align: 				center;
 	}
+	.complete & {
+		@include					flex(1);
+	}
+}
+
+a#leave {
+	bottom: 						$gridUnit;
+	left: 							$gridUnit;
+	position: 						fixed;
+}
+
+@include sticky-footer(63px, "main[role=main]", "#footer-placeholder", "footer[role=contentinfo]");
+
+@include respond-to(400px) {
+	@include sticky-footer(94px, "main[role=main]", "#footer-placeholder", "footer[role=contentinfo]");	
 }
 
 footer[role=contentinfo] {
 	@include						background(linear-gradient(transparentize(darken($greyBase, 5%), .3), transparentize($greyBase, 0)));
-	border-top:						1px solid darken($greyBase, 10%);
-	bottom: 						0;
-	@include						box-shadow(0 0 2px transparentize($whiteBase, .7) inset);
-	left: 							0;
+	border:							1px solid darken($greyBase, 10%);
+	border-width: 					1px 0;
+	@include						box-shadow(0 1px 1px transparentize($whiteBase, .6) inset);
 	padding: 						$gridUnit;
-	position: 						fixed;
-	right: 							0;
 	text-transform: 				lowercase;
 	@extend							%clearfix;
 	@include respond-to(400px) {
-		position: 					static;
 		text-align: 				center;
 	}
 	p.user {
@@ -130,6 +181,10 @@ footer[role=contentinfo] {
 		@include respond-to(400px) {
 			float: 					none;
 			margin-top:				$gridUnit/2;
+			padding-right: 			0;
+			span.extra-credit {
+				display: 			none;
+			}
 		}
 	}
 }

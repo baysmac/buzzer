@@ -51,7 +51,8 @@ var questionSchema = mongoose.Schema({
 	questionText: { type: String, default: 'Question' }, 
 	answer: { type: String, default: 'Answer' }, 
 	points: { type: Number, default: 1 }, 
-	timeInSeconds: { type: Number, default: 10 }
+	timeInSeconds: { type: Number, default: 10 }, 
+	type: { type: String, default: 'text' }
 });
 
 var Question = mongoose.model('Question', questionSchema);

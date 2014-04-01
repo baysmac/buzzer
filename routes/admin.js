@@ -9,6 +9,17 @@ exports.index = function(req, res) {
 		res.render('admin/index', { title: 'Dashboard', user: req.user, quizzes: foundQuizzes });		
 	});		
 };
+  
+exports.console = function(req, res) {
+	db.Quiz.findOne({ _id: req.route.params.id }, function(err, foundQuiz) {
+		if (err) { return next(err) };
+		if(foundQuiz) {
+			res.render('admin/console', { title: foundQuiz.title, user: req.user, quiz: foundQuiz });			
+		} else {
+			return res.redirect('/admin');					
+		}
+	});		
+};
 
 exports.addQuiz = function(req, res) {
 	var quiz = new db.Quiz({
@@ -40,8 +51,7 @@ exports.toggleQuizActive = function(req, res) {
 				message: '1'
 			});			
 		});
-	});
-	
+	});	
 };
 
 exports.hostQuiz = function(req, res) {
@@ -65,6 +75,13 @@ exports.addRound = function(req, res, next) {
 	});
 };
 
+exports.getRounds = function(req, res, next) {
+	db.Quiz.findOne({ _id: req.params.quizId }, function(err, foundQuiz) {
+		var result = foundQuiz.rounds;
+		return res.json(result);
+	});
+};
+
 exports.getNextRound = function(req, res, next) {
 	db.Quiz.findOne({ _id: req.params.quizId }, function(err, foundQuiz) {
 		var result = { message: '-1' };
@@ -73,8 +90,7 @@ exports.getNextRound = function(req, res, next) {
 			if(foundQuiz.rounds[i].displayOrder == req.params.displayOrder){
 				result = foundQuiz.rounds[i];
 			}		
-		}	
-		
+		}
 		return res.json(result);	
 		
 	});
@@ -115,15 +131,12 @@ exports.addQuestion = function(req, res, next) {
 exports.getNextQuestion = function(req, res, next) {
 	db.Quiz.findOne({ _id: req.params.quizId }, function(err, foundQuiz) {
 		var round = foundQuiz.rounds.id(req.params.roundId),  
-		result = { message: '-1' };
-		
+		result = { message: '-1' };		
 		for(var i=0; i < round.questions.length;i++){
-			console.log(round.questions[i].displayOrder);
 			if(round.questions[i].displayOrder == req.params.displayOrder){
 				result = round.questions[i];
 			}		
-		}	
-		
+		}			
 		return res.json(result);	
 		
 	});

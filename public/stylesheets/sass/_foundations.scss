@@ -18,6 +18,17 @@ h1 {
 	text-align: 					center;
 	text-shadow: 					4px 5px 0 transparentize($greyDark, .6);
 	text-transform: 				lowercase;
+	em {
+		background: 				$yellowBase;
+		@include					border-radius(50%);
+		color:						$greyBase;
+		display: 					inline-block;
+		font-style: 				normal;
+		height: 					55px;
+		line-height: 				55px;
+		text-align: 				center;
+		width: 						55px;
+	}
 }
 
 h2 {

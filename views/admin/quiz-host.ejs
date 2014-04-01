@@ -2,15 +2,16 @@
 <div id="quiz-presentation">
 	<div id="content">
 		<h1>Welcome</h1>
-		<p>Got a drink? Great. Once in your teams, please go to <strong>url here</strong>, sign up and get ready!</p>
+		<p>Got a drink? Great. Once in your teams, please go to <strong>http://192.168.0.21:3000</strong>, sign up and get ready!</p>
 		<p>Once everyone has signed up, we will begin!</p>
 	</div>
 	<aside role="complementary">
 		<h1>Leaderboard</h1>
-		<ul id="teams">
-		</ul>
+		<ol id="teams"></ol>
 	</aside>
 </div>
+<a href="/admin" id="leave" class="cta">Leave</a>
 <input type="hidden" name="id" id="quiz-id" value="<%= quiz.id %>" />
 <script src="http://cdn.pubnub.com/pubnub.min.js"></script>
+<script src="/javascripts/jquery.mixitup.js"></script>
 <script src="/javascripts/quiz-host.js"></script>
