@@ -1,12 +1,16 @@
 {
-  "convertHtmlOutput": null,
+  "convertHtml": {
+    "relativePaths": false
+  },
   "customRubyPath": null,
   "debug": false,
   "domain": null,
   "followLeader": false,
   "lintScripts": false,
   "modelSource": null,
-  "preprocessorLocations": "public/stylesheets/sass",
+  "preprocessorLocations": [
+    "public/stylesheets/sass"
+  ],
   "preprocessorScriptOutput": null,
   "preprocessorStyleOutput": "public/stylesheets",
   "projectDescription": "My project description",

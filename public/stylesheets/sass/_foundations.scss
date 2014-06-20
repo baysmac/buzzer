@@ -3,9 +3,9 @@ html, body {
 }
 
 body {
-	background:						$greyBase url('../images/bg.gif');
-	color:							$greyLight;
-	font:							#{$baseFontSize}/150% $arial;
+	background:						$yellowBase;
+	color:							$greyBase;
+	font:							#{$baseFontSize}/150% $openSans;
 }
 
 h1, h2, h3, h4, h5, h6, p, ul, ol {
@@ -13,22 +13,10 @@ h1, h2, h3, h4, h5, h6, p, ul, ol {
 }
 
 h1 {
-	color: 							$yellowBase;
-	font:							#{$baseFontSize*3}/150% $lemon;
-	text-align: 					center;
-	text-shadow: 					4px 5px 0 transparentize($greyDark, .6);
-	text-transform: 				lowercase;
-	em {
-		background: 				$yellowBase;
-		@include					border-radius(50%);
-		color:						$greyBase;
-		display: 					inline-block;
-		font-style: 				normal;
-		height: 					55px;
-		line-height: 				55px;
-		text-align: 				center;
-		width: 						55px;
-	}
+	font-size: 						$baseFontSize*2;
+	font-weight: 					600;
+	line-height: 					100%;
+	text-transform: 				uppercase;
 }
 
 h2 {
@@ -47,5 +35,5 @@ a {
 .container {
 	margin: 						0 auto;
 	max-width: 						940px;
-	width: 							98%;
+	width: 							90.625%;
 }

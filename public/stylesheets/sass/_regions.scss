@@ -1,6 +1,26 @@
+header[role=banner] {
+	background:						$greyBase;
+	border-top:						5px solid $whiteBase;
+	border-bottom: 					2px solid $whiteDark;
+	h1 {
+		background:					url('../images/logo.png') no-repeat left center;
+		background-size: 			auto 28px;
+		color: 						$whiteBase;
+		margin:						0;
+		padding:					$gridUnit 0 $gridUnit ($gridUnit+20);
+	}
+	nav[role=navigation] {
+		display: 					none;
+	}
+}
+
+
+
+
+
+
 main[role=main] {
 	overflow: 						hidden;
-	padding:						0 $gridUnit*2 $gridUnit;
 	@extend							%clearfix;
 	> p {
 		text-align: 				center;

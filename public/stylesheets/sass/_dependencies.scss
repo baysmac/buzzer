@@ -1,6 +1,17 @@
 /* Colour Palette */
 
-$greyBase:							rgba(54, 54, 54, 1);
+$yellowBase:						rgb(244, 180, 0);
+
+$greyBase:							rgb(42, 42, 42);
+
+$whiteBase:							rgb(255, 255, 255);
+$whiteDark:							darken($whiteBase, 15%);
+
+
+
+
+
+
 $greyLight:							rgba(238, 238, 238, 1);
 $greyDark:							darken($greyBase, 10%);
 
@@ -14,16 +25,21 @@ $redBase:							rgba(165, 30, 30, 1);
 
 /* Fonts */
 
-@import url(http://fonts.googleapis.com/css?family=Lemon);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,600);
 
 $baseFontSize:						14px;
+
+
+$openSans:							'Open Sans', sans-serif;
+
+
 
 $arial:								Arial, sans-serif;
 $lemon:								'Lemon', cursive;
 
 /* Grid */
 
-$gridUnit:							20px;
+$gridUnit:							15px;
 
 /* Mix-ins & Functions */
 

@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Lemon);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,600);
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -25,36 +25,20 @@ html, body {
 }
 
 body {
-  background: #363636 url("../images/bg.gif");
-  color: #eeeeee;
-  font: 14px/150% Arial, sans-serif;
+  background: #f8cb28;
+  color: #2a2a2a;
+  font: 14px/150% "Open Sans", sans-serif;
 }
 
 h1, h2, ul.list li span.heading, ol#teams li:before, dl.question dt, h2, ul.list li span.heading, ol#teams li:before, h3, h4, h5, h6, p, ul, ol {
-  margin: 20px 0;
+  margin: 15px 0;
 }
 
 h1, h2, ul.list li span.heading, ol#teams li:before, dl.question dt {
-  color: #f8cb28;
-  font: 42px/150% "Lemon", cursive;
-  text-align: center;
-  text-shadow: 4px 5px 0 rgba(28, 28, 28, 0.4);
-  text-transform: lowercase;
-}
-h1 em, h2 em, ul.list li span.heading em, ol#teams li:before em, dl.question dt em {
-  background: #f8cb28;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  -o-border-radius: 50%;
-  border-radius: 50%;
-  color: #363636;
-  display: inline-block;
-  font-style: normal;
-  height: 55px;
-  line-height: 55px;
-  text-align: center;
-  width: 55px;
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 100%;
+  text-transform: uppercase;
 }
 
 h2, ul.list li span.heading, ol#teams li:before {
@@ -62,7 +46,7 @@ h2, ul.list li span.heading, ol#teams li:before {
 }
 
 ul, ol {
-  margin-left: 40px;
+  margin-left: 30px;
 }
 
 a {
@@ -72,7 +56,7 @@ a {
 .container {
   margin: 0 auto;
   max-width: 940px;
-  width: 98%;
+  width: 90.625%;
 }
 
 .cta, form input[type=submit] {
@@ -83,14 +67,14 @@ a {
   -ms-border-radius: 2px;
   -o-border-radius: 2px;
   border-radius: 2px;
-  -webkit-box-shadow: 4px 5px 0 rgba(28, 28, 28, 0.4);
-  -moz-box-shadow: 4px 5px 0 rgba(28, 28, 28, 0.4);
-  box-shadow: 4px 5px 0 rgba(28, 28, 28, 0.4);
-  color: #363636;
+  -webkit-box-shadow: 4px 5px 0 rgba(16, 16, 16, 0.4);
+  -moz-box-shadow: 4px 5px 0 rgba(16, 16, 16, 0.4);
+  box-shadow: 4px 5px 0 rgba(16, 16, 16, 0.4);
+  color: #2a2a2a;
   cursor: pointer;
   display: inline-block;
   font: 14px/150% Arial, sans-serif;
-  padding: 10px;
+  padding: 7.5px;
   text-decoration: none;
   text-transform: uppercase;
   -webkit-transition: all 0.2s ease-in;
@@ -102,46 +86,46 @@ a {
   background-color: #e6b507;
 }
 .cta + .cta, form input[type=submit] + .cta, form .cta + input[type=submit], form input[type=submit] + input[type=submit] {
-  margin-left: 20px;
+  margin-left: 15px;
 }
 
 button.cta {
-  margin-top: 20px;
+  margin-top: 15px;
 }
 @media only screen and (max-width: 400px) {
   button.cta {
     display: block;
-    margin: 20px 0 !important;
+    margin: 15px 0 !important;
     width: 100%;
   }
 }
 
 form {
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(54, 54, 54, 0.7)), color-stop(100%, #363636));
-  background: -webkit-linear-gradient(rgba(54, 54, 54, 0.7), #363636);
-  background: -moz-linear-gradient(rgba(54, 54, 54, 0.7), #363636);
-  background: -o-linear-gradient(rgba(54, 54, 54, 0.7), #363636);
-  background: linear-gradient(rgba(54, 54, 54, 0.7), #363636);
-  border: 1px solid #1c1c1c;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(42, 42, 42, 0.7)), color-stop(100%, #2a2a2a));
+  background: -webkit-linear-gradient(rgba(42, 42, 42, 0.7), #2a2a2a);
+  background: -moz-linear-gradient(rgba(42, 42, 42, 0.7), #2a2a2a);
+  background: -o-linear-gradient(rgba(42, 42, 42, 0.7), #2a2a2a);
+  background: linear-gradient(rgba(42, 42, 42, 0.7), #2a2a2a);
+  border: 1px solid #101010;
   -webkit-box-shadow: 0 0 2px rgba(255, 255, 255, 0.3) inset;
   -moz-box-shadow: 0 0 2px rgba(255, 255, 255, 0.3) inset;
   box-shadow: 0 0 2px rgba(255, 255, 255, 0.3) inset;
-  margin: 20px 0;
-  padding: 0 20px 20px;
+  margin: 15px 0;
+  padding: 0 15px 15px;
 }
 form h2, form ul.list li span.heading, ul.list li form span.heading, form ol#teams li:before, ol#teams form li:before {
-  margin-top: 10px;
+  margin-top: 7.5px;
 }
 form dl {
-  margin-top: 20px;
+  margin-top: 15px;
 }
 form dl dt {
   clear: both;
   float: left;
   text-align: right;
   line-height: 30px;
-  margin-bottom: 10px;
-  padding-right: 20px;
+  margin-bottom: 7.5px;
+  padding-right: 15px;
   width: 39.68254%;
 }
 @media only screen and (max-width: 400px) {
@@ -153,7 +137,7 @@ form dl dt {
 }
 form dl dd {
   float: left;
-  margin-bottom: 10px;
+  margin-bottom: 7.5px;
   width: 60.31746%;
 }
 @media only screen and (max-width: 400px) {
@@ -175,11 +159,11 @@ form input[type=password] {
   -ms-border-radius: 0;
   -o-border-radius: 0;
   border-radius: 0;
-  border: 1px solid #363636;
-  color: #363636;
+  border: 1px solid #2a2a2a;
+  color: #2a2a2a;
   font: 14px/150% Arial, sans-serif;
   height: 30px;
-  padding: 0 10px;
+  padding: 0 7.5px;
   width: 100%;
 }
 @media only screen and (max-width: 400px) {
@@ -194,7 +178,7 @@ form input[type=submit] {
   cursor: pointer;
   display: block;
   font: 14px/150% Arial, sans-serif;
-  margin-top: 10px;
+  margin-top: 7.5px;
   width: 100%;
 }
 
@@ -204,9 +188,9 @@ ul.list {
   margin: 0;
 }
 ul.list li {
-  border-bottom: 1px solid #1c1c1c;
+  border-bottom: 1px solid #101010;
   border-top: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 20px 0;
+  padding: 15px 0;
 }
 ul.list li:first-child {
   border-top: 0;
@@ -220,8 +204,8 @@ ul.list li div.actions {
 }
 ul.list li div.actions a.cta {
   font-size: 12px;
-  margin-left: 10px;
-  padding: 5px 10px;
+  margin-left: 7.5px;
+  padding: 3.75px 7.5px;
 }
 
 p.waiting {
@@ -245,38 +229,38 @@ dl.question {
 }
 dl.question img {
   background: white;
-  -webkit-box-shadow: 4px 5px 0 rgba(28, 28, 28, 0.4);
-  -moz-box-shadow: 4px 5px 0 rgba(28, 28, 28, 0.4);
-  box-shadow: 4px 5px 0 rgba(28, 28, 28, 0.4);
+  -webkit-box-shadow: 4px 5px 0 rgba(16, 16, 16, 0.4);
+  -moz-box-shadow: 4px 5px 0 rgba(16, 16, 16, 0.4);
+  box-shadow: 4px 5px 0 rgba(16, 16, 16, 0.4);
   display: inline-block;
   max-height: 300px;
   max-width: 100%;
-  padding: 20px;
+  padding: 15px;
 }
 dl.question dd.answer {
   background: #80a51e;
   display: none;
   font-size: 18px;
-  padding: 20px 0;
+  padding: 15px 0;
   text-align: center;
 }
 dl.question dd.form form,
 dl.question dd.form p.msg-success {
   margin: 0 auto;
   max-width: 400px;
-  padding-top: 20px;
+  padding-top: 15px;
   width: 100%;
 }
 
 p.msg-success {
   background: #80a51e;
-  padding: 20px 0;
+  padding: 15px 0;
   text-align: center;
 }
 
 p.msg-error {
   background: #a51e1e;
-  padding: 20px 0;
+  padding: 15px 0;
   text-align: center;
 }
 
@@ -290,9 +274,24 @@ p.incorrect {
   padding-top: 120px;
 }
 
+header[role=banner] {
+  background: #2a2a2a;
+  border-top: 5px solid white;
+  border-bottom: 2px solid #d9d9d9;
+}
+header[role=banner] h1, header[role=banner] h2, header[role=banner] ul.list li span.heading, ul.list li header[role=banner] span.heading, header[role=banner] ol#teams li:before, ol#teams header[role=banner] li:before, header[role=banner] dl.question dt, dl.question header[role=banner] dt {
+  background: url("../images/logo.png") no-repeat left center;
+  background-size: auto 28px;
+  color: white;
+  margin: 0;
+  padding: 15px 0 15px 35px;
+}
+header[role=banner] nav[role=navigation] {
+  display: none;
+}
+
 main[role=main] {
   overflow: hidden;
-  padding: 0 40px 20px;
 }
 main[role=main] > p {
   text-align: center;
@@ -334,12 +333,12 @@ div#quiz-presentation {
 }
 
 aside[role=complementary] {
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(41, 41, 41, 0.7)), color-stop(100%, #363636));
-  background: -webkit-linear-gradient(rgba(41, 41, 41, 0.7), #363636);
-  background: -moz-linear-gradient(rgba(41, 41, 41, 0.7), #363636);
-  background: -o-linear-gradient(rgba(41, 41, 41, 0.7), #363636);
-  background: linear-gradient(rgba(41, 41, 41, 0.7), #363636);
-  border-left: 1px solid #1c1c1c;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(29, 29, 29, 0.7)), color-stop(100%, #2a2a2a));
+  background: -webkit-linear-gradient(rgba(29, 29, 29, 0.7), #2a2a2a);
+  background: -moz-linear-gradient(rgba(29, 29, 29, 0.7), #2a2a2a);
+  background: -o-linear-gradient(rgba(29, 29, 29, 0.7), #2a2a2a);
+  background: linear-gradient(rgba(29, 29, 29, 0.7), #2a2a2a);
+  border-left: 1px solid #101010;
   -webkit-box-shadow: 0 1px 1px rgba(255, 255, 255, 0.4) inset;
   -moz-box-shadow: 0 1px 1px rgba(255, 255, 255, 0.4) inset;
   box-shadow: 0 1px 1px rgba(255, 255, 255, 0.4) inset;
@@ -351,7 +350,7 @@ aside[role=complementary] {
 }
 aside[role=complementary] h1, aside[role=complementary] h2, aside[role=complementary] ul.list li span.heading, ul.list li aside[role=complementary] span.heading, aside[role=complementary] ol#teams li:before, ol#teams aside[role=complementary] li:before, aside[role=complementary] dl.question dt, dl.question aside[role=complementary] dt {
   font-size: 28px;
-  padding: 0 20px;
+  padding: 0 15px;
 }
 .complete aside[role=complementary] {
   width: 100%;
@@ -363,10 +362,10 @@ ol#teams {
   margin: 0;
 }
 ol#teams li {
-  border-bottom: 1px solid #1c1c1c;
+  border-bottom: 1px solid #101010;
   border-top: 1px solid rgba(255, 255, 255, 0.3);
   line-height: 42px;
-  padding: 20px;
+  padding: 15px;
   width: 100%;
 }
 ol#teams li span.team-name {
@@ -404,14 +403,14 @@ ol#teams li:before {
   -ms-border-radius: 50%;
   -o-border-radius: 50%;
   border-radius: 50%;
-  color: #363636;
+  color: #2a2a2a;
   content: attr(data-position);
   display: inline-block;
   float: left;
   font-size: 16px;
   font-style: normal;
   height: 42px;
-  margin: 0 20px 0 0;
+  margin: 0 15px 0 0;
   line-height: 42px;
   padding: 0 !important;
   text-align: center;
@@ -444,8 +443,8 @@ div#content > p {
 }
 
 a#leave {
-  bottom: 20px;
-  left: 20px;
+  bottom: 15px;
+  left: 15px;
   position: fixed;
 }
 
@@ -493,17 +492,17 @@ footer[role=contentinfo] {
   }
 }
 footer[role=contentinfo] {
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(41, 41, 41, 0.7)), color-stop(100%, #363636));
-  background: -webkit-linear-gradient(rgba(41, 41, 41, 0.7), #363636);
-  background: -moz-linear-gradient(rgba(41, 41, 41, 0.7), #363636);
-  background: -o-linear-gradient(rgba(41, 41, 41, 0.7), #363636);
-  background: linear-gradient(rgba(41, 41, 41, 0.7), #363636);
-  border: 1px solid #1c1c1c;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(29, 29, 29, 0.7)), color-stop(100%, #2a2a2a));
+  background: -webkit-linear-gradient(rgba(29, 29, 29, 0.7), #2a2a2a);
+  background: -moz-linear-gradient(rgba(29, 29, 29, 0.7), #2a2a2a);
+  background: -o-linear-gradient(rgba(29, 29, 29, 0.7), #2a2a2a);
+  background: linear-gradient(rgba(29, 29, 29, 0.7), #2a2a2a);
+  border: 1px solid #101010;
   border-width: 1px 0;
   -webkit-box-shadow: 0 1px 1px rgba(255, 255, 255, 0.4) inset;
   -moz-box-shadow: 0 1px 1px rgba(255, 255, 255, 0.4) inset;
   box-shadow: 0 1px 1px rgba(255, 255, 255, 0.4) inset;
-  padding: 20px;
+  padding: 15px;
   text-transform: lowercase;
 }
 @media only screen and (max-width: 400px) {
@@ -528,12 +527,12 @@ footer[role=contentinfo] p.user em {
   }
 }
 footer[role=contentinfo] a.action {
-  border: 1px solid #1c1c1c;
+  border: 1px solid #101010;
   border-width: 0 1px;
   display: block;
   float: left;
-  margin: -20px 20px;
-  padding: 20px;
+  margin: -15px 15px;
+  padding: 15px;
   text-decoration: none;
   -webkit-transition: all 0.2s ease-in;
   -moz-transition: all 0.2s ease-in;
@@ -541,7 +540,7 @@ footer[role=contentinfo] a.action {
   transition: all 0.2s ease-in;
 }
 footer[role=contentinfo] a.action:hover {
-  background: rgba(41, 41, 41, 0.7);
+  background: rgba(29, 29, 29, 0.7);
 }
 @media only screen and (max-width: 400px) {
   footer[role=contentinfo] a.action {
@@ -566,7 +565,7 @@ footer[role=contentinfo] p.credit {
 @media only screen and (max-width: 400px) {
   footer[role=contentinfo] p.credit {
     float: none;
-    margin-top: 10px;
+    margin-top: 7.5px;
     padding-right: 0;
   }
   footer[role=contentinfo] p.credit span.extra-credit {
