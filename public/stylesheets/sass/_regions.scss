@@ -2,6 +2,9 @@ header[role=banner] {
 	background:						$greyBase;
 	border-top:						5px solid $whiteBase;
 	border-bottom: 					2px solid $whiteDark;
+	.container {
+		position: 					relative;
+	}
 	h1 {
 		background:					url('../images/logo.png') no-repeat left center;
 		background-size: 			auto 28px;
@@ -9,40 +12,31 @@ header[role=banner] {
 		margin:						0;
 		padding:					$gridUnit 0 $gridUnit ($gridUnit+20);
 	}
+	button.toggle {
+		background:					url('../images/menu.png') no-repeat;
+		background-size: 			100%;
+		border: 					0;
+		cursor: 					pointer;
+		height: 					15px;
+		margin-top:					-7.5px;
+		position: 					absolute;
+		right: 						0;
+		text-indent: 				-9999em;
+		top:						50%;
+		width: 						19.5px;
+	}
 	nav[role=navigation] {
 		display: 					none;
 	}
 }
 
-
-
-
-
-
 main[role=main] {
 	overflow: 						hidden;
+	padding:						$gridUnit 7.8125%;
 	@extend							%clearfix;
-	> p {
-		text-align: 				center;
-	}
 }
 
-form#register, 
-form#log-in {	
-	float: 							left;
-	width: 							calc-percent(420px, 860px);
-	@include respond-to(600px) {
-		float: 						none;
-		width: 						auto;
-	}
-}
 
-form#log-in {
-	float: 							right;
-	@include respond-to(600px) {
-		float: 						none;
-	}
-}
 
 a#add-quiz {
 	float: 							right;
@@ -80,24 +74,10 @@ ol#teams {
 		width: 						100%;
 		@extend						%clearfix;
 		span.team-name {
-			color: 					transparent;
 			float: 					left;
-			text-shadow: 			0 0 10px $whiteBase;
-			@include				transition(all 1s ease-in 1s);
-			.complete & {
-				color:				$greyLight;
-				text-shadow:		0 0 0 transparent;
-			}
 		}
 		span.score {
-			color: 					transparent;
 			float: 					right;
-			text-shadow: 			0 0 10px $whiteBase;
-			@include				transition(all 1s ease-in 1s);
-			.complete & {
-				color:				$greyLight;
-				text-shadow:		0 0 0 transparent;
-			}
 		}
 		&:before {			
 			@extend					h2;
@@ -135,76 +115,4 @@ a#leave {
 	bottom: 						$gridUnit;
 	left: 							$gridUnit;
 	position: 						fixed;
-}
-
-@include sticky-footer(63px, "main[role=main]", "#footer-placeholder", "footer[role=contentinfo]");
-
-@include respond-to(400px) {
-	@include sticky-footer(94px, "main[role=main]", "#footer-placeholder", "footer[role=contentinfo]");	
-}
-
-footer[role=contentinfo] {
-	@include						background(linear-gradient(transparentize(darken($greyBase, 5%), .3), transparentize($greyBase, 0)));
-	border:							1px solid darken($greyBase, 10%);
-	border-width: 					1px 0;
-	@include						box-shadow(0 1px 1px transparentize($whiteBase, .6) inset);
-	padding: 						$gridUnit;
-	text-transform: 				lowercase;
-	@extend							%clearfix;
-	@include respond-to(400px) {
-		text-align: 				center;
-	}
-	p.user {
-		float: 						left;
-		margin: 					0;
-		em {
-			font-style: 			normal;
-		}
-		@include respond-to(400px) {
-			float: 					none;
-			display: 				inline-block;
-			&:after {
-				content:			' - ';
-			}
-		}
-	}
-	a.action {
-		border:						1px solid darken($greyBase, 10%);
-		border-width: 				0 1px;
-		display: 					block;
-		float: 						left;
-		margin:						$gridUnit*-1 $gridUnit;
-		padding: 					$gridUnit;
-		text-decoration: 			none;
-		@include					transition(all .2s ease-in);
-		&:hover {
-			background:				transparentize(darken($greyBase, 5%), .3);
-		}
-		@include respond-to(400px) {
-			border: 				0;
-			display: 				inline-block;
-			float: 					none;
-			margin: 				0;
-			padding:				0;
-			text-decoration: 		underline;
-			&:hover {
-				background: 		none;
-			}
-		}
-	}
-	p.credit {
-		background: 				url('../images/logo.png') no-repeat right center;
-		background-size: 			auto 100%;
-		float: 						right;
-		margin: 					0;
-		padding-right: 				30px;
-		@include respond-to(400px) {
-			float: 					none;
-			margin-top:				$gridUnit/2;
-			padding-right: 			0;
-			span.extra-credit {
-				display: 			none;
-			}
-		}
-	}
 }

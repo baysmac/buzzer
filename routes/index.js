@@ -55,7 +55,13 @@ exports.register = function(req, res, next) {
 	});
 	user.save(function(err) {
 		if (err) { 
-			return next(err)
+			if(err.code == '11000') {
+				req.flash('error', 'Team name already exists');	
+			}
+			else {
+				req.flash('error', 'Problem registering. Try again');					
+			}	
+		  	return res.redirect('/login');
 		} else {
 			req.login(user, function(err) {
 			  if (err) { return next(err); }  

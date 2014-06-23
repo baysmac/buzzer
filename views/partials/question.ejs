@@ -10,7 +10,7 @@
 	</dt>
 <% if(withAnswer) { %>
 	<dd class="answer">
-		<span><%= question.answer %></span>
+		<%= question.answer %>
 		<%if(question.type == "image" && question.answerImage) { %>
 			<br /><img src="<%= question.answerImage %>" alt="Image" />
 		<% } %>		
@@ -18,7 +18,7 @@
 <% if(withInput) { %>
 	<dd class="form">
 	<form>
-		<input type="text" placeholder"Your answer" required spellcheck="false" autocomplete="off" />
+		<input type="text" placeholder"Your answer" required spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" />
 		<input type="submit" value="Submit" />
 	</form>
 <% } %>

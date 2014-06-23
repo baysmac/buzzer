@@ -143,8 +143,8 @@ var hostQuiz = {
 	}, 
 	revealAnswer: function() {
 		var self = this, 
-		$answer = self.$container.find('dl.question dd.answer span'), 
-		answerValue = $answer.html().trim();
+		$answer = self.$container.find('dl.question dd.answer'), 
+		answerValue = $answer.text();
 		$answer.show();
 		self.showingAnswer = true;				
     	pubnub.publish({
@@ -159,6 +159,7 @@ var hostQuiz = {
 	addTeam: function(teamName) {
 		var self = this, 
 		existingTeam = false;	
+		console.log(teamName);
 		for(var i = 0; i < self.playingMembers.length; i++) {
 			if(self.playingMembers[i].name == teamName) {
 				existingTeam = true;
@@ -190,7 +191,7 @@ var hostQuiz = {
 	}, 
 	logAnswer: function(teamName, answer) {
 		var self = this;
-		console.log(teamName);
+		//console.log(teamName);
 		for(var i = 0; i < self.playingMembers.length; i++) {
 			if(self.playingMembers[i].name == teamName) {
 				self.playingMembers[i].scoreSheet[self.playingMembers[i].scoreSheet.length-1].submittedAnswer = answer;
@@ -203,9 +204,12 @@ var hostQuiz = {
 		for(var i = 0; i < self.playingMembers.length; i++) {
 			if(self.playingMembers[i].name == teamName) {
 				var team = self.playingMembers[i], 
-				currentQuestion = team.scoreSheet[team.scoreSheet.length-1];
-				if(currentQuestion.answer.toLowerCase() == currentQuestion.submittedAnswer.toLowerCase()) {
-					console.log(team.name + ':' + currentQuestion.correct);
+				currentQuestion = team.scoreSheet[team.scoreSheet.length-1],
+				answers = [currentQuestion.answer.toLowerCase()], 
+				results = fuzzy.filter($.trim(currentQuestion.submittedAnswer.toLowerCase()), answers), 
+				matches = results.map(function(el) { return el.string; });
+				if(matches.length == 1) {
+					//console.log(team.name + ':' + currentQuestion.correct);
 					if(self.currentRound._id == team.doublePointsRoundId) {
 						team.score = team.score + (currentQuestion.points*2);
 					}

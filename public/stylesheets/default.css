@@ -11,12 +11,12 @@
 /* Fonts */
 /* Grid */
 /* Mix-ins & Functions */
-form dl:after, ul.list li:after, main[role=main]:after, ol#teams li:after, footer[role=contentinfo]:after {
+ul.tabs:after, ul.list li:after, main[role=main]:after, ol#teams li:after {
   clear: both;
   content: '';
   display: block;
 }
-html.ie7 form dl, form html.ie7 dl, html.ie7 ul.list li, ul.list html.ie7 li, html.ie7 main[role=main], html.ie7 ol#teams li, ol#teams html.ie7 li, html.ie7 footer[role=contentinfo] {
+html.ie7 ul.tabs, html.ie7 ul.list li, ul.list html.ie7 li, html.ie7 main[role=main], html.ie7 ol#teams li, ol#teams html.ie7 li {
   zoom: 1;
 }
 
@@ -59,7 +59,88 @@ a {
   width: 90.625%;
 }
 
-.cta, form input[type=submit] {
+ul.tabs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+ul.tabs li {
+  float: left;
+}
+ul.tabs li a {
+  background: #2a2a2a;
+  color: white;
+  display: block;
+  font-size: 16px;
+  line-height: 16px;
+  padding: 15px 18.75%;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+ul.tabs li a.active {
+  background: #f2f2f2;
+  color: #2a2a2a;
+}
+ul.tabs.two-col li {
+  width: 50%;
+}
+ul.tabs + .tabbed-content {
+  display: block;
+}
+
+.tabbed-content {
+  background: #f2f2f2;
+  border-bottom: 2px solid #d9d9d9;
+  display: none;
+  overflow: hidden;
+  margin-bottom: 10px;
+  padding: 9.375%;
+}
+
+form dl dt {
+  margin-bottom: 15px;
+}
+form dl dd {
+  margin-bottom: 15px;
+}
+form dl dd input {
+  -webkit-appearance: none;
+  border: 2px solid #d9d9d9;
+  border-width: 2px 0 0;
+  border-radius: 0;
+  font: 16px/150% "Open Sans", sans-serif;
+  height: 46px;
+  padding: 0 15px;
+  width: 100%;
+}
+form dl dd input:focus {
+  border-width: 2px 1px 1px;
+  outline: none;
+}
+form input[type=submit] {
+  -webkit-appearance: none;
+  background: white;
+  border: 2px solid #d9d9d9;
+  border-width: 0 0 2px;
+  border-radius: 0;
+  cursor: pointer;
+  font: 14px/100% "Open Sans", sans-serif;
+  margin-top: 15px;
+  padding: 15px;
+}
+
+p.msg-success,
+p.msg-error {
+  background: #4cce13;
+  color: white;
+  padding: 15px 9.375%;
+}
+
+p.msg-error {
+  background: #e90000;
+}
+
+.cta {
   background: #f8cb28;
   border: 0;
   -webkit-border-radius: 2px;
@@ -82,10 +163,10 @@ a {
   -o-transition: all 0.2s ease-in;
   transition: all 0.2s ease-in;
 }
-.cta:hover, form input[type=submit]:hover {
+.cta:hover {
   background-color: #e6b507;
 }
-.cta + .cta, form input[type=submit] + .cta, form .cta + input[type=submit], form input[type=submit] + input[type=submit] {
+.cta + .cta {
   margin-left: 15px;
 }
 
@@ -98,88 +179,6 @@ button.cta {
     margin: 15px 0 !important;
     width: 100%;
   }
-}
-
-form {
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(42, 42, 42, 0.7)), color-stop(100%, #2a2a2a));
-  background: -webkit-linear-gradient(rgba(42, 42, 42, 0.7), #2a2a2a);
-  background: -moz-linear-gradient(rgba(42, 42, 42, 0.7), #2a2a2a);
-  background: -o-linear-gradient(rgba(42, 42, 42, 0.7), #2a2a2a);
-  background: linear-gradient(rgba(42, 42, 42, 0.7), #2a2a2a);
-  border: 1px solid #101010;
-  -webkit-box-shadow: 0 0 2px rgba(255, 255, 255, 0.3) inset;
-  -moz-box-shadow: 0 0 2px rgba(255, 255, 255, 0.3) inset;
-  box-shadow: 0 0 2px rgba(255, 255, 255, 0.3) inset;
-  margin: 15px 0;
-  padding: 0 15px 15px;
-}
-form h2, form ul.list li span.heading, ul.list li form span.heading, form ol#teams li:before, ol#teams form li:before {
-  margin-top: 7.5px;
-}
-form dl {
-  margin-top: 15px;
-}
-form dl dt {
-  clear: both;
-  float: left;
-  text-align: right;
-  line-height: 30px;
-  margin-bottom: 7.5px;
-  padding-right: 15px;
-  width: 39.68254%;
-}
-@media only screen and (max-width: 400px) {
-  form dl dt {
-    float: none;
-    text-align: left;
-    width: auto;
-  }
-}
-form dl dd {
-  float: left;
-  margin-bottom: 7.5px;
-  width: 60.31746%;
-}
-@media only screen and (max-width: 400px) {
-  form dl dd {
-    float: none;
-    width: auto;
-  }
-}
-form input[type=text],
-form input[type=password] {
-  -webkit-appearance: none;
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #e1e1e1), color-stop(100%, #eeeeee));
-  background: -webkit-linear-gradient(#e1e1e1, #eeeeee);
-  background: -moz-linear-gradient(#e1e1e1, #eeeeee);
-  background: -o-linear-gradient(#e1e1e1, #eeeeee);
-  background: linear-gradient(#e1e1e1, #eeeeee);
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  -ms-border-radius: 0;
-  -o-border-radius: 0;
-  border-radius: 0;
-  border: 1px solid #2a2a2a;
-  color: #2a2a2a;
-  font: 14px/150% Arial, sans-serif;
-  height: 30px;
-  padding: 0 7.5px;
-  width: 100%;
-}
-@media only screen and (max-width: 400px) {
-  form input[type=text],
-  form input[type=password] {
-    font-size: 16px;
-  }
-}
-form input[type=submit] {
-  -webkit-appearance: none;
-  border: 0;
-  cursor: pointer;
-  display: block;
-  font: 14px/150% Arial, sans-serif;
-  margin-top: 7.5px;
-  width: 100%;
 }
 
 ul.list {
@@ -238,7 +237,7 @@ dl.question img {
   padding: 15px;
 }
 dl.question dd.answer {
-  background: #80a51e;
+  background: #4cce13;
   display: none;
   font-size: 18px;
   padding: 15px 0;
@@ -250,18 +249,6 @@ dl.question dd.form p.msg-success {
   max-width: 400px;
   padding-top: 15px;
   width: 100%;
-}
-
-p.msg-success {
-  background: #80a51e;
-  padding: 15px 0;
-  text-align: center;
-}
-
-p.msg-error {
-  background: #a51e1e;
-  padding: 15px 0;
-  text-align: center;
 }
 
 p.correct {
@@ -279,6 +266,9 @@ header[role=banner] {
   border-top: 5px solid white;
   border-bottom: 2px solid #d9d9d9;
 }
+header[role=banner] .container {
+  position: relative;
+}
 header[role=banner] h1, header[role=banner] h2, header[role=banner] ul.list li span.heading, ul.list li header[role=banner] span.heading, header[role=banner] ol#teams li:before, ol#teams header[role=banner] li:before, header[role=banner] dl.question dt, dl.question header[role=banner] dt {
   background: url("../images/logo.png") no-repeat left center;
   background-size: auto 28px;
@@ -286,37 +276,26 @@ header[role=banner] h1, header[role=banner] h2, header[role=banner] ul.list li s
   margin: 0;
   padding: 15px 0 15px 35px;
 }
+header[role=banner] button.toggle {
+  background: url("../images/menu.png") no-repeat;
+  background-size: 100%;
+  border: 0;
+  cursor: pointer;
+  height: 15px;
+  margin-top: -7.5px;
+  position: absolute;
+  right: 0;
+  text-indent: -9999em;
+  top: 50%;
+  width: 19.5px;
+}
 header[role=banner] nav[role=navigation] {
   display: none;
 }
 
 main[role=main] {
   overflow: hidden;
-}
-main[role=main] > p {
-  text-align: center;
-}
-
-form#register,
-form#log-in {
-  float: left;
-  width: 48.83721%;
-}
-@media only screen and (max-width: 600px) {
-  form#register,
-  form#log-in {
-    float: none;
-    width: auto;
-  }
-}
-
-form#log-in {
-  float: right;
-}
-@media only screen and (max-width: 600px) {
-  form#log-in {
-    float: none;
-  }
+  padding: 15px 7.8125%;
 }
 
 a#add-quiz {
@@ -369,32 +348,10 @@ ol#teams li {
   width: 100%;
 }
 ol#teams li span.team-name {
-  color: transparent;
   float: left;
-  text-shadow: 0 0 10px white;
-  -webkit-transition: all 1s ease-in;
-  -webkit-transition-delay: 1s;
-  -moz-transition: all 1s ease-in 1s;
-  -o-transition: all 1s ease-in 1s;
-  transition: all 1s ease-in 1s;
-}
-.complete ol#teams li span.team-name {
-  color: #eeeeee;
-  text-shadow: 0 0 0 transparent;
 }
 ol#teams li span.score {
-  color: transparent;
   float: right;
-  text-shadow: 0 0 10px white;
-  -webkit-transition: all 1s ease-in;
-  -webkit-transition-delay: 1s;
-  -moz-transition: all 1s ease-in 1s;
-  -o-transition: all 1s ease-in 1s;
-  transition: all 1s ease-in 1s;
-}
-.complete ol#teams li span.score {
-  color: #eeeeee;
-  text-shadow: 0 0 0 transparent;
 }
 ol#teams li:before {
   background: #f8cb28;
@@ -446,129 +403,4 @@ a#leave {
   bottom: 15px;
   left: 15px;
   position: fixed;
-}
-
-html, body {
-  height: 100%;
-}
-
-main[role=main] {
-  clear: both;
-  min-height: 100%;
-  height: auto !important;
-  height: 100%;
-  margin-bottom: -63px;
-}
-main[role=main] #footer-placeholder {
-  height: 63px;
-}
-
-footer[role=contentinfo] {
-  clear: both;
-  position: relative;
-  height: 63px;
-}
-
-@media only screen and (max-width: 400px) {
-  html, body {
-    height: 100%;
-  }
-
-  main[role=main] {
-    clear: both;
-    min-height: 100%;
-    height: auto !important;
-    height: 100%;
-    margin-bottom: -94px;
-  }
-  main[role=main] #footer-placeholder {
-    height: 94px;
-  }
-
-  footer[role=contentinfo] {
-    clear: both;
-    position: relative;
-    height: 94px;
-  }
-}
-footer[role=contentinfo] {
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(29, 29, 29, 0.7)), color-stop(100%, #2a2a2a));
-  background: -webkit-linear-gradient(rgba(29, 29, 29, 0.7), #2a2a2a);
-  background: -moz-linear-gradient(rgba(29, 29, 29, 0.7), #2a2a2a);
-  background: -o-linear-gradient(rgba(29, 29, 29, 0.7), #2a2a2a);
-  background: linear-gradient(rgba(29, 29, 29, 0.7), #2a2a2a);
-  border: 1px solid #101010;
-  border-width: 1px 0;
-  -webkit-box-shadow: 0 1px 1px rgba(255, 255, 255, 0.4) inset;
-  -moz-box-shadow: 0 1px 1px rgba(255, 255, 255, 0.4) inset;
-  box-shadow: 0 1px 1px rgba(255, 255, 255, 0.4) inset;
-  padding: 15px;
-  text-transform: lowercase;
-}
-@media only screen and (max-width: 400px) {
-  footer[role=contentinfo] {
-    text-align: center;
-  }
-}
-footer[role=contentinfo] p.user {
-  float: left;
-  margin: 0;
-}
-footer[role=contentinfo] p.user em {
-  font-style: normal;
-}
-@media only screen and (max-width: 400px) {
-  footer[role=contentinfo] p.user {
-    float: none;
-    display: inline-block;
-  }
-  footer[role=contentinfo] p.user:after {
-    content: ' - ';
-  }
-}
-footer[role=contentinfo] a.action {
-  border: 1px solid #101010;
-  border-width: 0 1px;
-  display: block;
-  float: left;
-  margin: -15px 15px;
-  padding: 15px;
-  text-decoration: none;
-  -webkit-transition: all 0.2s ease-in;
-  -moz-transition: all 0.2s ease-in;
-  -o-transition: all 0.2s ease-in;
-  transition: all 0.2s ease-in;
-}
-footer[role=contentinfo] a.action:hover {
-  background: rgba(29, 29, 29, 0.7);
-}
-@media only screen and (max-width: 400px) {
-  footer[role=contentinfo] a.action {
-    border: 0;
-    display: inline-block;
-    float: none;
-    margin: 0;
-    padding: 0;
-    text-decoration: underline;
-  }
-  footer[role=contentinfo] a.action:hover {
-    background: none;
-  }
-}
-footer[role=contentinfo] p.credit {
-  background: url("../images/logo.png") no-repeat right center;
-  background-size: auto 100%;
-  float: right;
-  margin: 0;
-  padding-right: 30px;
-}
-@media only screen and (max-width: 400px) {
-  footer[role=contentinfo] p.credit {
-    float: none;
-    margin-top: 7.5px;
-    padding-right: 0;
-  }
-  footer[role=contentinfo] p.credit span.extra-credit {
-    display: none;
-  }
 }

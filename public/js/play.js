@@ -5,7 +5,7 @@ var quizId,
 
 $(function() {	
 	quizId = $('#quiz-id').val();
-	teamName = $('footer[role=contentinfo] p em').html();
+	teamName = $('#team-username').val();
 	playQuiz.init();   
 });
 
@@ -128,9 +128,12 @@ var playQuiz = {
 	}, 
 	checkAnswer: function(answer) {
 		var self = this, 
-		currentQuestion = scoreSheet[scoreSheet.length-1];
+		currentQuestion = scoreSheet[scoreSheet.length-1], 
+		answers = [$.trim(answer.toLowerCase())], 
+		results = fuzzy.filter($.trim(currentQuestion.submittedAnswer.toLowerCase()), answers), 
+		matches = results.map(function(el) { return el.string; });
 		if(currentQuestion.submittedAnswer) {
-			if($.trim(answer.toLowerCase()) == $.trim(currentQuestion.submittedAnswer.toLowerCase())) {
+			if(matches.length == 1) {
 				currentQuestion.correct = true;
 				self.$container.html('<p class="correct">Correct! We\'ve added those valuable points to your team\'s score!</p>');
 			}

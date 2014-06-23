@@ -19,16 +19,4 @@
 </header>
 <main role="main" class="container">
 	<%- body %>
-	<div id="footer-placeholder"></div>
 </main>
-<footer role="contentinfo">
-	<% if (user) { %>
-		<% if (user.admin) { %>
-			<p class="user">Logged in as: <em><%= user.username %></em></p>
-		<% } else { %>
-			<p class="user">Playing as: <em><%= user.username %></em></p>
-		<% } %>
-		<a href="/logout" class="action">Log out</a>
-	<% } %>
-	<p class="credit">Powered by <a href="https://github.com/benmacgowan/buzzer">Buzzer</a><span class="extra-credit">, a creation by <a href="http://www.benmacgowan.co.uk">Ben MacGowan</a></span></p>
-</footer>

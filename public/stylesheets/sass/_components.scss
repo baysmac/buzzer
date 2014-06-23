@@ -1,3 +1,93 @@
+ul.tabs {
+	list-style: 					none;
+	margin:							0;
+	padding: 						0;
+	@extend							%clearfix;
+	li {
+		float: 						left;
+		a {
+			background: 			$greyBase;
+			color:					$whiteBase;
+			display: 				block;
+			font-size: 				16px;
+			line-height: 			16px;
+			padding: 				$gridUnit calc-percent($gridUnit*2, 160px);
+			text-decoration: 		none;
+			text-transform: 		uppercase;
+			&.active {
+				background: 		$whiteOff;
+				color: 				$greyBase;
+			}
+		}
+	}
+	&.two-col {
+		li {
+			width: 					50%;
+		}
+	}
+	+ .tabbed-content {
+		display: 					block;
+	}
+}
+
+.tabbed-content {
+	background: 					$whiteOff;
+	border-bottom: 					2px solid $whiteDark;
+	display: 						none;
+	overflow: 						hidden;
+	margin-bottom: 					10px;
+	padding:						calc-percent($gridUnit*2, 320px);
+}
+
+form {
+	dl {
+		dt {
+			margin-bottom: 			$gridUnit;
+		}
+		dd {
+			margin-bottom: 			$gridUnit;
+			input {
+				-webkit-appearance: none;
+				border: 			2px solid $whiteDark;
+				border-width: 		2px 0 0;
+				border-radius:		0;
+				font:				16px/150% $openSans;
+				height: 			46px;
+				padding: 			0 $gridUnit;
+				width: 				100%;
+				&:focus {
+					border-width:  	2px 1px 1px;
+					outline: 		none;
+				}
+			}
+		}
+	}
+	input[type=submit] {
+		-webkit-appearance: 		none;
+		background: 				$whiteBase;
+		border:						2px solid $whiteDark;
+		border-width: 				0 0 2px;
+		border-radius: 				0;
+		cursor: 					pointer;
+		font:						#{$baseFontSize}/100% $openSans;
+		margin-top:					$gridUnit;
+		padding:					$gridUnit;
+	}
+}
+
+p.msg-success, 
+p.msg-error {
+	background:						$greenBase;
+	color: 							$whiteBase;
+	padding: 						$gridUnit calc-percent($gridUnit*2, 320px);
+}
+
+p.msg-error {
+	background:						$redBase;
+}
+
+
+
 .cta {
 	background: 					$yellowBase;
 	border: 						0;
@@ -24,69 +114,6 @@ button.cta {
 	@include respond-to(400px) {
 		display: 					block;
 		margin:						$gridUnit 0 !important;
-		width: 						100%;
-	}
-}
-
-form {
-	@include						background(linear-gradient(transparentize($greyBase, .3), transparentize($greyBase, 0)));
-	border:							1px solid darken($greyBase, 10%);
-	@include						box-shadow(0 0 2px transparentize($whiteBase, .7) inset);
-	margin: 						$gridUnit 0;
-	padding: 						0 $gridUnit $gridUnit;
-	h2 {
-		margin-top:					$gridUnit/2;
-	}
-	dl {
-		margin-top:					$gridUnit;
-		@extend						%clearfix;
-		dt {
-			clear: 					both;
-			float: 					left;
-			text-align: 			right;
-			line-height: 			30px;
-			margin-bottom: 			$gridUnit/2;
-			padding-right:			$gridUnit;
-			width: 					calc-percent(150px, 378px);
-			@include respond-to(400px) {
-				float: 				none;
-				text-align: 		left;
-				width: 				auto;
-			}
-		}
-		dd {
-			float: 					left;
-			margin-bottom: 			$gridUnit/2;
-			width:					calc-percent(228px, 378px);
-			@include respond-to(400px) {
-				float: 				none;
-				width: 				auto;
-			}
-		}
-	}
-	input[type=text], 
-	input[type=password] {
-		-webkit-appearance: 		none;
-		@include					background(linear-gradient(darken($greyLight, 5%), $greyLight));
-		@include					border-radius(0);
-		border:						1px solid $greyBase;
-		color: 						$greyBase;
-		font:						#{$baseFontSize}/150% $arial;
-		height: 					30px;
-		padding: 					0 $gridUnit/2;
-		width: 						100%;
-		@include respond-to(400px) {
-			font-size: 				16px;
-		}
-	}
-	input[type=submit] {
-		@extend						.cta;
-		-webkit-appearance: 		none;
-		border: 					0;
-		cursor: 					pointer;
-		display: 					block;
-		font:						#{$baseFontSize}/150% $arial;
-		margin-top: 				$gridUnit/2;
 		width: 						100%;
 	}
 }
@@ -160,18 +187,6 @@ dl.question {
 			width: 					100%;
 		}
 	}
-}
-
-p.msg-success {
-	background:						$greenBase;
-	padding: 						$gridUnit 0;
-	text-align: 					center;	
-}
-
-p.msg-error {
-	background:						$redBase;
-	padding: 						$gridUnit 0;
-	text-align: 					center;	
 }
 
 p.correct {
