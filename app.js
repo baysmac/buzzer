@@ -48,6 +48,7 @@ app.get('/play/:id', pass.ensureAuthenticated, routes.play);
 app.get('/admin', pass.ensureAuthenticated, pass.ensureAdmin(), admin.index);
 app.get('/admin/quiz/add', pass.ensureAuthenticated, pass.ensureAdmin(), admin.addQuiz);
 app.get('/admin/quiz/edit/:id', pass.ensureAuthenticated, pass.ensureAdmin(), admin.editQuiz);
+app.post('/admin/quiz/edit/:id', pass.ensureAuthenticated, pass.ensureAdmin(), admin.editQuizSubmit);
 app.get('/admin/quiz/host/:id', pass.ensureAuthenticated, pass.ensureAdmin(), admin.hostQuiz);
 app.get('/admin/quiz/console/:id', pass.ensureAuthenticated, pass.ensureAdmin(), admin.console);
 app.post('/admin/quiz/:quizId/activate/:activeFlag', admin.toggleQuizActive);

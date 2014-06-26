@@ -8,21 +8,14 @@ $whiteBase:							rgb(255, 255, 255);
 $whiteOff:							darken($whiteBase, 5%);
 $whiteDark:							darken($whiteBase, 15%);
 
+$greenBase:							rgba(76, 206, 19, 1);
 
-
+$redBase:							rgba(233, 0, 0, 1);
 
 
 
 $greyLight:							rgba(238, 238, 238, 1);
 $greyDark:							darken($greyBase, 10%);
-
-$yellowBase:						rgba(248, 203, 40, 1);
-
-$whiteBase:							rgba(255, 255, 255, 1);
-
-$greenBase:							rgba(76, 206, 19, 1);
-
-$redBase:							rgba(233, 0, 0, 1);
 
 /* Fonts */
 

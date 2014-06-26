@@ -33,13 +33,24 @@ exports.editQuiz = function(req, res) {
 	db.Quiz.findOne({ _id: req.route.params.id }, function(err, foundQuiz) {
 		if (err) { return next(err) };
 		if(foundQuiz) {
+		console.log(foundQuiz);
 			db.Round.find({ quizId: new RegExp(foundQuiz._id, "i")}).sort('displayOrder').exec(function(err, foundRounds) {
 				if (err) return handleError(err);
-				res.render('admin/quiz-edit', { title: 'Edit Quiz', user: req.user, quiz: foundQuiz });			
+				res.render('admin/quiz-edit', { title: 'Edit Quiz', user: req.user, quiz: foundQuiz, successMessage: req.flash('success') });			
 			});		
 		} else {
 			return res.redirect('/admin');					
 		}
+	});	
+};
+
+exports.editQuizSubmit = function(req, res) {
+	db.Quiz.findOne({ _id: req.route.params.id }, function(err, foundQuiz) {
+		foundQuiz.title = req.body.title;
+		foundQuiz.save(function(err) {
+		  	req.flash('success', 'Quiz successfully edited');	
+		  	return res.redirect('/admin/quiz/edit/' + req.route.params.id);
+		});
 	});	
 };
 

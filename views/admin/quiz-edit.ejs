@@ -1,6 +1,9 @@
 <% layout('../layout-main') -%>
 <h1>Edit quiz</h1>
-<form action="/admin/quiz/edit" method="post">
+<% if (successMessage != '') { %>
+	<p class="msg-success"><%= successMessage %></p>
+<% } %>
+<form action="/admin/quiz/edit/<%= quiz.id %>" method="post">
 	<dl>
 		<dt>
 			<label>Title:</label>
@@ -9,8 +12,10 @@
 			<input type="text" name="title" value="<%= quiz.title %>" />
 		</dd>
 	</dl>
+	<input type="submit" value="Save quiz" />
 	<input type="hidden" name="id" id="quiz-id" value="<%= quiz.id %>" />
 </form>
-<button id="add-round">Add round</button>
+<h2>Rounds</h2>
+<button id="add-round" class="cta add">Add round</button>
 <%- include ../partials/rounds.ejs %>
 <script src="/js/quiz-edit.js"></script>

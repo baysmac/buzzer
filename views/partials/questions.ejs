@@ -7,28 +7,25 @@
 		<% for(var i=0; i < round.questions.length; i++) {
 			var question = round.questions[i]; %>
 				<li>
-					<article class="question">
-						<h1><%= question.questionText %></h1>
-						<form action="/admin/round/edit">
-							<dl>
-								<dt>
-									<label>Question:</label>
-								</dt>
-								<dd>
-									<input type="text" name="question" value="<%= question.questionText %>" />
-								</dd>
-								<dt>
-									<label>Answer:</label>
-								</dt>
-								<dd>
-									<input type="text" name="answer" value="<%= question.answer %>" />
-								</dd>
-							</dl>
-							<input type="hidden" name="question_id" value="<%= question._id %>" />
-							<input type="submit" value="Save changes" />
-						</form>
-						<button class="delete-question">Delete Question</button>	
-					</article>
+					<form action="/admin/round/edit">
+						<dl>
+							<dt>
+								<label>Question:</label>
+							</dt>
+							<dd>
+								<input type="text" name="question" value="<%= question.questionText %>" />
+							</dd>
+							<dt>
+								<label>Answer:</label>
+							</dt>
+							<dd>
+								<input type="text" name="answer" value="<%= question.answer %>" />
+							</dd>
+						</dl>
+						<input type="hidden" name="question_id" value="<%= question._id %>" />
+						<input type="submit" value="Save question" />
+						<button class="cta delete">Delete</button>
+					</form>	
 				</li>
 		<% } %>
 		<% if(!withoutWrapper) { %>

@@ -11,12 +11,12 @@
 /* Fonts */
 /* Grid */
 /* Mix-ins & Functions */
-ul.tabs:after, ul.list li:after, main[role=main]:after, ol#teams li:after {
+ul.tabs:after, ul.list.rounds li:after, main[role=main]:after, ol#teams li:after {
   clear: both;
   content: '';
   display: block;
 }
-html.ie7 ul.tabs, html.ie7 ul.list li, ul.list html.ie7 li, html.ie7 main[role=main], html.ie7 ol#teams li, ol#teams html.ie7 li {
+html.ie7 ul.tabs, html.ie7 ul.list.rounds li, ul.list.rounds html.ie7 li, html.ie7 main[role=main], html.ie7 ol#teams li, ol#teams html.ie7 li {
   zoom: 1;
 }
 
@@ -25,24 +25,24 @@ html, body {
 }
 
 body {
-  background: #f8cb28;
+  background: #f4b400;
   color: #2a2a2a;
   font: 14px/150% "Open Sans", sans-serif;
 }
 
-h1, h2, ul.list li span.heading, ol#teams li:before, dl.question dt, h2, ul.list li span.heading, ol#teams li:before, h3, h4, h5, h6, p, ul, ol {
+h1, h2, ol#teams li:before, h2, ol#teams li:before, h3, h4, h5, h6, p, ul, ol {
   margin: 15px 0;
 }
 
-h1, h2, ul.list li span.heading, ol#teams li:before, dl.question dt {
+h1, h2, ol#teams li:before {
   font-size: 28px;
   font-weight: 600;
   line-height: 100%;
   text-transform: uppercase;
 }
 
-h2, ul.list li span.heading, ol#teams li:before {
-  font-size: 28px;
+h2, ol#teams li:before {
+  font-size: 16.0px;
 }
 
 ul, ol {
@@ -59,6 +59,38 @@ a {
   width: 90.625%;
 }
 
+.cta, form input[type=submit] {
+  -webkit-appearance: none;
+  background: white;
+  border: 2px solid #d9d9d9;
+  border-width: 0 0 2px;
+  border-radius: 0;
+  color: #2a2a2a;
+  cursor: pointer;
+  font: 14px/100% "Open Sans", sans-serif;
+  margin-top: 15px;
+  padding: 15px;
+  text-decoration: none;
+  -webkit-transition: all 0.25s ease-in;
+  -moz-transition: all 0.25s ease-in;
+  -o-transition: all 0.25s ease-in;
+  transition: all 0.25s ease-in;
+}
+.cta:hover, form input[type=submit]:hover {
+  background: #2a2a2a;
+  color: white;
+}
+.cta.add:before, form input.add[type=submit]:before {
+  content: '+ ';
+}
+.cta.delete, form input.delete[type=submit] {
+  background: #e90000;
+}
+.cta.delete:hover, form input.delete[type=submit]:hover {
+  background: #2a2a2a;
+  color: #e90000;
+}
+
 ul.tabs {
   list-style: none;
   margin: 0;
@@ -71,15 +103,20 @@ ul.tabs li a {
   background: #2a2a2a;
   color: white;
   display: block;
-  font-size: 16px;
-  line-height: 16px;
-  padding: 15px 18.75%;
+  font-size: 16.0px;
+  line-height: 16.0px;
+  padding: 15px 6.38298%;
   text-decoration: none;
   text-transform: uppercase;
 }
 ul.tabs li a.active {
   background: #f2f2f2;
   color: #2a2a2a;
+}
+@media only screen and (max-width: 420px) {
+  ul.tabs li a {
+    padding: 15px 18.75%;
+  }
 }
 ul.tabs.two-col li {
   width: 50%;
@@ -93,17 +130,57 @@ ul.tabs + .tabbed-content {
   border-bottom: 2px solid #d9d9d9;
   display: none;
   overflow: hidden;
-  margin-bottom: 10px;
-  padding: 9.375%;
+  margin: 0 0 10px;
+  padding: 3.19149%;
+}
+.tabbed-content form {
+  background: transparent;
+  border-bottom: 0;
+  margin: 0;
+  padding: 0;
+}
+@media only screen and (max-width: 420px) {
+  .tabbed-content {
+    padding: 9.375%;
+  }
 }
 
+p.msg-success,
+p.msg-error {
+  background: #4cce13;
+  color: white;
+  padding: 3.19149%;
+}
+@media only screen and (max-width: 420px) {
+  p.msg-success,
+  p.msg-error {
+    padding: 9.375%;
+  }
+}
+
+p.msg-error {
+  background: #e90000;
+}
+
+form {
+  background: #f2f2f2;
+  border-bottom: 2px solid #d9d9d9;
+  margin: 15px 0;
+  padding: 3.19149%;
+}
+@media only screen and (max-width: 420px) {
+  form {
+    padding: 9.375%;
+  }
+}
 form dl dt {
   margin-bottom: 15px;
 }
 form dl dd {
   margin-bottom: 15px;
 }
-form dl dd input {
+form dl dd input[type=text],
+form dl dd input[type=password] {
   -webkit-appearance: none;
   border: 2px solid #d9d9d9;
   border-width: 2px 0 0;
@@ -113,152 +190,45 @@ form dl dd input {
   padding: 0 15px;
   width: 100%;
 }
-form dl dd input:focus {
+form dl dd input[type=text]:focus,
+form dl dd input[type=password]:focus {
   border-width: 2px 1px 1px;
   outline: none;
 }
-form input[type=submit] {
-  -webkit-appearance: none;
-  background: white;
-  border: 2px solid #d9d9d9;
-  border-width: 0 0 2px;
-  border-radius: 0;
-  cursor: pointer;
-  font: 14px/100% "Open Sans", sans-serif;
-  margin-top: 15px;
-  padding: 15px;
+form dl dd label {
+  margin-right: 15px;
 }
-
-p.msg-success,
-p.msg-error {
-  background: #4cce13;
-  color: white;
-  padding: 15px 9.375%;
+form + h2, ol#teams form + li:before {
+  float: left;
+  padding: 13px 0;
 }
-
-p.msg-error {
-  background: #e90000;
+form + h2 + .cta, ol#teams form + li:before + .cta, form form + h2 + input[type=submit], ol#teams form form + li:before + input[type=submit], form ol#teams form + li:before + input[type=submit] {
+  float: right;
 }
-
-.cta {
-  background: #f8cb28;
-  border: 0;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  -ms-border-radius: 2px;
-  -o-border-radius: 2px;
-  border-radius: 2px;
-  -webkit-box-shadow: 4px 5px 0 rgba(16, 16, 16, 0.4);
-  -moz-box-shadow: 4px 5px 0 rgba(16, 16, 16, 0.4);
-  box-shadow: 4px 5px 0 rgba(16, 16, 16, 0.4);
-  color: #2a2a2a;
-  cursor: pointer;
-  display: inline-block;
-  font: 14px/150% Arial, sans-serif;
-  padding: 7.5px;
-  text-decoration: none;
-  text-transform: uppercase;
-  -webkit-transition: all 0.2s ease-in;
-  -moz-transition: all 0.2s ease-in;
-  -o-transition: all 0.2s ease-in;
-  transition: all 0.2s ease-in;
-}
-.cta:hover {
-  background-color: #e6b507;
-}
-.cta + .cta {
-  margin-left: 15px;
-}
-
-button.cta {
-  margin-top: 15px;
-}
-@media only screen and (max-width: 400px) {
-  button.cta {
-    display: block;
-    margin: 15px 0 !important;
-    width: 100%;
-  }
+form + h2 + .cta + p, ol#teams form + li:before + .cta + p, form form + h2 + input[type=submit] + p, ol#teams form form + li:before + input[type=submit] + p, form ol#teams form + li:before + input[type=submit] + p {
+  clear: both;
 }
 
 ul.list {
   clear: both;
   list-style: none;
-  margin: 0;
+  margin-left: 0;
 }
-ul.list li {
-  border-bottom: 1px solid #101010;
-  border-top: 1px solid rgba(255, 255, 255, 0.3);
+ul.list.rounds li {
+  padding-left: 75px;
+}
+ul.list.rounds li > form {
+  margin-left: -75px;
+}
+ul.list.rounds li > form + h3 {
+  float: left;
   padding: 15px 0;
 }
-ul.list li:first-child {
-  border-top: 0;
-}
-ul.list li span.heading {
-  line-height: 31px;
-}
-ul.list li div.actions {
+ul.list.rounds li > form + h3 + .cta, ul.list.rounds form li > form + h3 + input[type=submit], form ul.list.rounds li > form + h3 + input[type=submit] {
   float: right;
-  font-size: 0;
 }
-ul.list li div.actions a.cta {
-  font-size: 12px;
-  margin-left: 7.5px;
-  padding: 3.75px 7.5px;
-}
-
-p.waiting {
-  background: url("../images/icon-waiting.png") no-repeat center top;
-  padding-top: 270px;
-}
-
-dl.question {
-  margin: 0 auto;
-  max-width: 80%;
-}
-@media only screen and (max-width: 400px) {
-  dl.question {
-    max-width: intrinsic;
-  }
-}
-@media only screen and (max-width: 400px) {
-  dl.question dt {
-    font-size: 18px;
-  }
-}
-dl.question img {
-  background: white;
-  -webkit-box-shadow: 4px 5px 0 rgba(16, 16, 16, 0.4);
-  -moz-box-shadow: 4px 5px 0 rgba(16, 16, 16, 0.4);
-  box-shadow: 4px 5px 0 rgba(16, 16, 16, 0.4);
-  display: inline-block;
-  max-height: 300px;
-  max-width: 100%;
-  padding: 15px;
-}
-dl.question dd.answer {
-  background: #4cce13;
-  display: none;
-  font-size: 18px;
-  padding: 15px 0;
-  text-align: center;
-}
-dl.question dd.form form,
-dl.question dd.form p.msg-success {
-  margin: 0 auto;
-  max-width: 400px;
-  padding-top: 15px;
-  width: 100%;
-}
-
-p.correct {
-  background: url("../images/icon-correct.png") no-repeat center top;
-  padding-top: 106px;
-}
-
-p.incorrect {
-  background: url("../images/icon-wrong.png") no-repeat center top;
-  padding-top: 120px;
+ul.list.rounds li > form + h3 + .cta + p, ul.list.rounds form li > form + h3 + input[type=submit] + p, form ul.list.rounds li > form + h3 + input[type=submit] + p {
+  clear: both;
 }
 
 header[role=banner] {
@@ -269,7 +239,7 @@ header[role=banner] {
 header[role=banner] .container {
   position: relative;
 }
-header[role=banner] h1, header[role=banner] h2, header[role=banner] ul.list li span.heading, ul.list li header[role=banner] span.heading, header[role=banner] ol#teams li:before, ol#teams header[role=banner] li:before, header[role=banner] dl.question dt, dl.question header[role=banner] dt {
+header[role=banner] h1, header[role=banner] h2, header[role=banner] ol#teams li:before, ol#teams header[role=banner] li:before {
   background: url("../images/logo.png") no-repeat left center;
   background-size: auto 28px;
   color: white;
@@ -327,7 +297,7 @@ aside[role=complementary] {
   -o-transition: width 1s ease-in;
   transition: width 1s ease-in;
 }
-aside[role=complementary] h1, aside[role=complementary] h2, aside[role=complementary] ul.list li span.heading, ul.list li aside[role=complementary] span.heading, aside[role=complementary] ol#teams li:before, ol#teams aside[role=complementary] li:before, aside[role=complementary] dl.question dt, dl.question aside[role=complementary] dt {
+aside[role=complementary] h1, aside[role=complementary] h2, aside[role=complementary] ol#teams li:before, ol#teams aside[role=complementary] li:before {
   font-size: 28px;
   padding: 0 15px;
 }
@@ -354,7 +324,7 @@ ol#teams li span.score {
   float: right;
 }
 ol#teams li:before {
-  background: #f8cb28;
+  background: #f4b400;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
