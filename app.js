@@ -53,16 +53,20 @@ app.get('/admin/quiz/host/:id', pass.ensureAuthenticated, pass.ensureAdmin(), ad
 app.get('/admin/quiz/console/:id', pass.ensureAuthenticated, pass.ensureAdmin(), admin.console);
 app.post('/admin/quiz/:quizId/activate/:activeFlag', admin.toggleQuizActive);
 
-app.post('/admin/quiz/:quizId/rounds', admin.addRound);
+app.get('/admin/quiz/:quizId/round/add', pass.ensureAuthenticated, pass.ensureAdmin(), admin.addRound);
+app.get('/admin/quiz/edit/:quizId/round/edit/:id', pass.ensureAuthenticated, pass.ensureAdmin(), admin.editRound);
+app.post('/admin/quiz/edit/:quizId/round/edit/:id', pass.ensureAuthenticated, pass.ensureAdmin(), admin.editRoundSubmit);
+app.get('/admin/quiz/edit/:quizId/round/delete/:id', pass.ensureAuthenticated, pass.ensureAdmin(), admin.deleteRound);
+
 app.get('/admin/quiz/:quizId/rounds', admin.getRounds);
 app.get('/admin/quiz/:quizId/rounds/next/:displayOrder', admin.getNextRound);
-app.put('/admin/quiz/:quizId/rounds/:id', admin.editRound);
-app.delete('/admin/quiz/:quizId/rounds/:id', admin.deleteRound);
 
-app.post('/admin/quiz/:quizId/rounds/:roundId/questions', admin.addQuestion);
+app.get('/admin/quiz/:quizId/round/edit/:roundId/question/add', pass.ensureAuthenticated, pass.ensureAdmin(), admin.addQuestion);
+app.get('/admin/quiz/edit/:quizId/round/edit/:roundId/question/edit/:id', pass.ensureAuthenticated, pass.ensureAdmin(), admin.editQuestion);
+app.post('/admin/quiz/edit/:quizId/round/edit/:roundId/question/edit/:id', pass.ensureAuthenticated, pass.ensureAdmin(), admin.editQuestionSubmit);
+app.get('/admin/quiz/edit/:quizId/round/edit/:roundId/question/delete/:id', pass.ensureAuthenticated, pass.ensureAdmin(), admin.deleteQuestion);
+
 app.get('/admin/quiz/:quizId/rounds/:roundId/questions/next/:displayOrder', admin.getNextQuestion);
-app.put('/admin/quiz/:quizId/rounds/:roundId/questions/:id', admin.editQuestion);
-app.delete('/admin/quiz/:quizId/rounds/:roundId/questions/:id', admin.deleteQuestion);
 
 var server = require('http').createServer(app);
 

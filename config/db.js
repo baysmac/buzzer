@@ -47,12 +47,14 @@ exports.User = User;
 /* Questions */
 
 var questionSchema = mongoose.Schema({
-	displayOrder: { type: Number, default: 0 }, 
+	type: { type: String, default: 'text' }, 
 	questionText: { type: String, default: 'Question' }, 
+	image: { type: String, default: '' }, 
 	answer: { type: String, default: 'Answer' }, 
+	answerSupportingImage: { type: String, default: '' }, 
 	points: { type: Number, default: 1 }, 
 	timeInSeconds: { type: Number, default: 10 }, 
-	type: { type: String, default: 'text' }
+	displayOrder: { type: Number, default: 0 }
 });
 
 var Question = mongoose.model('Question', questionSchema);

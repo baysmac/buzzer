@@ -36,11 +36,21 @@ main[role=main] {
 	@extend							%clearfix;
 }
 
-
-
 a#add-quiz {
 	float: 							right;
+	margin-bottom: 					$gridUnit*2;
 }
+
+
+
+
+
+
+
+
+
+
+
 
 div#quiz-presentation {
 	@include						flexbox;

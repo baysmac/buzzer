@@ -1,0 +1,43 @@
+<% layout('../layout-main') -%>
+<h1>Edit round</h1>
+<form action="/admin/quiz/edit/<%= quiz.id %>/round/edit/<%= round.id %>" method="post" enctype="multipart/form-data">
+	<dl>
+		<dt>
+			<label>Title:</label>
+		</dt>
+		<dd>
+			<input type="text" name="title" value="<%= round.title %>" />
+		</dd>
+		<dt>
+			<label>Display Order:</label>
+		</dt>
+		<dd>
+			<input type="text" name="display-order" value="<%= round.displayOrder %>" />
+		</dd>
+	</dl>
+	<input type="submit" value="Save round" />
+</form>
+<h2>Questions</h2>
+<a class="cta add" href="/admin/quiz/<%= quiz.id %>/round/edit/<%= round.id %>/question/add">Add question</a>
+<% if (successMessage != '') { %>
+	<p class="msg-success"><%= successMessage %></p>
+<% } %>
+<% if(typeof round.questions !== 'undefined') { %>
+	<% if(round.questions.length > 0) { %>
+		<ul class="list rounds">
+			<% for(var i=0; i < round.questions.length; i++) {
+				var question = round.questions[i]; %>
+					<li>
+						<span class="heading"><%= question.questionText %></span>
+						<input type="hidden" name="display-order" value="<%= question.displayOrder %>" />
+						<div class="actions">
+							<a href="/admin/quiz/edit/<%= quiz.id %>/round/edit/<%= round.id %>/question/edit/<%= question.id %>" class="cta">Edit</a>
+							<a href="/admin/quiz/edit/<%= quiz.id %>/round/edit/<%= round.id %>/question/delete/<%= question.id %>" class="cta delete">Delete</a>
+						</div>
+					</li>
+			<% } %>
+		</ul>
+	<% } else { %>
+		<p class="no-results">Sorry, no questions were found.</p>
+	<% } %>
+<% } %>

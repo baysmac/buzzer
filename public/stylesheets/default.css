@@ -11,12 +11,12 @@
 /* Fonts */
 /* Grid */
 /* Mix-ins & Functions */
-ul.tabs:after, ul.list.rounds li:after, main[role=main]:after, ol#teams li:after {
+ul.tabs:after, ul.list li:after, main[role=main]:after, ol#teams li:after {
   clear: both;
   content: '';
   display: block;
 }
-html.ie7 ul.tabs, html.ie7 ul.list.rounds li, ul.list.rounds html.ie7 li, html.ie7 main[role=main], html.ie7 ol#teams li, ol#teams html.ie7 li {
+html.ie7 ul.tabs, html.ie7 ul.list li, ul.list html.ie7 li, html.ie7 main[role=main], html.ie7 ol#teams li, ol#teams html.ie7 li {
   zoom: 1;
 }
 
@@ -67,6 +67,7 @@ a {
   border-radius: 0;
   color: #2a2a2a;
   cursor: pointer;
+  display: inline-block;
   font: 14px/100% "Open Sans", sans-serif;
   margin-top: 15px;
   padding: 15px;
@@ -148,6 +149,7 @@ ul.tabs + .tabbed-content {
 p.msg-success,
 p.msg-error {
   background: #4cce13;
+  clear: both;
   color: white;
   padding: 3.19149%;
 }
@@ -175,6 +177,12 @@ form {
 }
 form dl dt {
   margin-bottom: 15px;
+}
+form dl dt.hidden {
+  display: none;
+}
+form dl dt.hidden + dd {
+  display: none;
 }
 form dl dd {
   margin-bottom: 15px;
@@ -212,23 +220,24 @@ form + h2 + .cta + p, ol#teams form + li:before + .cta + p, form form + h2 + inp
 ul.list {
   clear: both;
   list-style: none;
-  margin-left: 0;
+  margin: 0;
 }
-ul.list.rounds li {
-  padding-left: 75px;
+ul.list li {
+  background: #f2f2f2;
+  border-bottom: 2px solid #d9d9d9;
+  margin: 30px 0;
+  padding: 15px;
 }
-ul.list.rounds li > form {
-  margin-left: -75px;
-}
-ul.list.rounds li > form + h3 {
+ul.list li span.heading {
+  display: block;
   float: left;
-  padding: 15px 0;
+  padding: 15px;
 }
-ul.list.rounds li > form + h3 + .cta, ul.list.rounds form li > form + h3 + input[type=submit], form ul.list.rounds li > form + h3 + input[type=submit] {
+ul.list li div.actions {
   float: right;
 }
-ul.list.rounds li > form + h3 + .cta + p, ul.list.rounds form li > form + h3 + input[type=submit] + p, form ul.list.rounds li > form + h3 + input[type=submit] + p {
-  clear: both;
+ul.list li div.actions .cta, ul.list li div.actions form input[type=submit], form ul.list li div.actions input[type=submit] {
+  margin-top: 0;
 }
 
 header[role=banner] {
@@ -270,6 +279,7 @@ main[role=main] {
 
 a#add-quiz {
   float: right;
+  margin-bottom: 30px;
 }
 
 div#quiz-presentation {

@@ -6,6 +6,7 @@
 	border-radius: 					0;
 	color:							$greyBase;
 	cursor: 						pointer;
+	display: 						inline-block;
 	font:							#{$baseFontSize}/100% $openSans;
 	margin-top:						$gridUnit;
 	padding:						$gridUnit;
@@ -85,6 +86,7 @@ ul.tabs {
 p.msg-success, 
 p.msg-error {
 	background:						$greenBase;
+	clear: 							both;
 	color: 							$whiteBase;
 	padding:						calc-percent($gridUnit*2, 940px);
 	@include respond-to(420px) {
@@ -107,6 +109,12 @@ form {
 	dl {
 		dt {
 			margin-bottom: 			$gridUnit;
+			&.hidden {
+				display: 			none;
+				+ dd {
+					display: 		none;
+				}
+			}
 		}
 		dd {
 			margin-bottom: 			$gridUnit;
@@ -148,23 +156,22 @@ form {
 ul.list {
 	clear: 							both;
 	list-style: 					none;
-	margin-left: 					0;
-	&.rounds {
-		li {
-			padding-left:			$gridUnit*5;
-			@extend					%clearfix;
-			> form {
-				margin-left:		$gridUnit*-5;
-				+ h3 {
-					float: 			left;
-					padding:		$gridUnit 0;
-					+ .cta {
-						float:		right;
-						+ p {
-							clear: 	both;
-						}
-					}
-				}
+	margin:							0;
+	li {
+		@extend 					%clearfix;
+		background:					$whiteOff;
+		border-bottom: 				2px solid $whiteDark;
+		margin:						$gridUnit*2 0;
+		padding: 					$gridUnit;
+		span.heading {
+			display: 				block;
+			float: 					left;
+			padding:				$gridUnit;
+		}
+		div.actions {
+			float: 					right;
+			.cta {
+				margin-top:			0;
 			}
 		}
 	}

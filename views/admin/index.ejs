@@ -1,6 +1,9 @@
 <% layout('../layout-main') -%>
 <h1>Quizzes</h1>
 <a href="/admin/quiz/add" class="cta" id="add-quiz">Add quiz</a>
+<% if (successMessage != '') { %>
+	<p class="msg-success"><%= successMessage %></p>
+<% } %>
 <% if(quizzes.length > 0) { %>
 	<ul class="list">
 		<% for(var i=0; i< quizzes.length; i++) {

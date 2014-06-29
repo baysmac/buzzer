@@ -1,9 +1,6 @@
 <% layout('../layout-main') -%>
 <h1>Edit quiz</h1>
-<% if (successMessage != '') { %>
-	<p class="msg-success"><%= successMessage %></p>
-<% } %>
-<form action="/admin/quiz/edit/<%= quiz.id %>" method="post">
+<form action="/admin/quiz/edit/<%= quiz.id %>" method="post" id="edit-quiz">
 	<dl>
 		<dt>
 			<label>Title:</label>
@@ -13,9 +10,28 @@
 		</dd>
 	</dl>
 	<input type="submit" value="Save quiz" />
-	<input type="hidden" name="id" id="quiz-id" value="<%= quiz.id %>" />
 </form>
 <h2>Rounds</h2>
-<button id="add-round" class="cta add">Add round</button>
-<%- include ../partials/rounds.ejs %>
-<script src="/js/quiz-edit.js"></script>
+<a class="cta add" href="/admin/quiz/<%= quiz.id %>/round/add">Add round</a>
+<% if (successMessage != '') { %>
+	<p class="msg-success"><%= successMessage %></p>
+<% } %>
+<% if(typeof quiz.rounds !== 'undefined') { %>
+	<% if(quiz.rounds.length > 0) { %>
+		<ul class="list rounds">
+			<% for(var i=0; i < quiz.rounds.length; i++) {
+				var round = quiz.rounds[i]; %>
+					<li>
+						<span class="heading"><%= round.title %></span>
+						<input type="hidden" name="display-order" value="<%= round.displayOrder %>" />
+						<div class="actions">
+							<a href="/admin/quiz/edit/<%= quiz.id %>/round/edit/<%= round.id %>" class="cta">Edit</a>
+							<a href="/admin/quiz/edit/<%= quiz.id %>/round/delete/<%= round.id %>" class="cta delete">Delete</a>
+						</div>
+					</li>
+			<% } %>
+		</ul>
+	<% } else { %>
+		<p class="no-results">Sorry, no rounds were found.</p>
+	<% } %>
+<% } %>

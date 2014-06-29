@@ -1,0 +1,90 @@
+<% layout('../layout-main') -%>
+<% 
+	var imageStateClass = 'hidden', 
+		textStateClass = '';
+		
+	if(question.type == 'image') {
+		imageStateClass = '';
+		textStateClass = 'hidden';
+	}
+%>
+<h1>Edit question</h1>
+<form action="/admin/quiz/edit/<%= quiz.id %>/round/edit/<%= round.id %>/question/edit/<%= question.id %>" method="post" enctype="multipart/form-data">
+	<dl>
+		<dt>
+			<label>Type:</label>
+		</dt>
+		<dd>
+			<label>
+				<% if(question.type == 'text') { %>
+					<input type="radio" checked="checked" name="type" value="text" /> 
+				<% } else { %>
+					<input type="radio" name="type" value="text" /> 					
+				<% } %>
+				Text
+			</label>
+			<label>
+				<% if(question.type == 'image') { %>
+					<input type="radio" checked="checked" name="type" value="image" /> 
+				<% } else { %>
+					<input type="radio" name="type" value="image" /> 					
+				<% } %>
+				Image
+			</label>
+		</dd>
+		<dt class="question <%= textStateClass %>">
+			<label>Question:</label>
+		</dt>
+		<dd>
+			<input type="text" name="question" value="<%= question.questionText %>" />
+		</dd>
+		<dt class="image <%= imageStateClass %>">
+			<label>Image:</label>
+		</dt>
+		<dd>
+			<% if(question.image) { %>
+				<img src="<%= question.image %>" />
+			<% } %>
+			<div class="upload">
+				<input type="file" name="image" />
+			</div>
+		</dd>
+		<dt>
+			<label>Answer:</label>
+		</dt>
+		<dd>
+			<input type="text" name="answer" value="<%= question.answer %>" required="required" />
+		</dd>
+		<dt class="answer-image  <%= imageStateClass %>">
+			<label>Supporting answer image:</label>
+		</dt>
+		<dd>
+			<% if(question.answerSupportingImage) { %>
+				<img src="<%= question.answerSupportingImage %>" />
+			<% } %>
+			<div class="upload">
+				<input type="file" name="answerSupportingImage" />
+			</div>
+		</dd>
+		<dt>
+			<label>Time allowance (in seconds):</label>
+		</dt>
+		<dd>
+			<input type="text" name="timeInSeconds" value="<%= question.timeInSeconds %>" required="required" />
+		</dd>
+		<dt>
+			<label>Points:</label>
+		</dt>
+		<dd>
+			<input type="text" name="points" value="<%= question.points %>" required="required" />
+		</dd>
+		<dt>
+			<label>Display Order:</label>
+		</dt>
+		<dd>
+			<input type="text" name="displayOrder" value="<%= question.displayOrder %>" />
+		</dd>
+	</dl>
+	<input type="submit" value="Save question" />
+</form>
+<script src="/js/quiz-edit.js"></script>
