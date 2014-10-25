@@ -10,7 +10,8 @@ $(function() {
 });
 
 var playQuiz = {
-	$container: $('div#content'), 
+	$body: $('body'), 
+	$container: $('main[role=main]'), 
 	currentRound: null, 
 	currentQuestion: null, 
 	init: function() {
@@ -103,11 +104,13 @@ var playQuiz = {
 	displayRound: function(round) {
 		var self = this, 
 		html = new EJS({url: '/partials/round.ejs'}).render({ round: round });
+		self.$body.removeClass('incorrect correct');
 		self.$container.html(html);
 	}, 
 	displayQuestion: function(question) {
 		var self = this,
 		html = new EJS({url: '/partials/question.ejs'}).render({ question: question, withInput: true });
+		self.$body.removeClass('incorrect correct');
 		self.$container.html(html);	
 		scoreSheet.push(question);	
 	}, 
@@ -134,25 +137,27 @@ var playQuiz = {
 		matches = results.map(function(el) { return el.string; });
 		if(currentQuestion.submittedAnswer) {
 			if(matches.length == 1) {
+				self.$body.removeClass('incorrect').addClass('correct');
 				currentQuestion.correct = true;
-				self.$container.html('<p class="correct">Correct! We\'ve added those valuable points to your team\'s score!</p>');
+				self.$container.html('<h1>Question ' + (currentQuestion.displayOrder+1) + '</h1><p class="highlight">Horray!<br/>Correct answer!</p>');
 			}
 			else {
-				console.log('wrong');
+				self.$body.addClass('incorrect').removeClass('correct');
 				currentQuestion.correct = false;
-				self.$container.html('<p class="incorrect">D\'oh! Looks like you got that wrong wrong. Maybe next time.</p>');
+				self.$container.html('<h1>Question ' + (currentQuestion.displayOrder+1) + '</h1><p class="highlight">Oops!<br/>Sorry, wrong answer!</p>');
 			}
 		}
 		else {
-			currentQuestion.correct = false;
-				self.$container.html('<p class="incorrect">D\'oh! Looks like you got that wrong wrong. Maybe next time.</p>');		
+			self.$body.addClass('incorrect').removeClass('correct');
+			currentQuestion.correct = false;				
+			self.$container.html('<h1>Question ' + (currentQuestion.displayOrder+1) + '</h1><p class="highlight">Oops!<br/>Sorry, wrong answer!</p>');
 		}
 	}, 
 	displayFinalScore: function(teams) {
 		var self = this;
 		for(var i = 0; i < teams.length; i++) {
 			if(teams[i].name == teamName) {				
-				self.$container.html('<h1>You came ' + positionSuffix(teams[i].position) + '!</h1><p>In total you scored ' + teams[i].score + ' points. Awesome.</p>');
+				self.$container.html('<h1>You came ' + positionSuffix(teams[i].position) + '!</h1><p class="highlight">In total you scored ' + teams[i].score + ' points. Awesome.</p>');
 			}
 		}
 	}

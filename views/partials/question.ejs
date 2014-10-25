@@ -1,26 +1,29 @@
 <% if(typeof withAnswer == 'undefined') { var withAnswer = false; } %>
 <% if(typeof withInput == 'undefined') { var withInput = false; } %>
+<% var questionNumber = question.displayOrder+1 %>
+<h1>Question <%= questionNumber %></h1>
 <dl class="question">
 	<dt>
 		<%if(question.type == "image") { %>
-			<img src="<%= question.questionText %>" alt="Image" />
+			<img src="<%= question.image %>" alt="Image" />
 		<% } else { %>
 			<%= question.questionText %>
 		<% } %>
 	</dt>
-<% if(withAnswer) { %>
-	<dd class="answer">
-		<%= question.answer %>
-		<%if(question.type == "image" && question.answerImage) { %>
-			<br /><img src="<%= question.answerImage %>" alt="Image" />
-		<% } %>		
-<% } %>
-<% if(withInput) { %>
-	<dd class="form">
-	<form>
-		<input type="text" placeholder"Your answer" required spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" />
-		<input type="submit" value="Submit" />
-	</form>
-<% } %>
-</dd>
+	<% if(withAnswer) { %>
+		<dd class="answer">
+			<%= question.answer %>
+			<%if(question.type == "image" && question.answerImage) { %>
+				<br /><img src="<%= question.answerImage %>" alt="Image" />
+			<% } %>	
+		</dd>	
+	<% } %>
+	<% if(withInput) { %>
+		<dd class="form">
+			<form>
+				<input type="text" placeholder"Your answer" required spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" />
+				<input type="submit" value="Submit" />
+			</form>
+		</dd>
+	<% } %>
 </dl>

@@ -9,8 +9,11 @@ header[role=banner] {
 		background:					url('../images/logo.png') no-repeat left center;
 		background-size: 			auto 28px;
 		color: 						$whiteBase;
+		font-weight: 				600;
 		margin:						0;
 		padding:					$gridUnit 0 $gridUnit ($gridUnit+20);
+		text-align: 				left;
+		text-transform: 			uppercase;
 	}
 	button.toggle {
 		background:					url('../images/menu.png') no-repeat;
@@ -33,6 +36,7 @@ header[role=banner] {
 main[role=main] {
 	overflow: 						hidden;
 	padding:						$gridUnit 7.8125%;
+	text-align: 					center;
 	@extend							%clearfix;
 }
 

@@ -5,7 +5,14 @@ html, body {
 body {
 	background:						$yellowBase;
 	color:							$greyBase;
-	font:							#{$baseFontSize}/150% $openSans;
+	font:							400 #{$baseFontSize}/150% $openSans;
+	@include						transition(background-color .25s ease-in);
+	&.incorrect {
+		background-color: 			$redBase;
+	}
+	&.correct {
+		background-color:			$greenBase;
+	}
 }
 
 h1, h2, h3, h4, h5, h6, p, ul, ol {
@@ -13,10 +20,9 @@ h1, h2, h3, h4, h5, h6, p, ul, ol {
 }
 
 h1 {
+	color: 							$whiteBase;
 	font-size: 						$baseFontSize*2;
-	font-weight: 					600;
 	line-height: 					100%;
-	text-transform: 				uppercase;
 }
 
 h2 {

@@ -98,6 +98,12 @@ p.msg-error {
 	background:						$redBase;
 }
 
+p.highlight {
+	color: 							$whiteBase;	
+	font-size: 						$baseFontSize*1.75;	
+	line-height: 					130%;
+}
+
 form {
 	background: 					$whiteOff;
 	border-bottom: 					2px solid $whiteDark;
@@ -118,25 +124,25 @@ form {
 		}
 		dd {
 			margin-bottom: 			$gridUnit;
-			input[type=text], 
-			input[type=password] {
-				-webkit-appearance: none;
-				border: 			2px solid $whiteDark;
-				border-width: 		2px 0 0;
-				border-radius:		0;
-				font:				16px/150% $openSans;
-				height: 			46px;
-				padding: 			0 $gridUnit;
-				width: 				100%;
-				&:focus {
-					border-width:  	2px 1px 1px;
-					outline: 		none;
-				}
-			}
-			label {
-				margin-right: 		$gridUnit;
-			}
 		}
+	}
+	input[type=text], 
+	input[type=password] {
+		-webkit-appearance: 		none;
+		border: 					2px solid $whiteDark;
+		border-width: 				2px 0 0;
+		border-radius:				0;
+		font:						16px/150% $openSans;
+		height: 					46px;
+		padding: 					0 $gridUnit;
+		width: 						100%;
+		&:focus {
+			border-width:  			2px 1px 1px;
+			outline: 				none;
+		}
+	}
+	label {
+		margin-right: 				$gridUnit;
 	}
 	input[type=submit] {
 		@extend						.cta;
@@ -173,6 +179,25 @@ ul.list {
 			.cta {
 				margin-top:			0;
 			}
+		}
+	}
+}
+
+dl.question {
+	dt {
+		font-size: 					$baseFontSize*1.75;
+		line-height: 				130%;
+		img {
+			display: 				block;
+			margin-top:				$gridUnit;
+			max-width: 				100%;
+		}
+	}
+	dd {
+		form {
+			background: 			none;
+			border-bottom: 			0;
+			margin: 				0;
 		}
 	}
 }
