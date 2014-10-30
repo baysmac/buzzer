@@ -93,14 +93,16 @@ var playQuiz = {
 		
 		self.$container.on('submit', 'form#double-points', function(e) {
 			var $this = $(this), 
-				chosenRound = $this.find('input[type=radio]:checked').val();
+				chosenRound = $this.find('input[type=radio]:checked').val(), 
+				chosenRoundTitle = $.trim($this.find('input[type=radio]:checked').next('label').html());
 				
 			pubnub.publish({
 				channel: quizId, 
 				message: {
 					type: 6, 
 					teamName: teamName, 
-					doublePointsRoundId: chosenRound
+					doublePointsRoundId: chosenRound, 
+					doublePointsRoundTitle: chosenRoundTitle
 				}
 			});
 			

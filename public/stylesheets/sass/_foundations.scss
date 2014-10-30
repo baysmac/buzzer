@@ -24,6 +24,9 @@ h1 {
 	font-size: 						$baseFontSize*2;
 	font-weight:					normal;
 	line-height: 					100%;
+	+ ul.tabs {
+		margin-top:					$gridUnit*2;
+	}
 }
 
 h2 {

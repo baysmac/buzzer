@@ -1,5 +1,20 @@
 <% layout('../layout-main') -%>
-<ul id="log" class="list"></ul>
+<h1>Host Console</h1>
+<ul class="tabs three-col">
+	<li><a href="#log" class="active">Log</a></li>
+	<li><a href="#raw-log">Raw Log</a></li>
+	<li><a href="#teams">Leaderboard</a></li>
+</ul>
+<div class="tabbed-content" id="log">
+	<ol></ol>
+</div>
+<div class="tabbed-content" id="raw-log">
+	<ol></ol>
+</div>
+<div class="tabbed-content" id="teams">
+	<ol></ol>
+</div>
 <input type="hidden" name="id" id="quiz-id" value="<%= quiz.id %>" />
 <script src="http://cdn.pubnub.com/pubnub.min.js"></script>
+<script src="/js/lib/jquery.mixitup.js"></script>
 <script src="/js/console.js"></script>

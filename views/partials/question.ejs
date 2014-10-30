@@ -44,3 +44,6 @@
 		</dd>
 	<% } %>
 </dl>
+<% if(withAnswer) { %>	
+	<p id="timer"><span><%= question.timeInSeconds %></span> seconds remaining<p>
+<% } %>

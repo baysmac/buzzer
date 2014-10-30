@@ -46,6 +46,15 @@ main[role=main] {
 	@extend							%clearfix;
 }
 
+#content {
+	float:							left;
+	width:							70%;
+	+ aside[role=complementary] {
+		float:						right;
+		width:						30%;
+	}
+}
+
 a#add-quiz {
 	float: 							right;
 	margin-bottom: 					$gridUnit*2;
@@ -67,4 +76,76 @@ dt.multiple-choices + dd {
 	ul.list {
 		@include					flex(1, 1, 100%);		
 	}
+}
+
+#raw-log ol {
+	background:						$greyBase;
+	color:							$whiteBase;
+	font:							Consolas, monaco, monospace;
+	height:							100%;
+	list-style: 					none;
+	margin:							0;
+	overflow:						auto;
+	li {
+		padding:					$gridUnit;
+		&:before {
+			content:				'> ';
+		}
+	}
+}
+
+#log ol {
+	height:							100%;
+	list-style: 					none;
+	margin:							0;
+	overflow:						auto;
+	li {
+		margin-bottom:				$gridUnit;
+		&:last-child {
+			margin-bottom:			0;
+		}
+		article {
+			background:				$whiteBase;	
+			border: 				1px solid $whiteDark;	
+			border-width:			1px 1px 2px;	
+			padding:				$gridUnit;
+			header {
+				@extend				%clearfix;
+				border-bottom:		1px solid $whiteDark;
+				margin:				$gridUnit*-1 $gridUnit*-1 $gridUnit;
+				padding:			$gridUnit;
+				h1 {
+					color:			$greyBase;
+					float:			left;
+					font:			400 #{$baseFontSize}/150% $openSans;
+					margin:			0;
+				}
+				time {
+					color:			$greenBase;
+					float:			right;
+				}
+			}
+			dl {
+				@extend				%clearfix;
+				margin-bottom:		($gridUnit/2)*-1;
+				dt {
+					clear:			both;
+					float:			left;
+					font-weight:	bold;
+					margin-bottom:	$gridUnit/2;
+					width:			30.4878049%;
+					&:after {
+						content:	':';
+					}
+				}
+				dd {
+					float:			left;
+					margin-bottom:	$gridUnit/2;
+				}
+			}
+		}
+	}
+}
+
+#teams ol {
 }

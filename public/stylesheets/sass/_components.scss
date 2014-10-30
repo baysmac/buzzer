@@ -60,6 +60,11 @@ ul.tabs {
 			width: 					50%;
 		}
 	}
+	&.three-col {
+		li {
+			width: 					33.333333333%;
+		}
+	}
 	+ .tabbed-content {
 		display: 					block;
 	}
@@ -119,7 +124,7 @@ p.highlight {
 			width:					111px;
 			@include retina {
 				background-image:	url('../images/icon-wrongx2.png');
-				background-size:	50% auto;
+				background-size:	100% auto;
 			}
 		}
 	}	
@@ -137,7 +142,7 @@ p.highlight {
 			width:					115px;
 			@include retina {
 				background-image:	url('../images/icon-correctx2.png');
-				background-size:	50% auto;
+				background-size:	100% auto;
 			}
 		}		
 	}
@@ -184,13 +189,14 @@ form {
 		width: 						100%;
 		@include retina {
 			background-image:		url('../images/icon-lockx2.png');
-			background-size:		50% auto;
+			background-size:		32px auto;
 		}
 		&:focus {
 			border-width:  			2px 1px 1px;
 			outline: 				none;
 		}
 		&[disabled] {
+			-webkit-appearance: 	none;
 			background-position:	right center;
 			color:					$whiteDark;
 		}
@@ -318,7 +324,7 @@ p.waiting {
 		top:						35px;
 		width:						158px;
 	}
-	span {
+	&:after {
 		@include 					repeat-animation(0, 5s, loading, linear);
 		background:					url('../images/icon-waiting.png');
 		content:					'';
@@ -328,5 +334,10 @@ p.waiting {
 		position:					absolute;
 		top:						0;
 		width:						228px;
+		@include retina {
+			background-image:		url('../images/icon-waitingx2.png');
+			background-size:		100% auto;
+		}
+		
 	}
 }

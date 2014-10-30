@@ -12,12 +12,12 @@
 /* Fonts */
 /* Grid */
 /* Mix-ins & Functions */
-ul.tabs:after, ul.list li:after, main[role=main]:after {
+ul.tabs:after, ul.list li:after, main[role=main]:after, #log ol li article header:after, #log ol li article dl:after {
   clear: both;
   content: '';
   display: block;
 }
-html.ie7 ul.tabs, html.ie7 ul.list li, ul.list html.ie7 li, html.ie7 main[role=main] {
+html.ie7 ul.tabs, html.ie7 ul.list li, ul.list html.ie7 li, html.ie7 main[role=main], html.ie7 #log ol li article header, #log ol li article html.ie7 header, html.ie7 #log ol li article dl, #log ol li article html.ie7 dl {
   zoom: 1;
 }
 
@@ -50,6 +50,9 @@ h1, h2 {
   font-size: 28px;
   font-weight: normal;
   line-height: 100%;
+}
+h1 + ul.tabs, h2 + ul.tabs {
+  margin-top: 30px;
 }
 
 h2 {
@@ -138,6 +141,9 @@ ul.tabs li a.active {
 ul.tabs.two-col li {
   width: 50%;
 }
+ul.tabs.three-col li {
+  width: 33.333333333%;
+}
 ul.tabs + .tabbed-content {
   display: block;
 }
@@ -205,7 +211,7 @@ body.incorrect p.highlight:after {
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
   body.incorrect p.highlight:after {
     background-image: url("../images/icon-wrongx2.png");
-    background-size: 50% auto;
+    background-size: 100% auto;
   }
 }
 body.correct p.highlight {
@@ -225,7 +231,7 @@ body.correct p.highlight:after {
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
   body.correct p.highlight:after {
     background-image: url("../images/icon-correctx2.png");
-    background-size: 50% auto;
+    background-size: 100% auto;
   }
 }
 
@@ -277,7 +283,7 @@ form input[type=password] {
   form input[type=text],
   form input[type=password] {
     background-image: url("../images/icon-lockx2.png");
-    background-size: 50% auto;
+    background-size: 32px auto;
   }
 }
 form input[type=text]:focus,
@@ -287,6 +293,7 @@ form input[type=password]:focus {
 }
 form input[type=text][disabled],
 form input[type=password][disabled] {
+  -webkit-appearance: none;
   background-position: right center;
   color: #d9d9d9;
 }
@@ -453,7 +460,7 @@ p.waiting:before {
   top: 35px;
   width: 158px;
 }
-p.waiting span {
+p.waiting:after {
   -webkit-animation-delay: 0;
   -webkit-animation-duration: 5s;
   -webkit-animation-name: loading;
@@ -482,6 +489,12 @@ p.waiting span {
   position: absolute;
   top: 0;
   width: 228px;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  p.waiting:after {
+    background-image: url("../images/icon-waitingx2.png");
+    background-size: 100% auto;
+  }
 }
 
 header[role=banner] {
@@ -533,6 +546,15 @@ main[role=main] {
   text-align: center;
 }
 
+#content {
+  float: left;
+  width: 70%;
+}
+#content + aside[role=complementary] {
+  float: right;
+  width: 30%;
+}
+
 a#add-quiz {
   float: right;
   margin-bottom: 30px;
@@ -576,4 +598,71 @@ dt.multiple-choices + dd ul.list {
   -moz-flex: 1 1 100%;
   -ms-flex: 1 1 100%;
   flex: 1 1 100%;
+}
+
+#raw-log ol {
+  background: #2a2a2a;
+  color: white;
+  font: Consolas, monaco, monospace;
+  height: 100%;
+  list-style: none;
+  margin: 0;
+  overflow: auto;
+}
+#raw-log ol li {
+  padding: 15px;
+}
+#raw-log ol li:before {
+  content: '> ';
+}
+
+#log ol {
+  height: 100%;
+  list-style: none;
+  margin: 0;
+  overflow: auto;
+}
+#log ol li {
+  margin-bottom: 15px;
+}
+#log ol li:last-child {
+  margin-bottom: 0;
+}
+#log ol li article {
+  background: white;
+  border: 1px solid #d9d9d9;
+  border-width: 1px 1px 2px;
+  padding: 15px;
+}
+#log ol li article header {
+  border-bottom: 1px solid #d9d9d9;
+  margin: -15px -15px 15px;
+  padding: 15px;
+}
+#log ol li article header h1, #log ol li article header h2 {
+  color: #2a2a2a;
+  float: left;
+  font: 400 14px/150% "Open Sans", sans-serif;
+  margin: 0;
+}
+#log ol li article header time {
+  color: #8dc63f;
+  float: right;
+}
+#log ol li article dl {
+  margin-bottom: -7.5px;
+}
+#log ol li article dl dt {
+  clear: both;
+  float: left;
+  font-weight: bold;
+  margin-bottom: 7.5px;
+  width: 30.4878049%;
+}
+#log ol li article dl dt:after {
+  content: ':';
+}
+#log ol li article dl dd {
+  float: left;
+  margin-bottom: 7.5px;
 }

@@ -17,6 +17,8 @@ var hostQuiz = {
 	$container: $('div#content'), 
 	currentRound: null, 
 	currentQuestion: null, 
+	counter: null, 
+	currentQuestionCount: 0, 
 	showingAnswer: false, 
 	playingMembers: [],
 	$teamList: $('ol#teams'), 
@@ -44,6 +46,9 @@ var hostQuiz = {
 				}
 				else if(message.type == 6 && message.doublePointsRoundId) {
 					self.logDoublePointsRound(message.teamName, message.doublePointsRoundId);
+				}
+				else if(message.type == 7 && message.team) {
+					self.updateTeamScores(message.team);
 				}
 			},
 			connect: function () {	
@@ -131,21 +136,41 @@ var hostQuiz = {
 				}
 				else {
 					var html = new EJS({url: '/partials/question.ejs'}).render({ question: data, withAnswer: true });
+						
 					self.$container.html(html);
-					self.currentQuestion = data;						
+					self.currentQuestion = data;
+					count = parseInt(data.timeInSeconds);
+		        	self.counter = setInterval(self.timer, 1000);
+											
 					for(var i = 0; i < self.playingMembers.length; i++) {
 						self.playingMembers[i].scoreSheet.push(data);
 					}
+					
 		        	pubnub.publish({
 			        	channel: quizId, 
 			        	message: {
 			        		type: 3, 
 			        		question: data
 			        	}
-		        	});				
+		        	});			        	
+		        				
 				}	
 	        }
 	    }); 		
+	}, 
+	timer: function() {
+		var self = this;
+		
+		count--;
+		
+		if(count <= 0) {
+			clearInterval(hostQuiz.counter);
+			$('p#timer').html('Times up!');
+			hostQuiz.revealAnswer();
+			return;
+		}
+		
+		$('p#timer span').html(count);
 	}, 
 	revealAnswer: function() {
 		var self = this, 
@@ -164,8 +189,7 @@ var hostQuiz = {
 	}, 
 	addTeam: function(teamName) {
 		var self = this, 
-		existingTeam = false;	
-		console.log(teamName);
+		existingTeam = false;
 		for(var i = 0; i < self.playingMembers.length; i++) {
 			if(self.playingMembers[i].name == teamName) {
 				existingTeam = true;
@@ -179,9 +203,18 @@ var hostQuiz = {
 		}
 	}, 
 	updateTeamList: function() {
-		var self = this;
+		var self = this;	
 		
 		self.playingMembers.sort(compare);
+		
+    	pubnub.publish({
+        	channel: quizId, 
+        	message: {
+        		type: 6, 
+        		teams: self.playingMembers
+        	}
+    	});		
+		
 		for(var i = 0; i < self.playingMembers.length; i++) {
 			var team = self.playingMembers[i];
 			team.position = i+1;
@@ -194,6 +227,18 @@ var hostQuiz = {
 			});
 		}	
 		self.$teamList.mixItUp('sort', 'position:asc');	
+	}, 
+	updateTeamScores: function(updatedTeam) {
+		var self = this;
+		
+		for(var i = 0; i < self.playingMembers.length; i++) {
+			if(self.playingMembers[i].name == updatedTeam.name) {
+		    	self.playingMembers[i].score = updatedTeam.score;
+				break;
+			}
+		}	
+		
+		self.updateTeamList();
 	}, 
 	logAnswer: function(teamName, answer) {
 		var self = this;
@@ -236,6 +281,8 @@ var hostQuiz = {
 		}		
 	}
 }
+
+var count = 0;
 
 function Team(name, position) {
 	this.name = name || "";
