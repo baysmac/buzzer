@@ -14,6 +14,11 @@ exports.play = function(req, res) {
 	db.Quiz.findOne({ _id: req.route.params.id }, function(err, foundQuiz) {
 		if (err) { return next(err) };
 		if(foundQuiz && foundQuiz.active) {
+			
+			foundQuiz.rounds.sort(function(a, b){
+				return a.displayOrder - b.displayOrder;
+			});
+			
 			res.render('play', { title: foundQuiz.title, user: req.user, quiz: foundQuiz });			
 		} else {
 			return res.redirect('/');					

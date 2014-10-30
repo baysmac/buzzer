@@ -1,11 +1,14 @@
 <% layout('../layout-main') -%>
 <% 
 	var imageStateClass = 'hidden', 
+		choiceStateClass = 'hidden', 
 		textStateClass = '';
 		
 	if(question.type == 'image') {
 		imageStateClass = '';
 		textStateClass = 'hidden';
+	} else if(question.type == 'multiple') {
+		choiceStateClass = '';
 	}
 %>
 <h1>Edit question</h1>
@@ -15,28 +18,63 @@
 			<label>Type:</label>
 		</dt>
 		<dd>
-			<label>
-				<% if(question.type == 'text') { %>
-					<input type="radio" checked="checked" name="type" value="text" /> 
-				<% } else { %>
-					<input type="radio" name="type" value="text" /> 					
-				<% } %>
-				Text
-			</label>
-			<label>
-				<% if(question.type == 'image') { %>
-					<input type="radio" checked="checked" name="type" value="image" /> 
-				<% } else { %>
-					<input type="radio" name="type" value="image" /> 					
-				<% } %>
-				Image
-			</label>
+			<ul class="option-list">
+				<li>
+					<% if(question.type == 'text') { %>
+						<input type="radio" checked="checked" name="type" value="text" id="text" /> 
+					<% } else { %>
+						<input type="radio" name="type" value="text" id="text" /> 					
+					<% } %>
+					<label for="text">Text</label>
+				</li>
+				<li>
+					<% if(question.type == 'multiple') { %>
+						<input type="radio" checked="checked" name="type" value="multiple" id="multiple" /> 
+					<% } else { %>
+						<input type="radio" name="type" value="multiple" id="multiple" /> 					
+					<% } %>	
+					<label for="multiple">Multiple choice</label>			
+				</li>
+				<li>
+					<% if(question.type == 'image') { %>
+						<input type="radio" checked="checked" name="type" value="image" id="image" /> 
+					<% } else { %>
+						<input type="radio" name="type" value="image" id="image" /> 					
+					<% } %>	
+					<label for="image">Image</label>			
+				</li>
+			</ul>
 		</dd>
 		<dt class="question <%= textStateClass %>">
 			<label>Question:</label>
 		</dt>
 		<dd>
 			<input type="text" name="question" value="<%= question.questionText %>" />
+		</dd>
+		<dt class="multiple-choices <%= choiceStateClass %>">
+			<label>Answer choices:</label>
+		</dt>
+		<dd>
+			<input type="text" name="option" value="" /> 
+			<button class="add">Add</button>
+			<% if(question.answerOptions.length > 0) { %>
+				<ul class="list">
+					<% for(var i=0; i< question.answerOptions.length; i++) {
+						var option = question.answerOptions[i];
+						if(option != '') {
+					%>
+						<li>
+							<span class="heading"><%= option %></span>						
+							<div class="actions">
+								<button class="cta delete">Delete</button>
+							</div>
+						</li>
+					<% }
+					} %>
+				</ul>
+			<% } %>
+			<input type="hidden" name="options_added" />
+			<input type="hidden" name="options_removed" />
 		</dd>
 		<dt class="image <%= imageStateClass %>">
 			<label>Image:</label>

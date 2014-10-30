@@ -14,6 +14,12 @@ header[role=banner] {
 		padding:					$gridUnit 0 $gridUnit ($gridUnit+20);
 		text-align: 				left;
 		text-transform: 			uppercase;
+		@include retina {
+			background-image:		url('../images/logox2.png');
+		}
+		a {
+			text-decoration: 		none;
+		}
 	}
 	button.toggle {
 		background:					url('../images/menu.png') no-repeat;
@@ -45,88 +51,20 @@ a#add-quiz {
 	margin-bottom: 					$gridUnit*2;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-div#quiz-presentation {
+dt.multiple-choices + dd {
 	@include						flexbox;
-	height: 						100%;
-}
-
-aside[role=complementary] {
-	@include						background(linear-gradient(transparentize(darken($greyBase, 5%), .3), transparentize($greyBase, 0)));
-	border-left:					1px solid darken($greyBase, 10%);
-	@include						box-shadow(0 1px 1px transparentize($whiteBase, .6) inset);
-	width: 							400px;
-	@include						transition(width 1s ease-in);
-	h1 {
-		font-size: 					$baseFontSize*2;
-		padding: 					0 $gridUnit;
-	}
-	.complete & {
-		width: 						100%;
-	}
-}
-
-ol#teams {
-	line-height: 					0;
-	list-style: 					none;
-	margin: 						0;
-	li {
-		border-bottom:				1px solid darken($greyBase, 10%);
-		border-top:					1px solid transparentize($whiteBase, .7);
-		line-height: 				42px;
-		padding: 					$gridUnit;
-		width: 						100%;
-		@extend						%clearfix;
-		span.team-name {
-			float: 					left;
-		}
-		span.score {
-			float: 					right;
-		}
-		&:before {			
-			@extend					h2;
-			background: 			$yellowBase;
-			@include				border-radius(50%);
-			color:					$greyBase;
-			content: 				attr(data-position);
-			display: 				inline-block;
-			float: 					left;
-			font-size: 				16px;
-			font-style: 			normal;
-			height: 				42px;
-			margin: 				0 $gridUnit 0 0;
-			line-height: 			42px;
-			padding: 				0 !important;
-			text-align: 			center;
-			width: 					42px;
+	@include						flex-wrap(wrap);
+	input[type=text] {
+		@include					flex(1, 1, auto);
+		width:						auto;
+		+ button {
+			border-width:			2px 0 0;
+			@include				flex(0, 1, 100px);
+			margin:					0 0 0 $gridUnit;
+			width:					100px;
 		}
 	}
-}
-
-div#content {
-	@include						flex(1);
-	@include						transition(all 1s ease-in);
-	text-align: 					center;
-	> p {
-		text-align: 				center;
+	ul.list {
+		@include					flex(1, 1, 100%);		
 	}
-	.complete & {
-		@include					flex(1);
-	}
-}
-
-a#leave {
-	bottom: 						$gridUnit;
-	left: 							$gridUnit;
-	position: 						fixed;
 }

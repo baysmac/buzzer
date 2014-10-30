@@ -23,7 +23,6 @@
 				var round = quiz.rounds[i]; %>
 					<li>
 						<span class="heading"><%= round.title %></span>
-						<input type="hidden" name="display-order" value="<%= round.displayOrder %>" />
 						<div class="actions">
 							<a href="/admin/quiz/edit/<%= quiz.id %>/round/edit/<%= round.id %>" class="cta">Edit</a>
 							<a href="/admin/quiz/edit/<%= quiz.id %>/round/delete/<%= round.id %>" class="cta delete">Delete</a>

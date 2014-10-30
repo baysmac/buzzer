@@ -4,6 +4,13 @@ pubnub;
 $(function() {	
 	quizId = $('#quiz-id').val();
 	hostQuiz.init();   	 
+	
+	$(window).bind('beforeunload', function() {
+		$.ajax({
+			type: 'POST',
+	        url: '/admin/quiz/' + quizId + '/activate/false'
+	    });
+    });
 });
 
 var hostQuiz = {
@@ -29,7 +36,6 @@ var hostQuiz = {
 		pubnub.subscribe({
 			channel: quizId,
 			callback: function (message) {
-				console.log(message);
 				if(message.type == 1 && message.teamName) {
 					self.addTeam(message.teamName);
 				}
@@ -50,8 +56,8 @@ var hostQuiz = {
 	}, 
 	setUpNavigation: function() {
 		var self = this;
-		$('body').keyup(function(e){
-			if(e.keyCode == 32){
+		window.addEventListener('keydown', function(e) {
+			if(e.keyCode == 32 || e.keyCode == 34){
 				if(!self.currentRound) {					
 					self.getNextRound(0);
 				}
@@ -191,7 +197,6 @@ var hostQuiz = {
 	}, 
 	logAnswer: function(teamName, answer) {
 		var self = this;
-		//console.log(teamName);
 		for(var i = 0; i < self.playingMembers.length; i++) {
 			if(self.playingMembers[i].name == teamName) {
 				self.playingMembers[i].scoreSheet[self.playingMembers[i].scoreSheet.length-1].submittedAnswer = answer;
@@ -209,7 +214,6 @@ var hostQuiz = {
 				results = fuzzy.filter($.trim(currentQuestion.submittedAnswer.toLowerCase()), answers), 
 				matches = results.map(function(el) { return el.string; });
 				if(matches.length == 1) {
-					//console.log(team.name + ':' + currentQuestion.correct);
 					if(self.currentRound._id == team.doublePointsRoundId) {
 						team.score = team.score + (currentQuestion.points*2);
 					}

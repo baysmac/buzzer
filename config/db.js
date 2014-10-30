@@ -50,6 +50,7 @@ var questionSchema = mongoose.Schema({
 	type: { type: String, default: 'text' }, 
 	questionText: { type: String, default: 'Question' }, 
 	image: { type: String, default: '' }, 
+	answerOptions: [String], 
 	answer: { type: String, default: 'Answer' }, 
 	answerSupportingImage: { type: String, default: '' }, 
 	points: { type: Number, default: 1 }, 

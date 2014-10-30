@@ -72,6 +72,7 @@ ul.tabs {
 	overflow: 						hidden;
 	margin: 						0 0 10px;
 	padding:						calc-percent($gridUnit*2, 940px);
+	text-align:						left;
 	form {
 		background: 				transparent;
 		border-bottom: 				0;
@@ -100,8 +101,46 @@ p.msg-error {
 
 p.highlight {
 	color: 							$whiteBase;	
-	font-size: 						$baseFontSize*1.75;	
-	line-height: 					130%;
+	font-size: 						$baseFontSize*1.5;
+	margin-top:						$gridUnit*2;
+	line-height:					150%;
+	position:						relative;
+	body.incorrect & {
+		padding-bottom:				151px;
+		&:after {
+			background:				url('../images/icon-wrong.png');
+			bottom:					0;
+			content:				'';
+			display:				block;
+			height:					121px;
+			left:					50%;
+			margin-left:			-55.5px;
+			position:				absolute;
+			width:					111px;
+			@include retina {
+				background-image:	url('../images/icon-wrongx2.png');
+				background-size:	50% auto;
+			}
+		}
+	}	
+	body.correct & {
+		padding-bottom:				145px;
+		&:after {
+			background:				url('../images/icon-correct.png');
+			bottom:					0;
+			content:				'';
+			display:				block;
+			height:					124px;
+			left:					50%;
+			margin-left:			-57.5px;
+			position:				absolute;
+			width:					115px;
+			@include retina {
+				background-image:	url('../images/icon-correctx2.png');
+				background-size:	50% auto;
+			}
+		}		
+	}
 }
 
 form {
@@ -111,6 +150,11 @@ form {
 	padding:						calc-percent($gridUnit*2, 940px);
 	@include respond-to(420px) {
 		padding:					calc-percent($gridUnit*2, 320px);		
+	}
+	&.variant {
+		background:					transparent;
+		border:						none;
+		padding:					0;
 	}
 	dl {
 		dt {
@@ -129,16 +173,29 @@ form {
 	input[type=text], 
 	input[type=password] {
 		-webkit-appearance: 		none;
+		background:					$whiteBase url('../images/icon-lock.png') no-repeat right -24px;
 		border: 					2px solid $whiteDark;
 		border-width: 				2px 0 0;
 		border-radius:				0;
 		font:						16px/150% $openSans;
 		height: 					46px;
 		padding: 					0 $gridUnit;
+		@include					transition(all .25s ease-in);
 		width: 						100%;
+		@include retina {
+			background-image:		url('../images/icon-lockx2.png');
+			background-size:		50% auto;
+		}
 		&:focus {
 			border-width:  			2px 1px 1px;
 			outline: 				none;
+		}
+		&[disabled] {
+			background-position:	right center;
+			color:					$whiteDark;
+		}
+		+ button {
+			@extend					.cta;			
 		}
 	}
 	label {
@@ -159,6 +216,40 @@ form {
 	}
 }
 
+ul.option-list {
+	list-style:						none;
+	margin:							0;
+	text-align:						left;
+	li {
+		margin-bottom:				$gridUnit;
+		input[type=radio] {
+			display:				none;
+			&:checked + label:before {
+				background-position:	0 -20px;
+			}
+		}
+		label {
+			cursor: 				pointer;
+			display:				inline-block;
+			padding-left:			30px;
+			position:				relative;
+			&:before {
+				background:			url('../images/radio-button.png');
+				@include retina {
+					background-image:	url('../images/radio-buttonx2.png');
+					background-size:	20px auto;
+				}
+				content:			'';
+				display: 			inline-block;
+			    height: 			20px; 
+			    left: 				0;   
+			    position: 			absolute;  
+			    width: 				20px;    
+			}
+		}
+	}
+}
+
 ul.list {
 	clear: 							both;
 	list-style: 					none;
@@ -172,6 +263,7 @@ ul.list {
 		span.heading {
 			display: 				block;
 			float: 					left;
+			line-height:			100%;
 			padding:				$gridUnit;
 		}
 		div.actions {
@@ -199,5 +291,42 @@ dl.question {
 			border-bottom: 			0;
 			margin: 				0;
 		}
+	}
+}
+
+@include keyframe(loading) {
+    0% {
+    	@include rotate(0);
+	}
+	100% {
+    	@include rotate(360deg);
+	}
+}
+
+p.waiting {
+	padding-top:					244px;
+	position:						relative;
+	&:before {
+		background:					$whiteBase;
+		border-radius:				50%;
+		content:					'';
+		display:					block;
+		height:						158px;
+		left:						50%;
+		margin-left:				-79px;
+		position:					absolute;
+		top:						35px;
+		width:						158px;
+	}
+	span {
+		@include 					repeat-animation(0, 5s, loading, linear);
+		background:					url('../images/icon-waiting.png');
+		content:					'';
+		height:						228px;
+		left:						50%;
+		margin-left:				-114px;
+		position:					absolute;
+		top:						0;
+		width:						228px;
 	}
 }

@@ -1,7 +1,11 @@
 <% layout('layout') -%>
 <header role="banner">
 	<div class="container">
-	<h1>Buzzer</h1>
+		<% if (user && user.admin) { %>
+			<h1><a href="/admin">Buzzer</a></h1>
+		<% } else { %>
+			<h1>Buzzer</h1>
+		<% } %>
 		<% if (user) { %>
 			<button class="toggle">Menu</button>
 			<nav role="navigation">

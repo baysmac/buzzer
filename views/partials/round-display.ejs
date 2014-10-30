@@ -1,7 +1,22 @@
-<h2>Choose your double point round</h2>
-<p>As if we weren't generous enough, we are giving your team the chance to choose a round in which for each correct answer, you get <strong>double</strong> the points.</p>
+<h2>Double your points</h2>
+<p>Pick a round that you wish to double up on.</p>
 <p>Choose carefully which you think your team can score the most from.</p>
-<% for(var i=0; i < rounds.length; i++) {
-	var round = rounds[i]; %>
-	<button data-round-id="<%= round._id %>" class="cta"><%= round.title %></button>
-<% } %>
+<form class="variant" id="double-points">
+	<ul class="option-list">
+		<% 
+			rounds.sort(function(a, b){
+				return a.displayOrder - b.displayOrder;
+			});
+		
+			for(var i=0; i < rounds.length; i++) {
+				var round = rounds[i]; %>
+					<li>
+						<input type="radio" name="rounds" value="<%= round._id %>" id="<%= round._id %>" />
+						<label for="<%= round._id %>"><%= round.title %></label>
+					</li>
+				<% 
+			}
+		%>
+	</ul>
+	<input type="submit" value="Submit" />
+</form>

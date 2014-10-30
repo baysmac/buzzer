@@ -20,8 +20,25 @@
 	<% } %>
 	<% if(withInput) { %>
 		<dd class="form">
-			<form>
-				<input type="text" placeholder"Your answer" required spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" />
+			<form id="question-answer">
+				<% if(question.type == "multiple") { %>
+					<% if(question.answerOptions.length > 0) { %>
+						<ul class="option-list">
+							<% for(var i=0; i< question.answerOptions.length; i++) {
+								var option = question.answerOptions[i];
+								if(option != '') {
+							%>
+								<li>
+									<input type="radio" name="options" value="<%= option %>" id="<%= i %>" />
+									<label for="<%= i %>"><%= option %></label>
+								</li>
+							<% }
+							} %>
+						</ul>
+					<% } %>
+				<% } else { %>
+					<input type="text" placeholder"Your answer" required spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" />
+				<% } %>
 				<input type="submit" value="Submit" />
 			</form>
 		</dd>

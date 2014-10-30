@@ -35,10 +35,12 @@ exports.editQuiz = function(req, res) {
 	db.Quiz.findOne({ _id: req.route.params.id }, function(err, foundQuiz) {
 		if (err) { return next(err) };
 		if(foundQuiz) {
-			db.Round.find({ quizId: new RegExp(foundQuiz._id, "i")}).sort('displayOrder').exec(function(err, foundRounds) {
-				if (err) return handleError(err);
-				res.render('admin/quiz-edit', { title: 'Edit Quiz', user: req.user, quiz: foundQuiz, successMessage: req.flash('success') });			
-			});		
+			
+			foundQuiz.rounds.sort(function(a, b){
+				return a.displayOrder - b.displayOrder;
+			});
+			
+			res.render('admin/quiz-edit', { title: 'Edit Quiz', user: req.user, quiz: foundQuiz, successMessage: req.flash('success') });
 		} else {
 			return res.redirect('/admin');					
 		}
@@ -70,7 +72,10 @@ exports.editRound = function(req, res, next) {
 	db.Quiz.findOne({ _id: req.params.quizId }, function(err, foundQuiz) {
 		if (err) { return next(err) };
 		var foundRound = foundQuiz.rounds.id(req.params.id);
-		if(foundRound) {
+		if(foundRound) {			
+			foundRound.questions.sort(function(a, b){
+				return a.displayOrder - b.displayOrder;
+			});
 			res.render('admin/round-edit', { title: 'Edit Round', user: req.user, quiz: foundQuiz, round: foundRound, successMessage: req.flash('success') });		
 		} else {
 		  	return res.redirect('/admin/quiz/edit/' + req.params.quizId);					
@@ -83,6 +88,7 @@ exports.editRoundSubmit = function(req, res, next) {
 		if (err) { return next(err) };
 		var foundRound = foundQuiz.rounds.id(req.params.id);
 		foundRound.title = req.body.title;
+		foundRound.displayOrder = req.body.display_order;
 		foundQuiz.save(function(err) {
 		  	req.flash('success', '\'' + foundRound.title + '\' was edited successfully');
 		  	return res.redirect('/admin/quiz/edit/' + req.params.quizId);	
@@ -135,16 +141,35 @@ exports.editQuestionSubmit = function(req, res, next) {
 		foundQuestion.timeInSeconds = req.body.timeInSeconds;
 		foundQuestion.points = req.body.points;
 		foundQuestion.displayOrder = req.body.displayOrder;
-		if(foundQuestion.type == 'text') {
+		if(foundQuestion.type == 'text' || foundQuestion.type == 'multiple') {
 			foundQuestion.questionText = req.body.question;	
 			foundQuestion.image = '';	
 			foundQuestion.answerSupportingImage = '';
 			imageUploaded = true;
 			answerImageUploaded = true;	
+			
+			if(foundQuestion.type == 'multiple') {			
+				var newOptions = req.body.options_added.replace(/,\s*$/, "").split(",");
+				var deletedOptions = req.body.options_removed.replace(/,\s*$/, "").split(",");
+				
+				for(var i=0;i<newOptions.length;i++) {
+					if(newOptions[i] != '') {
+						foundQuestion.answerOptions.addToSet(newOptions[i]);
+					}
+				}
+				if(deletedOptions != '') {
+					foundQuestion.answerOptions.pull(deletedOptions);
+				}
+			}
+			else {					
+				foundQuestion.answerOptions = [];
+			}			
+			
 			saveQuiz(req, res, next, foundQuiz);
 		}
 		else {
 			foundQuestion.questionText = '';	
+			foundQuestion.answerOptions = [];
 			if(req.files.image.name && req.files.answerSupportingImage.name) {
 				uploadImage(req.files.image, function(newPath) {
 					foundQuestion.image = newPath;

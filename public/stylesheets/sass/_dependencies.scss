@@ -2,6 +2,8 @@
 
 $yellowBase:						rgb(244, 180, 0);
 
+/*$yellowBase:						rgb(64, 102, 24);*/
+
 $greyBase:							rgb(42, 42, 42);
 
 $whiteBase:							rgb(255, 255, 255);
@@ -37,6 +39,7 @@ $gridUnit:							15px;
 
 /* Mix-ins & Functions */
 
+@import								'lib/animation';
 @import								'lib/flexbox';
 
 %clearfix {
@@ -66,4 +69,10 @@ $lowerBreakPoint + 1) {
             @content;
         }
     }
+}
+
+@mixin retina {
+    @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) { 
+		@content;
+	}
 }

@@ -58,11 +58,21 @@ var playQuiz = {
 	setUpAnswerForm: function() {
 		var self = this;
 		
-		self.$container.on('submit', 'form', function(e) {
-			var answer = $(this).find('input[type=text]').val();
+		self.$container.on('submit', 'form#question-answer', function(e) {
+			var answer = '';
+			
+			if($('input[name=options]').length > 0) {
+				answer = $(this).find('input[name=options]:checked').val();
+				$('input[name=options]').prop('disabled', true);
+			}
+			else {
+				answer = $(this).find('input[type=text]').val();
+				$(this).find('input[type=text]').prop('disabled', true);
+			}
+			
 			self.submitAnswer(answer);
-			$(this).hide();
-			$(this).after('<p class="msg-success">Answer submitted successfully</p>');
+			
+			$(this).find('input[type=submit]').fadeOut(250);
 			e.preventDefault();
 		});
 	},
@@ -81,17 +91,21 @@ var playQuiz = {
 		html = new EJS({url: '/partials/round-display.ejs'}).render({ rounds: rounds });
 		self.$container.html(html);
 		
-		self.$container.on('click', 'button.cta', function(e) {
-			var $this = $(this);
+		self.$container.on('submit', 'form#double-points', function(e) {
+			var $this = $(this), 
+				chosenRound = $this.find('input[type=radio]:checked').val();
+				
 			pubnub.publish({
 				channel: quizId, 
 				message: {
 					type: 6, 
 					teamName: teamName, 
-					doublePointsRoundId: $this.data('round-id')
+					doublePointsRoundId: chosenRound
 				}
 			});
+			
 			self.wait();
+			
 			e.preventDefault();
 		});
 				
@@ -133,7 +147,13 @@ var playQuiz = {
 		var self = this, 
 		currentQuestion = scoreSheet[scoreSheet.length-1], 
 		answers = [$.trim(answer.toLowerCase())], 
-		results = fuzzy.filter($.trim(currentQuestion.submittedAnswer.toLowerCase()), answers), 
+		answer = '';
+		
+		if(currentQuestion.submittedAnswer) {
+			answer = $.trim(currentQuestion.submittedAnswer.toLowerCase());
+		}
+		
+		var results = fuzzy.filter(answer, answers), 
 		matches = results.map(function(el) { return el.string; });
 		if(currentQuestion.submittedAnswer) {
 			if(matches.length == 1) {
