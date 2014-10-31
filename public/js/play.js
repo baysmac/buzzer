@@ -177,9 +177,10 @@ var playQuiz = {
 	}, 
 	displayFinalScore: function(teams) {
 		var self = this;
+		self.$body.removeClass('incorrect correct');
 		for(var i = 0; i < teams.length; i++) {
 			if(teams[i].name == teamName) {				
-				self.$container.html('<h1>You came ' + positionSuffix(teams[i].position) + '!</h1><p class="highlight">In total you scored ' + teams[i].score + ' points. Awesome.</p>');
+				self.$container.html('<h1>You came ' + positionSuffix(teams[i].position) + '!</h1><p class="trophy">You scored ' + teams[i].score + ' points.</p>');
 			}
 		}
 	}

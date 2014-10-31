@@ -1,18 +1,44 @@
-<% layout('../layout-main') -%>
-<div id="quiz-presentation">
-	<div id="content">
-		<h1>Hi Team Halloween</h1>
-		<p>Got a drink? Great. Once in your teams, please go to <strong>http://192.168.0.21:3000</strong>, sign up and get ready!</p>
-		<p>Once everyone has signed up, we will begin!</p>
-	</div>
-	<aside role="complementary">
-		<h1>Leaderboard</h1>
-		<ol id="teams"></ol>
-	</aside>
-</div>
-<a href="/admin" id="leave" class="cta">Leave</a>
-<input type="hidden" name="id" id="quiz-id" value="<%= quiz.id %>" />
-<script src="http://cdn.pubnub.com/pubnub.min.js"></script>
-<script src="/js/lib/jquery.mixitup.js"></script>
-<script src="/js/lib/fuzzy-min.js"></script>
-<script src="/js/quiz-host.js"></script>
+<!DOCTYPE html>
+<!--[if IE 7 ]><html class="ie7" lang="en-gb"><![endif]-->
+<!--[if IE 8 ]><html class="ie8" lang="en-gb"><![endif]-->
+<!--[if IE 9 ]><html class="ie9" lang="en-gb"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html lang="en-gb"><!--<![endif]-->
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<% if (!title) { %>
+			<title>buzzer</title>
+		<% } else { %>
+			<title>buzzer &bull; <%= title %></title>
+		<% } %>
+		<link rel="stylesheet" href="/stylesheets/default.css" />
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	</head>
+	<body id="host">
+		<header role="banner">
+			<div class="container">
+				<% if (user && user.admin) { %>
+					<h1><a href="/admin">Buzzer</a></h1>
+				<% } else { %>
+					<h1>Buzzer</h1>
+				<% } %>
+			</div>
+		</header>
+		<main role="main" class="container">
+			<div id="content">
+				<h1>Hi Team Halloween!</h1>
+				<p class="waiting">We are just waiting for all teams to join, then we will begin playing round one.</p>
+			</div>
+			<aside role="complementary">
+				<ol class="teams"></ol>
+			</aside>
+			<input type="hidden" name="id" id="quiz-id" value="<%= quiz.id %>" />
+		</main>
+		<script src="http://cdn.pubnub.com/pubnub.min.js"></script>
+		<script src="/js/lib/jquery.mixitup.js"></script>
+		<script src="/js/lib/fuzzy-min.js"></script>
+		<script src="/js/quiz-host.js"></script>
+		<script src="/js/lib/ejs_production.js"></script>
+		<script src="/js/global.js"></script>
+	</body>
+</html>

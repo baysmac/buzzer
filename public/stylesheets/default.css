@@ -8,16 +8,15 @@
 }
 
 /* Colour Palette */
-/*$yellowBase:						rgb(64, 102, 24);*/
 /* Fonts */
 /* Grid */
 /* Mix-ins & Functions */
-ul.tabs:after, ul.list li:after, main[role=main]:after, #log ol li article header:after, #log ol li article dl:after {
+ul.tabs:after, ul.list li:after, ol.teams li:after, main[role=main]:after, #log ol li article header:after, #log ol li article dl:after {
   clear: both;
   content: '';
   display: block;
 }
-html.ie7 ul.tabs, html.ie7 ul.list li, ul.list html.ie7 li, html.ie7 main[role=main], html.ie7 #log ol li article header, #log ol li article html.ie7 header, html.ie7 #log ol li article dl, #log ol li article html.ie7 dl {
+html.ie7 ul.tabs, html.ie7 ul.list li, ul.list html.ie7 li, html.ie7 ol.teams li, ol.teams html.ie7 li, html.ie7 main[role=main], html.ie7 #log ol li article header, #log ol li article html.ie7 header, html.ie7 #log ol li article dl, #log ol li article html.ie7 dl {
   zoom: 1;
 }
 
@@ -26,8 +25,8 @@ html, body {
 }
 
 body {
-  background: #f4b400;
-  color: #2a2a2a;
+  background: #406618;
+  color: white;
   font: 400 14px/150% "Open Sans", sans-serif;
   -moz-transition: background-color 0.25s ease-in;
   -o-transition: background-color 0.25s ease-in;
@@ -40,9 +39,20 @@ body.incorrect {
 body.correct {
   background-color: #8dc63f;
 }
+@media only screen and (max-width: 5000px) and (min-width: 1401px) {
+  body {
+    font-size: 21px;
+    line-height: 150%;
+  }
+}
 
 h1, h2, h2, h3, h4, h5, h6, p, ul, ol {
   margin: 15px 0;
+}
+@media only screen and (max-width: 5000px) and (min-width: 1401px) {
+  h1, h2, h2, h3, h4, h5, h6, p, ul, ol {
+    margin: 30px 0;
+  }
 }
 
 h1, h2 {
@@ -53,6 +63,11 @@ h1, h2 {
 }
 h1 + ul.tabs, h2 + ul.tabs {
   margin-top: 30px;
+}
+@media only screen and (max-width: 5000px) and (min-width: 1401px) {
+  h1, h2 {
+    font-size: 42px;
+  }
 }
 
 h2 {
@@ -74,7 +89,8 @@ a {
 }
 
 .cta, form input[type=text] + button,
-form input[type=password] + button, form input[type=submit] {
+form input[type=password] + button,
+form textarea + button, form input[type=submit] {
   -webkit-appearance: none;
   background: white;
   border: 2px solid #d9d9d9;
@@ -93,20 +109,24 @@ form input[type=password] + button, form input[type=submit] {
   transition: all 0.25s ease-in;
 }
 .cta:hover, form input[type=text] + button:hover,
-form input[type=password] + button:hover, form input[type=submit]:hover {
+form input[type=password] + button:hover,
+form textarea + button:hover, form input[type=submit]:hover {
   background: #2a2a2a;
   color: white;
 }
 .cta.add:before, form input[type=text] + button.add:before,
-form input[type=password] + button.add:before, form input.add[type=submit]:before {
+form input[type=password] + button.add:before,
+form textarea + button.add:before, form input.add[type=submit]:before {
   content: '+ ';
 }
 .cta.delete, form input[type=text] + button.delete,
-form input[type=password] + button.delete, form input.delete[type=submit] {
+form input[type=password] + button.delete,
+form textarea + button.delete, form input.delete[type=submit] {
   background: #da020a;
 }
 .cta.delete:hover, form input[type=text] + button.delete:hover,
-form input[type=password] + button.delete:hover, form input.delete[type=submit]:hover {
+form input[type=password] + button.delete:hover,
+form textarea + button.delete:hover, form input.delete[type=submit]:hover {
   background: #2a2a2a;
   color: #da020a;
 }
@@ -151,6 +171,7 @@ ul.tabs + .tabbed-content {
 .tabbed-content {
   background: #f2f2f2;
   border-bottom: 2px solid #d9d9d9;
+  color: #2a2a2a;
   display: none;
   overflow: hidden;
   margin: 0 0 10px;
@@ -238,6 +259,7 @@ body.correct p.highlight:after {
 form {
   background: #f2f2f2;
   border-bottom: 2px solid #d9d9d9;
+  color: #2a2a2a;
   margin: 15px 0;
   padding: 3.19149%;
 }
@@ -263,8 +285,13 @@ form dl dt.hidden + dd {
 form dl dd {
   margin-bottom: 15px;
 }
+form dl dd img {
+  display: block;
+  max-width: 100%;
+}
 form input[type=text],
-form input[type=password] {
+form input[type=password],
+form textarea {
   -webkit-appearance: none;
   background: white url("../images/icon-lock.png") no-repeat right -24px;
   border: 2px solid #d9d9d9;
@@ -281,21 +308,29 @@ form input[type=password] {
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
   form input[type=text],
-  form input[type=password] {
+  form input[type=password],
+  form textarea {
     background-image: url("../images/icon-lockx2.png");
     background-size: 32px auto;
   }
 }
 form input[type=text]:focus,
-form input[type=password]:focus {
+form input[type=password]:focus,
+form textarea:focus {
   border-width: 2px 1px 1px;
   outline: none;
 }
 form input[type=text][disabled],
-form input[type=password][disabled] {
+form input[type=password][disabled],
+form textarea[disabled] {
   -webkit-appearance: none;
   background-position: right center;
   color: #d9d9d9;
+}
+form textarea {
+  height: 100px;
+  padding: 15px;
+  resize: none;
 }
 form label {
   margin-right: 15px;
@@ -312,6 +347,7 @@ form + h2 + .cta + p, form form + h2 + input[type=submit] + p {
 }
 
 ul.option-list {
+  color: white;
   list-style: none;
   margin: 0;
   text-align: left;
@@ -346,6 +382,38 @@ ul.option-list li label:before {
     background-size: 20px auto;
   }
 }
+ul.option-list.icons label:after {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  content: '';
+  display: block;
+  float: left;
+  height: 21px;
+  margin-right: 7.5px;
+  width: 21px;
+}
+ul.option-list.icons label.ico-clock:after {
+  background-image: url("../images/icon-round-clock.png");
+}
+ul.option-list.icons label.ico-flag:after {
+  background-image: url("../images/icon-round-flag.png");
+}
+ul.option-list.icons label.ico-graduation-hat:after {
+  background-image: url("../images/icon-round-graduation-hat.png");
+}
+ul.option-list.icons label.ico-graduation-hat-multiple:after {
+  background-image: url("../images/icon-round-graduation-hat-multiple.png");
+}
+ul.option-list.icons label.ico-media:after {
+  background-image: url("../images/icon-round-media.png");
+}
+ul.option-list.icons label.ico-note:after {
+  background-image: url("../images/icon-round-note.png");
+}
+ul.option-list.icons label.ico-person:after {
+  background-image: url("../images/icon-round-person.png");
+}
 
 ul.list {
   clear: both;
@@ -355,6 +423,7 @@ ul.list {
 ul.list li {
   background: #f2f2f2;
   border-bottom: 2px solid #d9d9d9;
+  color: #2a2a2a;
   margin: 30px 0;
   padding: 15px;
 }
@@ -363,19 +432,30 @@ ul.list li span.heading {
   float: left;
   line-height: 100%;
   padding: 15px;
+  text-align: left;
 }
 ul.list li div.actions {
   float: right;
 }
 ul.list li div.actions .cta, ul.list li div.actions form input[type=text] + button, form ul.list li div.actions input[type=text] + button,
 ul.list li div.actions form input[type=password] + button,
-form ul.list li div.actions input[type=password] + button, ul.list li div.actions form input[type=submit], form ul.list li div.actions input[type=submit] {
+form ul.list li div.actions input[type=password] + button,
+ul.list li div.actions form textarea + button,
+form ul.list li div.actions textarea + button, ul.list li div.actions form input[type=submit], form ul.list li div.actions input[type=submit] {
   margin-top: 0;
 }
 
+dl.question {
+  margin: 30px 0;
+}
 dl.question dt {
-  font-size: 24.5px;
+  font-size: 21px;
   line-height: 130%;
+}
+@media only screen and (max-width: 5000px) and (min-width: 1401px) {
+  dl.question dt {
+    font-size: 28px;
+  }
 }
 dl.question dt img {
   display: block;
@@ -386,6 +466,22 @@ dl.question dd form {
   background: none;
   border-bottom: 0;
   margin: 0;
+}
+dl.question dd.answer {
+  background: #f2f2f2;
+  border-bottom: 2px solid #d9d9d9;
+  color: #2a2a2a;
+  display: none;
+  font-size: 24.5px;
+  line-height: 130%;
+  margin: 30px 0 0;
+  padding: 3.19149%;
+}
+@media only screen and (max-width: 5000px) and (min-width: 1401px) {
+  dl.question dd.answer {
+    font-size: 28px;
+    padding: 6.38298%;
+  }
 }
 
 @-webkit-keyframes loading {
@@ -444,11 +540,11 @@ dl.question dd form {
     transform: rotate(360deg);
   }
 }
-p.waiting {
+p.waiting, h1.round, h2.round, p.trophy {
   padding-top: 244px;
   position: relative;
 }
-p.waiting:before {
+p.waiting:before, h1.round:before, h2.round:before, p.trophy:before {
   background: white;
   border-radius: 50%;
   content: '';
@@ -460,7 +556,7 @@ p.waiting:before {
   top: 35px;
   width: 158px;
 }
-p.waiting:after {
+p.waiting:after, h1.round:after, h2.round:after, p.trophy:after {
   -webkit-animation-delay: 0;
   -webkit-animation-duration: 5s;
   -webkit-animation-name: loading;
@@ -481,7 +577,7 @@ p.waiting:after {
   animation-name: loading;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
-  background: url("../images/icon-waiting.png");
+  background: url("../images/icon-waiting-alt.png");
   content: '';
   height: 228px;
   left: 50%;
@@ -491,10 +587,222 @@ p.waiting:after {
   width: 228px;
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
-  p.waiting:after {
-    background-image: url("../images/icon-waitingx2.png");
+  p.waiting:after, h1.round:after, h2.round:after, p.trophy:after {
+    background-image: url("../images/icon-waiting-altx2.png");
     background-size: 100% auto;
   }
+}
+@media only screen and (max-width: 5000px) and (min-width: 1401px) {
+  p.waiting, h1.round, h2.round, p.trophy {
+    padding-top: 488px;
+  }
+  p.waiting:before, h1.round:before, h2.round:before, p.trophy:before {
+    height: 316px;
+    margin-left: -158px;
+    top: 70px;
+    width: 316px;
+  }
+  p.waiting:after, h1.round:after, h2.round:after, p.trophy:after {
+    background-image: url("../images/icon-waiting-altx2.png");
+    background-size: 100% auto;
+    height: 456px;
+    margin-left: -228px;
+    width: 456px;
+  }
+}
+
+h1.round, h2.round, p.trophy {
+  padding-top: 188px;
+}
+h1.round:before, h2.round:before, p.trophy:before {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 90px auto;
+  top: 0;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  h1.round:before, h2.round:before, p.trophy:before {
+    background-size: 90px auto;
+  }
+}
+@media only screen and (max-width: 5000px) and (min-width: 1401px) {
+  h1.round, h2.round, p.trophy {
+    padding-top: 346px;
+  }
+  h1.round:before, h2.round:before, p.trophy:before {
+    background-size: 150px auto;
+    top: 0;
+  }
+}
+h1.round.ico-clock:before, h2.round.ico-clock:before, p.ico-clock.trophy:before {
+  background-image: url("../images/icon-round-clock.png");
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  h1.round.ico-clock:before, h2.round.ico-clock:before, p.ico-clock.trophy:before {
+    background-image: url("../images/icon-round-clockx2.png");
+  }
+}
+@media only screen and (max-width: 5000px) and (min-width: 1401px) {
+  h1.round.ico-clock:before, h2.round.ico-clock:before, p.ico-clock.trophy:before {
+    background-image: url("../images/icon-round-clockx2.png");
+  }
+}
+h1.round.ico-flag:before, h2.round.ico-flag:before, p.ico-flag.trophy:before {
+  background-image: url("../images/icon-round-flag.png");
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  h1.round.ico-flag:before, h2.round.ico-flag:before, p.ico-flag.trophy:before {
+    background-image: url("../images/icon-round-flagx2.png");
+  }
+}
+@media only screen and (max-width: 5000px) and (min-width: 1401px) {
+  h1.round.ico-flag:before, h2.round.ico-flag:before, p.ico-flag.trophy:before {
+    background-image: url("../images/icon-round-flagx2.png");
+  }
+}
+h1.round.ico-graduation-hat:before, h2.round.ico-graduation-hat:before, p.ico-graduation-hat.trophy:before {
+  background-image: url("../images/icon-round-graduation-hat.png");
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  h1.round.ico-graduation-hat:before, h2.round.ico-graduation-hat:before, p.ico-graduation-hat.trophy:before {
+    background-image: url("../images/icon-round-graduation-hatx2.png");
+  }
+}
+@media only screen and (max-width: 5000px) and (min-width: 1401px) {
+  h1.round.ico-graduation-hat:before, h2.round.ico-graduation-hat:before, p.ico-graduation-hat.trophy:before {
+    background-image: url("../images/icon-round-graduation-hatx2.png");
+  }
+}
+h1.round.ico-graduation-hat-multiple:before, h2.round.ico-graduation-hat-multiple:before, p.ico-graduation-hat-multiple.trophy:before {
+  background-image: url("../images/icon-round-graduation-hat-multiple.png");
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  h1.round.ico-graduation-hat-multiple:before, h2.round.ico-graduation-hat-multiple:before, p.ico-graduation-hat-multiple.trophy:before {
+    background-image: url("../images/icon-round-graduation-hat-multiplex2.png");
+  }
+}
+@media only screen and (max-width: 5000px) and (min-width: 1401px) {
+  h1.round.ico-graduation-hat-multiple:before, h2.round.ico-graduation-hat-multiple:before, p.ico-graduation-hat-multiple.trophy:before {
+    background-image: url("../images/icon-round-graduation-hat-multiplex2.png");
+  }
+}
+h1.round.ico-media:before, h2.round.ico-media:before, p.ico-media.trophy:before {
+  background-image: url("../images/icon-round-media.png");
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  h1.round.ico-media:before, h2.round.ico-media:before, p.ico-media.trophy:before {
+    background-image: url("../images/icon-round-mediax2.png");
+  }
+}
+@media only screen and (max-width: 5000px) and (min-width: 1401px) {
+  h1.round.ico-media:before, h2.round.ico-media:before, p.ico-media.trophy:before {
+    background-image: url("../images/icon-round-graduation-hat-multiplex2.png");
+  }
+}
+h1.round.ico-note:before, h2.round.ico-note:before, p.ico-note.trophy:before {
+  background-image: url("../images/icon-round-note.png");
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  h1.round.ico-note:before, h2.round.ico-note:before, p.ico-note.trophy:before {
+    background-image: url("../images/icon-round-notex2.png");
+  }
+}
+@media only screen and (max-width: 5000px) and (min-width: 1401px) {
+  h1.round.ico-note:before, h2.round.ico-note:before, p.ico-note.trophy:before {
+    background-image: url("../images/icon-round-notex2.png");
+  }
+}
+h1.round.ico-person:before, h2.round.ico-person:before, p.ico-person.trophy:before {
+  background-image: url("../images/icon-round-person.png");
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  h1.round.ico-person:before, h2.round.ico-person:before, p.ico-person.trophy:before {
+    background-image: url("../images/icon-round-personx2.png");
+  }
+}
+@media only screen and (max-width: 5000px) and (min-width: 1401px) {
+  h1.round.ico-person:before, h2.round.ico-person:before, p.ico-person.trophy:before {
+    background-image: url("../images/icon-round-personx2.png");
+  }
+}
+h1.round:after, h2.round:after, p.trophy:after {
+  display: none;
+}
+
+p.trophy:before {
+  background: white url("../images/icon-trophy.png") no-repeat center;
+  background-size: 90px auto;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  p.trophy:before {
+    background-image: url("../images/icon-trophyx2.png");
+  }
+}
+
+ol.teams {
+  background: #f2f2f2;
+  border-bottom: 2px solid #d9d9d9;
+  color: #2a2a2a;
+  margin: 30px 0;
+  list-style: none;
+}
+ol.teams:empty {
+  display: none;
+}
+ol.teams li {
+  border-bottom: 1px solid #d9d9d9;
+  padding: 15px;
+  text-align: left;
+  width: 100%;
+}
+ol.teams li h2, ol.teams li span {
+  float: left;
+  color: rgba(42, 42, 42, 0);
+  font-size: 14px;
+  line-height: 150%;
+  margin: 0;
+  -moz-transition: all 2s ease-out;
+  -o-transition: all 2s ease-out;
+  -webkit-transition: all 2s ease-out;
+  transition: all 2s ease-out;
+}
+.complete ol.teams li h2, .complete ol.teams li span {
+  color: #2a2a2a;
+}
+@media only screen and (max-width: 5000px) and (min-width: 1401px) {
+  ol.teams li h2, ol.teams li span {
+    font-size: 21px;
+    line-height: 150%;
+  }
+}
+ol.teams li h2 {
+  height: 31px;
+  overflow: hidden;
+  width: 31px;
+}
+.complete ol.teams li h2 {
+  width: 700px;
+}
+ol.teams li h2:before {
+  background: #2a2a2a url("../images/icon-team.png") no-repeat center;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  content: '';
+  display: block;
+  float: left;
+  height: 31px;
+  margin-right: 15px;
+  width: 31px;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  ol.teams li h2:before {
+    background-image: url("../images/icon-teamx2.png");
+    background-size: 17px auto;
+  }
+}
+ol.teams li span {
+  float: right;
 }
 
 header[role=banner] {
@@ -547,12 +855,27 @@ main[role=main] {
 }
 
 #content {
-  float: left;
-  width: 70%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  justify-content: center;
+  flex: 1;
+  padding: 15px 3.90625%;
 }
-#content + aside[role=complementary] {
-  float: right;
-  width: 30%;
+#content h1, #content h2 {
+  margin-bottom: 0;
 }
 
 a#add-quiz {
@@ -665,4 +988,79 @@ dt.multiple-choices + dd ul.list {
 #log ol li article dl dd {
   float: left;
   margin-bottom: 7.5px;
+}
+
+body#host {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+body#host main[role=main] {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  flex: 1;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: horizontal;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  justify-content: center;
+  padding: 0;
+}
+body#host #content {
+  -moz-transition: all 1s ease-out;
+  -o-transition: all 1s ease-out;
+  -webkit-transition: all 1s ease-out;
+  transition: all 1s ease-out;
+  width: 70%;
+}
+body#host #content h1.round, body#host #content h2.round, body#host #content p.trophy {
+  margin-top: 0;
+}
+body#host aside[role=complementary] {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  justify-content: center;
+  -moz-transition: all 1s ease-out;
+  -o-transition: all 1s ease-out;
+  -webkit-transition: all 1s ease-out;
+  transition: all 1s ease-out;
+  width: 30%;
+}
+body#host aside[role=complementary] ol.teams {
+  width: 100%;
 }

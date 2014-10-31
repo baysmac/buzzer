@@ -6,19 +6,6 @@
 		<% } else { %>
 			<h1>Buzzer</h1>
 		<% } %>
-		<% if (user) { %>
-			<button class="toggle">Menu</button>
-			<nav role="navigation">
-				<% if (user.admin) { %>
-					<p>Logged in as: <em><%= user.username %></em></p>
-				<% } else { %>
-					<p>Playing as: <em><%= user.username %></em></p>
-				<% } %>
-				<ul>
-					<li><a href="/logout">Log out</a></li>
-				</ul>
-			</nav>
-		<% } %>
 	</div>
 </header>
 <main role="main" class="container">

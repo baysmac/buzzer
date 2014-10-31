@@ -4,7 +4,7 @@ html, body {
 
 body {
 	background:						$yellowBase;
-	color:							$greyBase;
+	color:							$whiteBase;
 	font:							400 #{$baseFontSize}/150% $openSans;
 	@include						transition(background-color .25s ease-in);
 	&.incorrect {
@@ -13,10 +13,17 @@ body {
 	&.correct {
 		background-color:			$greenBase;
 	}
+	@include respond-to(5000px, 1400px) {
+		font-size:					$baseFontSize*1.5;
+		line-height:				150%;
+	}
 }
 
 h1, h2, h3, h4, h5, h6, p, ul, ol {
 	margin:							$gridUnit 0;
+	@include respond-to(5000px, 1400px) {
+		margin:						$gridUnit*2 0;
+	}	
 }
 
 h1 {
@@ -26,6 +33,9 @@ h1 {
 	line-height: 					100%;
 	+ ul.tabs {
 		margin-top:					$gridUnit*2;
+	}
+	@include respond-to(5000px, 1400px) {
+		font-size:					$baseFontSize*3;
 	}
 }
 

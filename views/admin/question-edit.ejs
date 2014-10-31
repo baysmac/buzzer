@@ -20,27 +20,15 @@
 		<dd>
 			<ul class="option-list">
 				<li>
-					<% if(question.type == 'text') { %>
-						<input type="radio" checked="checked" name="type" value="text" id="text" /> 
-					<% } else { %>
-						<input type="radio" name="type" value="text" id="text" /> 					
-					<% } %>
+					<input type="radio" name="type" value="text" id="text" <% if(question.type == 'text'){ %> checked="checked" <% } %> /> 
 					<label for="text">Text</label>
 				</li>
 				<li>
-					<% if(question.type == 'multiple') { %>
-						<input type="radio" checked="checked" name="type" value="multiple" id="multiple" /> 
-					<% } else { %>
-						<input type="radio" name="type" value="multiple" id="multiple" /> 					
-					<% } %>	
+					<input type="radio" name="type" value="multiple" id="multiple" <% if(question.type == 'multiple'){ %> checked="checked" <% } %> />
 					<label for="multiple">Multiple choice</label>			
 				</li>
 				<li>
-					<% if(question.type == 'image') { %>
-						<input type="radio" checked="checked" name="type" value="image" id="image" /> 
-					<% } else { %>
-						<input type="radio" name="type" value="image" id="image" /> 					
-					<% } %>	
+					<input type="radio" name="type" value="image" id="image" <% if(question.type == 'image'){ %> checked="checked" <% } %> />
 					<label for="image">Image</label>			
 				</li>
 			</ul>
@@ -49,7 +37,7 @@
 			<label>Question:</label>
 		</dt>
 		<dd>
-			<input type="text" name="question" value="<%= question.questionText %>" />
+			<textarea name="question"><%= question.questionText %></textarea>
 		</dd>
 		<dt class="multiple-choices <%= choiceStateClass %>">
 			<label>Answer choices:</label>

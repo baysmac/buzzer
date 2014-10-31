@@ -7,7 +7,7 @@
 		<%if(question.type == "image") { %>
 			<img src="<%= question.image %>" alt="Image" />
 		<% } else { %>
-			<%= question.questionText %>
+			<%= question.questionText.replace(/\r?\n/g, '<br />') %>
 		<% } %>
 	</dt>
 	<% if(withAnswer) { %>

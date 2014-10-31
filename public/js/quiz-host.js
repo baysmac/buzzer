@@ -21,12 +21,19 @@ var hostQuiz = {
 	currentQuestionCount: 0, 
 	showingAnswer: false, 
 	playingMembers: [],
-	$teamList: $('ol#teams'), 
+	$teamList: $('ol.teams'), 
 	init: function() {
 		var self = this;
 		self.setUpNavigation();	
 		self.setUpChannel();	
-		self.$teamList.mixItUp();
+		self.$teamList.mixItUp({
+			layout: {
+				display: 'block'
+			}, 
+			selectors: {
+				target: 'li'
+			}
+		});
 	}, 
 	setUpChannel: function() {
 		var self = this;
@@ -61,8 +68,8 @@ var hostQuiz = {
 	}, 
 	setUpNavigation: function() {
 		var self = this;
-		window.addEventListener('keydown', function(e) {
-			if(e.keyCode == 32 || e.keyCode == 34){
+		window.addEventListener('keydown', function(e) {			
+			if(e.keyCode == 32 || e.keyCode == 34){					
 				if(!self.currentRound) {					
 					self.getNextRound(0);
 				}
@@ -85,12 +92,18 @@ var hostQuiz = {
 	}, 
 	finish: function() {
 		var self = this;
-		self.$container.children().fadeOut(250);
-		self.$container.parent().addClass('complete');
+		
+		self.$container.children().fadeOut(250, function() {
+			self.$container.parent().addClass('complete');
+			self.$container.css({ 'width': '0', 'padding': '0' });
+			$('aside').css({'width': '100%' });
+		});
+		
 		$.ajax({
 			type: 'POST',
 	        url: '/admin/quiz/' + quizId + '/activate/false'
 	    });	        	
+	    
     	pubnub.publish({
         	channel: quizId, 
         	message: {
@@ -140,6 +153,7 @@ var hostQuiz = {
 					self.$container.html(html);
 					self.currentQuestion = data;
 					count = parseInt(data.timeInSeconds);
+					clearInterval(hostQuiz.counter);
 		        	self.counter = setInterval(self.timer, 1000);
 											
 					for(var i = 0; i < self.playingMembers.length; i++) {
@@ -164,8 +178,6 @@ var hostQuiz = {
 		count--;
 		
 		if(count <= 0) {
-			clearInterval(hostQuiz.counter);
-			$('p#timer').html('Times up!');
 			hostQuiz.revealAnswer();
 			return;
 		}
@@ -177,6 +189,8 @@ var hostQuiz = {
 		$answer = self.$container.find('dl.question dd.answer'), 
 		answerValue = $answer.text();
 		$answer.show();
+		clearInterval(hostQuiz.counter);
+		$('p#timer').remove();
 		self.showingAnswer = true;				
     	pubnub.publish({
         	channel: quizId, 
@@ -199,7 +213,7 @@ var hostQuiz = {
 		if(existingTeam == false) {
 			var team = new Team(teamName, self.playingMembers.length+1);
 			self.playingMembers.push(team);
-			self.$teamList.append('<li class="mix" data-position="' + team.position + '"><span class="team-name">' + team.name + '</span> <span class="score">' + team.score + '</span></li>');
+			self.$teamList.append('<li data-position="' + team.position + '"><h2>' + team.name + '</h2> <span class="score">' + team.score + '</span></li>');
 		}
 	}, 
 	updateTeamList: function() {
@@ -220,7 +234,7 @@ var hostQuiz = {
 			team.position = i+1;
 			self.$teamList.children('li').each(function(index, value) {
 				var $team = $(this);
-				if($team.find('span.team-name').html() == team.name) {
+				if($team.find('h2').html() == team.name) {
 					$team.find('span.score').html(team.score);
 					$team.attr('data-position', team.position);
 				}

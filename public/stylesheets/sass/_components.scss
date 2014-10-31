@@ -73,6 +73,7 @@ ul.tabs {
 .tabbed-content {
 	background: 					$whiteOff;
 	border-bottom: 					2px solid $whiteDark;
+	color:							$greyBase;
 	display: 						none;
 	overflow: 						hidden;
 	margin: 						0 0 10px;
@@ -151,6 +152,7 @@ p.highlight {
 form {
 	background: 					$whiteOff;
 	border-bottom: 					2px solid $whiteDark;
+	color:							$greyBase;
 	margin:							$gridUnit 0;
 	padding:						calc-percent($gridUnit*2, 940px);
 	@include respond-to(420px) {
@@ -173,10 +175,15 @@ form {
 		}
 		dd {
 			margin-bottom: 			$gridUnit;
+			img {
+				display:			block;
+				max-width:			100%;
+			}
 		}
 	}
 	input[type=text], 
-	input[type=password] {
+	input[type=password], 
+	textarea {
 		-webkit-appearance: 		none;
 		background:					$whiteBase url('../images/icon-lock.png') no-repeat right -24px;
 		border: 					2px solid $whiteDark;
@@ -204,6 +211,11 @@ form {
 			@extend					.cta;			
 		}
 	}
+	textarea {
+		height:						100px;
+		padding:					$gridUnit;
+		resize:						none;
+	}
 	label {
 		margin-right: 				$gridUnit;
 	}
@@ -223,6 +235,7 @@ form {
 }
 
 ul.option-list {
+	color:							$whiteBase;
 	list-style:						none;
 	margin:							0;
 	text-align:						left;
@@ -254,6 +267,40 @@ ul.option-list {
 			}
 		}
 	}
+	&.icons {
+		label:after {
+			background-position:	center;
+			background-repeat:		no-repeat;
+			background-size:		contain;
+			content:				'';
+			display:				block;
+			float:					left;
+			height: 				21px;
+			margin-right:			$gridUnit/2;
+			width:					21px;
+		}
+		label.ico-clock:after {
+			background-image:		url('../images/icon-round-clock.png');
+		}
+		label.ico-flag:after {
+			background-image:		url('../images/icon-round-flag.png');
+		}
+		label.ico-graduation-hat:after {
+			background-image:		url('../images/icon-round-graduation-hat.png');
+		}
+		label.ico-graduation-hat-multiple:after {
+			background-image:		url('../images/icon-round-graduation-hat-multiple.png');
+		}
+		label.ico-media:after {
+			background-image:		url('../images/icon-round-media.png');
+		}
+		label.ico-note:after {
+			background-image:		url('../images/icon-round-note.png');
+		}
+		label.ico-person:after {
+			background-image:		url('../images/icon-round-person.png');
+		}
+	}
 }
 
 ul.list {
@@ -264,6 +311,7 @@ ul.list {
 		@extend 					%clearfix;
 		background:					$whiteOff;
 		border-bottom: 				2px solid $whiteDark;
+		color:						$greyBase;
 		margin:						$gridUnit*2 0;
 		padding: 					$gridUnit;
 		span.heading {
@@ -271,6 +319,7 @@ ul.list {
 			float: 					left;
 			line-height:			100%;
 			padding:				$gridUnit;
+			text-align:				left;
 		}
 		div.actions {
 			float: 					right;
@@ -282,9 +331,13 @@ ul.list {
 }
 
 dl.question {
+	margin:							$gridUnit*2 0;
 	dt {
-		font-size: 					$baseFontSize*1.75;
+	font-size: 						$baseFontSize*1.5;
 		line-height: 				130%;
+		@include respond-to(5000px, 1400px) {
+			font-size:				$baseFontSize*2;
+		}
 		img {
 			display: 				block;
 			margin-top:				$gridUnit;
@@ -296,6 +349,20 @@ dl.question {
 			background: 			none;
 			border-bottom: 			0;
 			margin: 				0;
+		}
+		&.answer {
+			background:				$whiteOff;
+			border-bottom: 			2px solid $whiteDark;
+			color:					$greyBase;
+			display:				none;
+			font-size: 				$baseFontSize*1.75;
+			line-height: 			130%;
+			margin:					$gridUnit*2 0 0;
+			padding:				calc-percent($gridUnit*2, 940px);
+			@include respond-to(5000px, 1400px) {
+				font-size:			$baseFontSize*2;
+				padding:			calc-percent($gridUnit*4, 940px);
+			}
 		}
 	}
 }
@@ -326,7 +393,7 @@ p.waiting {
 	}
 	&:after {
 		@include 					repeat-animation(0, 5s, loading, linear);
-		background:					url('../images/icon-waiting.png');
+		background:					url('../images/icon-waiting-alt.png');
 		content:					'';
 		height:						228px;
 		left:						50%;
@@ -335,9 +402,181 @@ p.waiting {
 		top:						0;
 		width:						228px;
 		@include retina {
-			background-image:		url('../images/icon-waitingx2.png');
+			background-image:		url('../images/icon-waiting-altx2.png');
 			background-size:		100% auto;
 		}
 		
+	}
+	@include respond-to(5000px, 1400px) {
+		padding-top:				488px;
+		&:before {
+			height:					316px;
+			margin-left:			-158px;
+			top:					70px;
+			width:					316px;
+		}
+		&:after {
+			background-image:		url('../images/icon-waiting-altx2.png');
+			background-size:		100% auto;
+			height:					456px;
+			margin-left:			-228px;
+			width:					456px;
+		}
+	}
+}
+
+h1.round {
+	@extend 						p.waiting;
+	padding-top:					188px;
+	&:before {
+		background-repeat:			no-repeat;
+		background-position:		center;	
+		background-size:			90px auto;	
+		top:						0;
+		@include retina {
+			background-size:		90px auto;	
+		}
+	}
+	@include respond-to(5000px, 1400px) {
+		padding-top:				346px;
+		&:before {
+			background-size:		150px auto;	
+			top:					0;
+		}
+	}
+	&.ico-clock:before {
+		background-image:			url('../images/icon-round-clock.png');
+		@include retina {
+			background-image:		url('../images/icon-round-clockx2.png');		
+		}
+		@include respond-to(5000px, 1400px) {
+			background-image:		url('../images/icon-round-clockx2.png');
+		}
+	}
+	&.ico-flag:before {
+		background-image:			url('../images/icon-round-flag.png');
+		@include retina {
+			background-image:		url('../images/icon-round-flagx2.png');
+		}
+		@include respond-to(5000px, 1400px) {
+			background-image:		url('../images/icon-round-flagx2.png');
+		}
+	}
+	&.ico-graduation-hat:before {
+		background-image:			url('../images/icon-round-graduation-hat.png');
+		@include retina {
+			background-image:		url('../images/icon-round-graduation-hatx2.png');			
+		}
+		@include respond-to(5000px, 1400px) {
+			background-image:		url('../images/icon-round-graduation-hatx2.png');
+		}
+	}
+	&.ico-graduation-hat-multiple:before {
+		background-image:			url('../images/icon-round-graduation-hat-multiple.png');
+		@include retina {
+			background-image:		url('../images/icon-round-graduation-hat-multiplex2.png');		
+		}
+		@include respond-to(5000px, 1400px) {
+			background-image:		url('../images/icon-round-graduation-hat-multiplex2.png');	
+		}
+	}
+	&.ico-media:before {
+		background-image:			url('../images/icon-round-media.png');
+		@include retina {
+			background-image:		url('../images/icon-round-mediax2.png');	
+		}
+		@include respond-to(5000px, 1400px) {
+			background-image:		url('../images/icon-round-graduation-hat-multiplex2.png');	
+		}
+	}
+	&.ico-note:before {
+		background-image:			url('../images/icon-round-note.png');
+		@include retina {
+			background-image:		url('../images/icon-round-notex2.png');		
+		}
+		@include respond-to(5000px, 1400px) {
+			background-image:		url('../images/icon-round-notex2.png');	
+		}
+	}
+	&.ico-person:before {
+		background-image:			url('../images/icon-round-person.png');
+		@include retina {
+			background-image:		url('../images/icon-round-personx2.png');		
+		}
+		@include respond-to(5000px, 1400px) {
+			background-image:		url('../images/icon-round-personx2.png');
+		}
+	}
+	&:after {
+		display:					none;
+	}
+}
+
+p.trophy {
+	@extend							h1.round;
+	&:before {
+		background:					$whiteBase url('../images/icon-trophy.png') no-repeat center;
+		background-size:			90px auto;
+		@include retina {	
+			background-image:		url('../images/icon-trophyx2.png');
+		}
+	}
+}
+
+ol.teams {
+	background:						$whiteOff;
+	border-bottom: 					2px solid $whiteDark;
+	color:							$greyBase;
+	margin:							$gridUnit*2 0;
+	list-style: 					none;
+	&:empty {
+		display:					none;
+	}
+	li {
+		@extend						%clearfix;
+		border-bottom:				1px solid $whiteDark;	
+		padding: 					$gridUnit;
+		text-align:					left;
+		width:						100%;
+		h2, span {
+			float:					left;
+			color:					transparentize($greyBase, 1);
+			font-size:				$baseFontSize;
+			line-height:			150%;
+			margin:					0;
+			@include				transition(all 2s ease-out);
+			.complete & {
+				color:				$greyBase;
+			}
+			@include respond-to(5000px, 1400px) {
+				font-size:			$baseFontSize*1.5;
+				line-height:		150%;
+			}
+		}
+		h2 {
+			height:					31px;
+			overflow:				hidden;
+			width:					31px;
+			.complete & {
+				width:				700px;
+			}
+			&:before {
+				background:			$greyBase url('../images/icon-team.png') no-repeat center;
+				@include			border-radius(50%);
+				content:			'';
+				display:			block;
+				float:				left;
+				height:				31px;
+				margin-right:		$gridUnit;
+				width:				31px;
+				@include retina {
+					background-image:	url('../images/icon-teamx2.png');
+					background-size:	17px auto;
+				}
+			}
+		}
+		span {
+			float:					right;
+		}
 	}
 }

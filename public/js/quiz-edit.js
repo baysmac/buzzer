@@ -34,6 +34,12 @@ $(function() {
 			$added = $parent.find('input[name=options_added]'), 
 			addedCurrentVal = $added.val();
 			
+		if($list.length == 0) {
+			$added.before('<ul class="list"></ul>');
+		}
+		
+		$list = $parent.find('ul.list');
+			
 		$list.append('<li><span class="heading">' + value + '</span><div class="actions"><button class="cta delete">Delete</button></a></li>');
 		$added.val(addedCurrentVal + value + ',');
 		$input.val('');

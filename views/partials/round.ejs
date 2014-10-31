@@ -1,2 +1,8 @@
-<h1>Round <em><%= round.displayOrder+1 %></em></h1>
-<h2><%= round.title %></h2>
+<%
+	var iconClass = '';
+	
+	if(round.icon != '') {
+		iconClass = ' ico-' + round.icon;
+	}
+%>
+<h1 class="round<%= iconClass %>"><%= round.title %></h1>

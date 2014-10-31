@@ -54,7 +54,7 @@ var questionSchema = mongoose.Schema({
 	answer: { type: String, default: 'Answer' }, 
 	answerSupportingImage: { type: String, default: '' }, 
 	points: { type: Number, default: 1 }, 
-	timeInSeconds: { type: Number, default: 10 }, 
+	timeInSeconds: { type: Number, default: 60 }, 
 	displayOrder: { type: Number, default: 0 }
 });
 
@@ -66,7 +66,8 @@ exports.Question = Question;
 var roundSchema = mongoose.Schema({
 	title: { type: String, default: 'New round' }, 
 	displayOrder: { type: Number, default: 0 }, 
-	questions: [questionSchema]
+	questions: [questionSchema], 
+	icon: { type: String, default: '' }
 });
 
 var Round = mongoose.model('Round', roundSchema);

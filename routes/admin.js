@@ -88,6 +88,7 @@ exports.editRoundSubmit = function(req, res, next) {
 		if (err) { return next(err) };
 		var foundRound = foundQuiz.rounds.id(req.params.id);
 		foundRound.title = req.body.title;
+		foundRound.icon = req.body.icon;
 		foundRound.displayOrder = req.body.display_order;
 		foundQuiz.save(function(err) {
 		  	req.flash('success', '\'' + foundRound.title + '\' was edited successfully');
